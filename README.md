@@ -13,11 +13,12 @@ npm start
 ```
 
 ## Team norms
+* **Everone merge to Dev branch, merge Dev into Main at the end of each day**
 * 8:45am check ins
 * No expectation to work after 5pm each day
 * Lunch from 12:30pm - 1pm
-* Sunday afternoon meet together for more work
 * Morning and after lunch stand ups (more if needed)
+* Sunday afternoon meet together for more work
 
 ## Conflict resolution
 * Discuss, as a team or one to one (where appropriate)
