@@ -12,9 +12,8 @@ function ContactDetails (props) {
         <Text>Days since last call: {daysSinceLastCall}</Text>
       </View>
       <View>
-        <Button title='Called them'/>
-        <Button title='Edit' {...props} />
-        <Button title='Back'/>
+        <Button title={`Call ${name}`}/>
+        <Button title='Edit' {...props} onPress={() => props.navigation.navigate('Edit')}/>
       </View>
     </>
 

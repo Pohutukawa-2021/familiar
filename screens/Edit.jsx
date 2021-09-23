@@ -11,8 +11,7 @@ function Edit (props) {
     daysSinceLastCall
   })
 
-  function handleOnChangeEdit (e) {
-    const { name, value } = e.target
+  function handleOnChangeEdit (name, value) {
     const newEditForm = {
       ...editForm,
       [name]: value
@@ -30,35 +29,31 @@ function Edit (props) {
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          name="name"
           value={name}
           placeholder='name'
           keyboardType="default"
-          onChange={handleOnChangeEdit}
+          onChange={(value) => handleOnChangeEdit('name', value)}
         />
         <TextInput
           style={styles.input}
-          name="number"
           value={number}
           placeholder='number'
           keyboardType="numeric"
-          onChange={handleOnChangeEdit}
+          onChange={(value) => handleOnChangeEdit('number', value)}
         />
         <TextInput
           style={styles.input}
-          name="frequency"
           value={frequency}
           placeholder='frequency'
           keyboardType="default"
-          onChange={handleOnChangeEdit}
+          onChange={(value) => handleOnChangeEdit('frequency', value)}
         />
         <TextInput
           style={styles.input}
-          name="daysSinceLastCall"
           value={daysSinceLastCall}
           placeholder='daysSinceLastCall'
           keyboardType="numeric"
-          onChange={handleOnChangeEdit}
+          onChange={(value) => handleOnChangeEdit('daysSinceLastCall', value)}
         />
       </View>
       <View>

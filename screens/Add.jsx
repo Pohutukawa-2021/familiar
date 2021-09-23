@@ -8,8 +8,7 @@ function Add () {
     frequency: ''
   })
 
-  function handleOnChangeAdd (e) {
-    const { name, value } = e.target
+  function handleOnChangeAdd (name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -27,27 +26,24 @@ function Add () {
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          name="name"
           value={addForm.name}
           placeholder='name'
           keyboardType="default"
-          onChange={handleOnChangeAdd}
+          onChangeText={(value) => handleOnChangeAdd('name', value)}
         />
         <TextInput
           style={styles.input}
-          name="number"
           value={addForm.number}
           placeholder='number'
           keyboardType="numeric"
-          onChange={handleOnChangeAdd}
+          onChangeText={(value) => handleOnChangeAdd('number', value)}
         />
         <TextInput
           style={styles.input}
-          name="frequency"
           value={addForm.frequency}
           placeholder='frequency'
           keyboardType="default"
-          onChange={handleOnChangeAdd}
+          onChangeText={(value) => handleOnChangeAdd('frequency', value)}
         />
       </View>
       <View>
