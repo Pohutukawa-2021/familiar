@@ -1,12 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import Navigation from './routes/Navigation'
 
-export default function App () {
+function Card (props) {
   return (
     <View style={styles.container}>
-      <Navigation/>
+      <Text>
+        {props.name}
+      </Text>
     </View>
+
   )
 }
 
@@ -18,3 +20,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 })
+
+export default Card
