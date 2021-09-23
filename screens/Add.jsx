@@ -1,5 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
+import { saveData, readData } from './helperFunc'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Add () {
   const [addForm, setAddForm] = React.useState({
@@ -16,9 +18,13 @@ function Add () {
     setAddForm(newAddForm)
   }
 
-  function handlePressAdd () {
-    // send addForm object to localstorage
-    // redirect to Home component
+  async function handlePressAdd () {
+    const data = await readData()
+    if (data.length > 0) {
+      saveData([...data, addForm])
+    } else {
+      saveData([addForm])
+    }
   }
 
   return (
