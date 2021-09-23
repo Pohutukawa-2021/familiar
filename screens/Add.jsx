@@ -20,11 +20,11 @@ function Add () {
 
   async function handlePressAdd () {
     const data = await readData()
-    if (data.length > 0) {
-      saveData([...data, addForm])
-    } else {
-      saveData([addForm])
-    }
+    data.length > 0
+      ? saveData([...data, addForm])
+      : saveData([addForm])
+    console.log(await readData())
+    // todo: redirect to home
   }
 
   return (
