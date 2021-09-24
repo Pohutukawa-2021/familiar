@@ -8,26 +8,26 @@ function Home (props) {
     {
       name: 'Dad',
       number: '021-1234567',
-      frequency: '1 per week',
-      lastCall: '2021/09/10'
+      frequency: 7,
+      lastCall: '2021/09/20'
     },
     {
       name: 'Mum',
       number: '021-9876567',
-      frequency: '2 per week',
-      lastCall: '2020/02/10'
+      frequency: 3,
+      lastCall: '2021/09/21'
     },
     {
       name: 'Austin',
       number: '021-1235358',
-      frequency: '1 per day',
-      lastCall: '2021/07/12'
+      frequency: 14,
+      lastCall: '2021/09/09'
     },
     {
       name: 'Ali',
       number: '021-1256778',
-      frequency: '1 per month',
-      lastCall: '2021/08/21'
+      frequency: 30,
+      lastCall: '2020/09/24'
     }
   ]
 

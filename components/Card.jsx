@@ -1,22 +1,33 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import moment from 'moment'
 
 function Card (props) {
+  const difference = moment().diff(props.lastCall, 'days')
+
+  function color () {
+    if (difference < props.frequency) {
+      return '#5AF160'
+    } else if (difference <= props.frequency * 2) {
+      return '#FF971D'
+    } else {
+      return '#E00000'
+    }
+  }
+
+  const boxColor = {
+    backgroundColor: color()
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.colorBox} />
+      <View style={[styles.colorBox, boxColor]} />
       <View style={styles.textDetails}>
         <View>
-          <Text> {props.name}</Text>
+          <Text>{props.name}</Text>
         </View>
         <View>
-          <Text> {props.number}</Text>
-        </View>
-        <View>
-          <Text> {props.frequency}</Text>
-        </View>
-        <View>
-          <Text> {props.lastCall}</Text>
+          <Text>{moment(props.lastCall).fromNow()}</Text>
         </View>
       </View>
     </View>
