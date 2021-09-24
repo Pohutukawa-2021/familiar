@@ -1,7 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import moment from 'moment'
 
 function Card (props) {
+  const difference = moment().diff(props.lastCall, 'days')
+
   return (
     <View style={styles.container}>
       <View style={styles.colorBox} />
@@ -10,13 +13,7 @@ function Card (props) {
           <Text> {props.name}</Text>
         </View>
         <View>
-          <Text> {props.number}</Text>
-        </View>
-        <View>
-          <Text> {props.frequency}</Text>
-        </View>
-        <View>
-          <Text> {props.lastCall}</Text>
+          <Text> {moment(props.lastCall).fromNow()}</Text>
         </View>
       </View>
     </View>
