@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, Button } from 'react-native'
-
+import { StyleSheet, View, TextInput, Button, Text, Pressable } from 'react-native'
+import { styles } from './Add'
 function Edit (props) {
   const { name, number, frequency, daysSinceLastCall } = props
 
@@ -27,55 +27,49 @@ function Edit (props) {
   return (
     <>
       <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          value={name}
-          placeholder='name'
-          keyboardType="default"
-          onChange={(value) => handleOnChangeEdit('name', value)}
-        />
-        <TextInput
-          style={styles.input}
-          value={number}
-          placeholder='number'
-          keyboardType="numeric"
-          onChange={(value) => handleOnChangeEdit('number', value)}
-        />
-        <TextInput
-          style={styles.input}
-          value={frequency}
-          placeholder='frequency'
-          keyboardType="default"
-          onChange={(value) => handleOnChangeEdit('frequency', value)}
-        />
-        <TextInput
-          style={styles.input}
-          value={daysSinceLastCall}
-          placeholder='daysSinceLastCall'
-          keyboardType="numeric"
-          onChange={(value) => handleOnChangeEdit('daysSinceLastCall', value)}
-        />
-      </View>
-      <View>
-        <Button title="Submit" onPress={handlePressEdit} />
+        <View style={styles.innerContainer} >
+          <Text style={styles.h1}>Edit</Text>
+          <Text style={styles.label}>Name:</Text>
+          <TextInput
+            style={styles.input}
+            value={name}
+            placeholder='name'
+            keyboardType="default"
+            onChange={(value) => handleOnChangeEdit('name', value)}
+          />
+          <Text style={styles.label}>Phone Number:</Text>
+          <TextInput
+            style={styles.input}
+            value={number}
+            placeholder='number'
+            keyboardType="numeric"
+            onChange={(value) => handleOnChangeEdit('number', value)}
+          />
+          <Text style={styles.label}>Frequency</Text>
+          <TextInput
+            style={styles.input}
+            value={frequency}
+            placeholder='frequency'
+            keyboardType="default"
+            onChange={(value) => handleOnChangeEdit('frequency', value)}
+          />
+          <Text style={styles.label}>Days Since Last Call</Text>
+          <TextInput
+            style={styles.input}
+            value={daysSinceLastCall}
+            placeholder='days since last call'
+            keyboardType="numeric"
+            onChange={(value) => handleOnChangeEdit('daysSinceLastCall', value)}
+          />
+          <View style={styles.buttonView}>
+            <Pressable style={styles.button} onPress={handlePressEdit}>
+              <Text style={styles.buttonText}>Confirm</Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10
-  }
-})
 
 export default Edit
