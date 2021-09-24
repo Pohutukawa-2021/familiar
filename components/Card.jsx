@@ -4,9 +4,21 @@ import { StyleSheet, Text, View } from 'react-native'
 function Card (props) {
   return (
     <View style={styles.container}>
-      <Text>
-        {props.name}
-      </Text>
+      <View style={styles.colorBox} />
+      <View style={styles.textDetails}>
+        <View>
+          <Text> {props.name}</Text>
+        </View>
+        <View>
+          <Text> {props.number}</Text>
+        </View>
+        <View>
+          <Text> {props.frequency}</Text>
+        </View>
+        <View>
+          <Text> {props.lastCall}</Text>
+        </View>
+      </View>
     </View>
 
   )
@@ -14,11 +26,27 @@ function Card (props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    borderStyle: 'solid',
+    borderColor: 'transparent',
+    width: '45%',
+    height: 200,
+    margin: 5
+  },
+  colorBox: {
+    width: '100%',
+    height: '50%',
+    backgroundColor: 'dodgerblue',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15
+  },
+  textDetails: {
+    padding: 12,
+    backgroundColor: '#E8E7E7',
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15
   }
+
 })
 
 export default Card
