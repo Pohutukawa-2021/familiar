@@ -1,4 +1,5 @@
 import * as React from 'react'
+/* eslint-disable-next-line */
 import { Text, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -46,6 +47,7 @@ function Navigation () {
         <Drawer.Screen name="Add" component={Add} />
         <Drawer.Screen name="Edit" component={Edit} />
         <Drawer.Screen name="History" component={History}/>
+        <Drawer.Screen name="ContactDetails" component={ContactDetails} />
 
       </Drawer.Navigator>
     </NavigationContainer>

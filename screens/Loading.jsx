@@ -1,4 +1,5 @@
 import React from 'react'
+/* eslint-disable-next-line */
 import { StyleSheet, Text, View } from 'react-native'
 
 function Loading () {
