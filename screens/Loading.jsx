@@ -1,12 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 
-function Loading () {
+function Loading() {
   return (
     <View style={styles.container}>
-      <Text>
-            Familiar
+      <Text style={styles.label}>
+        familiar
       </Text>
+      <Image style={styles.image} source={require('../assets/animated-circle.gif')} />
     </View>
   )
 }
@@ -14,9 +15,19 @@ function Loading () {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FF6666',
     justifyContent: 'flex-start',
     alignItems: 'center'
+  },
+  label: {
+    fontSize: 40,
+    marginTop: 210,
+    color: 'white'
+  },
+  image: {
+    width: 50,
+    height: 50,
+    marginTop: 30
   }
 })
 

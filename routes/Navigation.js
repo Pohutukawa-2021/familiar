@@ -6,6 +6,7 @@ import Home from '../screens/Home'
 import Add from '../screens/Add'
 import Edit from '../screens/Edit'
 import History from '../screens/History'
+import Loading from '../screens/Loading'
 import ContactDetails from '../screens/ContactDetails'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -46,6 +47,7 @@ function Navigation () {
         <Drawer.Screen name="Add" component={Add} />
         <Drawer.Screen name="Edit" component={Edit} />
         <Drawer.Screen name="History" component={History}/>
+        <Drawer.Screen name="Loading" component={Loading}/>
 
       </Drawer.Navigator>
     </NavigationContainer>
