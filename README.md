@@ -34,3 +34,6 @@ npm start
 * Thursday 23rd
   * Getting familiar with react-native
   * Navigation stack
+* Friday 24th
+  * Styling
+  * Add/ color functionality 
