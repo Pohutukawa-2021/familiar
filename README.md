@@ -5,6 +5,8 @@ Keeping up with the important people in your life.
 
 [Miro Board](https://miro.com/welcomeonboard/WnRwTUdXelJWTURKWTVxcG90RVZ0WlM0QUlvZGhNTGlTdUVrY2x2ZHRlWGcyR0s5NEd6WWZZWUtjNmo1SnJYeHwzMDc0NDU3MzYyNzE5MjQ5MDI5?invite_link_id=296578751498) and initial planning.
 
+[Figma diagram](https://www.figma.com/file/d7bdGZa5Bd49jT3dmJLYXU/familiar?node-id=0%3A1)
+
 ## set up
 ```
 cd familiar
@@ -31,3 +33,4 @@ npm start
   * Project planning
 * Thursday 23rd
   * Getting familiar with react-native
+  * Navigation stack
