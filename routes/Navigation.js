@@ -19,7 +19,7 @@ function tabNavigation () {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
       <Tab.Screen name="Add" component={Add} options={{ headerShown: false }} />
-      {/* <Tab.Screen name="Contact Details" component={ContactDetails} options={{ headerShown: false }} /> */}
+      <Tab.Screen name="Contact Details" component={ContactDetails} options={{ headerShown: false }} />
       <Tab.Screen name="History" component={History} options={{ headerShown: false }} />
     </Tab.Navigator>
   )
@@ -46,6 +46,7 @@ function Navigation () {
         <Drawer.Screen name="Add" component={Add} />
         <Drawer.Screen name="Edit" component={Edit} />
         <Drawer.Screen name="History" component={History}/>
+        <Drawer.Screen name="ContactDetails" component={ContactDetails} />
 
       </Drawer.Navigator>
     </NavigationContainer>

@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+/* eslint-disable-next-line */
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'
 import Card from '../components/Card'
 
 function Home (props) {
@@ -37,7 +38,9 @@ function Home (props) {
       <Text>Welcome to Familiar.</Text>
       <View style={styles.cardsContainer}>
         {dummyData.map(contact => {
-          return <Card key={contact.name} {...contact} />
+          return <TouchableOpacity key={'tapp' + contact.name} onPress={() => props.navigation.navigate('ContactDetails')}>
+            <Card key={contact.name} {...contact} />
+          </TouchableOpacity>
         })}
         {/* {props.contacts.map(contact => {
           <Card {...contact} />
