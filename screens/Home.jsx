@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'
+import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
 import { saveData, readData, clear } from './helperFunc'
 
@@ -34,12 +35,14 @@ const dummyData = [
 function Home (props) {
   const [data, setData] = useState([])
 
+  const isFocused = useIsFocused()
+
   useEffect(() => {
     async function getData () {
       setData(await readData())
     }
     getData()
-  }, [])
+  }, [isFocused])
 
   // for development purposes only, DELETE this later
   function handleSet () {

@@ -1,4 +1,5 @@
 import React from 'react'
+/* eslint-disable-next-line */
 import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
 import { saveData, readData } from './helperFunc'
 

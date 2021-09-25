@@ -1,4 +1,5 @@
 import React from 'react'
+/* eslint-disable-next-line */
 import { StyleSheet, Button, View, Text, Alert, Pressable } from 'react-native'
 import { saveData, readData } from './helperFunc'
 import moment from 'moment'
