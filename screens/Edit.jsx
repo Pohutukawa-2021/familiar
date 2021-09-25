@@ -2,13 +2,13 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, Pressable } from 'react-native'
 import { styles } from './Add'
 function Edit (props) {
-  const { name, number, frequency, daysSinceLastCall } = props
+  const { name, number, frequency, lastCall } = props.route.params.contact
 
   const [editForm, setEditForm] = React.useState({
     name,
     number,
     frequency,
-    daysSinceLastCall
+    lastCall
   })
 
   function handleOnChangeEdit (name, value) {
@@ -56,7 +56,7 @@ function Edit (props) {
           <Text style={styles.label}>Days Since Last Call</Text>
           <TextInput
             style={styles.input}
-            value={daysSinceLastCall}
+            value={lastCall}
             placeholder='days since last call'
             keyboardType="numeric"
             onChange={(value) => handleOnChangeEdit('daysSinceLastCall', value)}
