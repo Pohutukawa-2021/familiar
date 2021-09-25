@@ -2,11 +2,11 @@ import React from 'react'
 /* eslint-disable-next-line */
 import { StyleSheet, View, TextInput, Text, Pressable,ScrollView } from 'react-native'
 import { styles } from './Add'
-import { readData, saveData } from './helperFunc'
+import { readData, saveData } from '../helpers/helperFunc'
 function Edit (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
 
-  const [initalName, setInitalName] = React.useState(name)
+  const [initalName, setInitalName] = React.useState(name) // set initail name to match in local storage (in case the name gets edited)
 
   const [editForm, setEditForm] = React.useState({
     name,
@@ -26,7 +26,7 @@ function Edit (props) {
 
   async function handlePressEdit () {
     const { name, number, frequency, lastCall } = editForm
-    const contact = { name, number, frequency, lastCall }
+    const contact = { name, number, frequency, lastCall } // construct object, only used to send to ContactDetails component
 
     const data = await readData()
 
