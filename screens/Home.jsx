@@ -32,25 +32,25 @@ const dummyData = [
   }
 ]
 
-function Home (props) {
+function Home(props) {
   const [data, setData] = useState([])
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    async function getData () {
+    async function getData() {
       setData(await readData())
     }
     getData()
   }, [isFocused])
 
   // for development purposes only, DELETE this later
-  function handleSet () {
+  function handleSet() {
     saveData(dummyData)
   }
 
   // for development purposes only, DELETE this later
-  function handleClear () {
+  function handleClear() {
     clear()
   }
 
@@ -71,10 +71,9 @@ function Home (props) {
       }
 
       <View>
-        <Button title='Add new contact' />
-
-        <Button title='Set' onPress={handleSet}/>
-        <Button title='Clear' onPress={handleClear}/>
+        <Button title='Add new contact' onPress={() => props.navigation.navigate('Add')} />
+        <Button title='Set' onPress={handleSet} />
+        <Button title='Clear' onPress={handleClear} />
       </View>
     </View>
   )
