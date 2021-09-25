@@ -1,6 +1,6 @@
 import React from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, View, TextInput, Button, Text, Pressable } from 'react-native'
+import { StyleSheet, View, TextInput, Text, Pressable,ScrollView } from 'react-native'
 import { styles } from './Add'
 import { readData, saveData } from '../helpers/helperFunc'
 function Edit (props) {
@@ -38,13 +38,13 @@ function Edit (props) {
     })
 
     saveData(newData)
-    props.navigation.navigate('ContactDetails', { contact })
+    props.navigation.navigate('Contact Details', { contact })
   }
 
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.innerContainer} >
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
           <Text style={styles.h1}>Edit</Text>
           <Text style={styles.label}>Name:</Text>
           <TextInput
@@ -75,7 +75,7 @@ function Edit (props) {
               <Text style={styles.buttonText}>Confirm</Text>
             </Pressable>
           </View>
-        </View>
+        </ScrollView>
       </View>
     </>
   )

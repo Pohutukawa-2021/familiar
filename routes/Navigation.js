@@ -1,6 +1,6 @@
 import * as React from 'react'
 /* eslint-disable-next-line */
-import { Text, View } from 'react-native'
+import { Text, View } from "react-native";
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from '../screens/Home'
@@ -19,9 +19,17 @@ const Tab = createBottomTabNavigator()
 function tabNavigation () {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
       <Tab.Screen name="Add" component={Add} options={{ headerShown: false }} />
-      <Tab.Screen name="History" component={History} options={{ headerShown: false }} />
+      <Tab.Screen
+        name="History"
+        component={History}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   )
 }
@@ -43,16 +51,17 @@ function Navigation () {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={stackNavigation} /* options={{ title: '' }} *//>
+        <Drawer.Screen
+          name="Home"
+          component={stackNavigation} /* options={{ title: '' }} */
+        />
         <Drawer.Screen name="Add" component={Add} />
         <Drawer.Screen name="Edit" component={Edit} />
-        <Drawer.Screen name="History" component={History}/>
-        <Drawer.Screen name="ContactDetails" component={ContactDetails}/>
-        <Drawer.Screen name="Loading" component={Loading}/>
-
+        <Drawer.Screen name="History" component={History} />
+        <Drawer.Screen name="Contact Details" component={ContactDetails} />
+        <Drawer.Screen name="Loading" component={Loading} />
       </Drawer.Navigator>
     </NavigationContainer>
-
   )
 }
 
