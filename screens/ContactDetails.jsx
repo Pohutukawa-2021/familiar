@@ -4,11 +4,11 @@ import { StyleSheet, Button, View, Text, Alert, Pressable } from 'react-native'
 import { saveData, readData } from './helperFunc'
 import moment from 'moment'
 
-function ContactDetails(props) {
+function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall }
 
-  async function handlePress() {
+  async function handlePress () {
     const data = await readData()
     const newData = data.map(value => {
       if (value.name === name) {

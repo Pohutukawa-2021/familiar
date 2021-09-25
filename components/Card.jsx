@@ -3,21 +3,13 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import moment from 'moment'
 
+import { color } from '../screens/helperFunc'
+
 function Card (props) {
   const difference = moment().diff(props.lastCall, 'days')
 
-  function color () {
-    if (difference < props.frequency) {
-      return '#5AF160'
-    } else if (difference <= props.frequency * 2) {
-      return '#FF971D'
-    } else {
-      return '#E00000'
-    }
-  }
-
   const boxColor = {
-    backgroundColor: color()
+    backgroundColor: color(difference, props.frequency)
   }
 
   return (
