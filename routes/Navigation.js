@@ -47,6 +47,7 @@ function Navigation () {
         <Drawer.Screen name="Add" component={Add} />
         <Drawer.Screen name="Edit" component={Edit} />
         <Drawer.Screen name="History" component={History}/>
+        <Drawer.Screen name="ContactDetails" component={ContactDetails}/>
         <Drawer.Screen name="Loading" component={Loading}/>
 
       </Drawer.Navigator>
