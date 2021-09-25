@@ -37,3 +37,5 @@ npm start
 * Friday 24th
   * Styling
   * Add/ color functionality 
+* Saturday 25th
+  * Working on tickets
