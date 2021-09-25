@@ -13,11 +13,11 @@ function Edit (props) {
   })
 
   function handleOnChangeEdit (name, value) {
+    console.log(name, value)
     const newEditForm = {
       ...editForm,
       [name]: value
     }
-    console.log(editForm)
     setEditForm(newEditForm)
   }
 
@@ -37,31 +37,31 @@ function Edit (props) {
             value={editForm.name}
             placeholder='name'
             keyboardType="default"
-            onChange={(value) => handleOnChangeEdit('name', value)}
+            onChangeText={(value) => handleOnChangeEdit('name', value)}
           />
           <Text style={styles.label}>Phone Number:</Text>
           <TextInput
             style={styles.input}
-            value={number}
+            value={editForm.number}
             placeholder='number'
             keyboardType="numeric"
-            onChange={(value) => handleOnChangeEdit('number', value)}
+            onChangeText={(value) => handleOnChangeEdit('number', value)}
           />
           <Text style={styles.label}>Frequency</Text>
           <TextInput
             style={styles.input}
-            value={frequency}
+            value={editForm.frequency}
             placeholder='frequency'
             keyboardType="default"
-            onChange={(value) => handleOnChangeEdit('frequency', value)}
+            onChangeText={(value) => handleOnChangeEdit('frequency', value)}
           />
           <Text style={styles.label}>Days Since Last Call</Text>
           <TextInput
             style={styles.input}
-            value={lastCall}
+            value={editForm.lastCall}
             placeholder='days since last call'
             keyboardType="numeric"
-            onChange={(value) => handleOnChangeEdit('daysSinceLastCall', value)}
+            onChangeText={(value) => handleOnChangeEdit('daysSinceLastCall', value)}
           />
           <View style={styles.buttonView}>
             <Pressable style={styles.button} onPress={handlePressEdit}>
