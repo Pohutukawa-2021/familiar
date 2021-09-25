@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
 import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
-import { saveData, readData } from './helperFunc'
+import { useIsFocused } from '@react-navigation/native'
+import moment from 'moment'
+import { saveData, readData } from '../helpers/helperFunc'
 
-function Add(props) {
-  const [addForm, setAddForm] = React.useState({
+function Add (props) {
+  const isFocused = useIsFocused() // detetcs when page is rendered
+
+  const [addForm, setAddForm] = useState({
     name: '',
     number: '',
-    frequency: ''
+    frequency: '',
+    lastCall: ''
   })
 
-  function handleOnChangeAdd(name, value) {
+  // clears state when page is rendered
+  useEffect(() => {
+    setAddForm({
+      name: '',
+      number: '',
+      frequency: ''
+    })
+  }, [isFocused])
+
+  function handleOnChangeAdd (name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -18,12 +32,16 @@ function Add(props) {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd() {
+  async function handlePressAdd () {
+    // adds date into form object to be saved
+    const form = {
+      ...addForm,
+      lastCall: moment().format()
+    }
     const data = await readData()
     data
-      ? saveData([...data, addForm]) && props.navigation.navigate('Home')
-      : saveData([addForm]) && props.navigation.navigate('Home')
-    // todo: redirect to home
+      ? saveData([...data, form]) && props.navigation.navigate('Home')
+      : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
   }
 
   return (
