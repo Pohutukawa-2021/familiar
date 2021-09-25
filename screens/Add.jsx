@@ -3,14 +3,14 @@ import React from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
 import { saveData, readData } from './helperFunc'
 
-function Add () {
+function Add(props) {
   const [addForm, setAddForm] = React.useState({
     name: '',
     number: '',
     frequency: ''
   })
 
-  function handleOnChangeAdd (name, value) {
+  function handleOnChangeAdd(name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -18,11 +18,11 @@ function Add () {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd () {
+  async function handlePressAdd() {
     const data = await readData()
     data
-      ? saveData([...data, addForm])
-      : saveData([addForm])
+      ? saveData([...data, addForm]) && props.navigation.navigate('Home')
+      : saveData([addForm]) && props.navigation.navigate('Home')
     // todo: redirect to home
   }
 
@@ -56,12 +56,12 @@ function Add () {
           onChangeText={(value) => handleOnChangeAdd('frequency', value)}
         />
         <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePressAdd}>
+          <Pressable style={styles.button} onPress={handlePressAdd} >
             <Text style={styles.buttonText}>Add</Text>
           </Pressable>
         </View>
       </View>
-    </View>
+    </View >
 
   )
 }

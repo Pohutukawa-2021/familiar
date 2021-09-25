@@ -4,10 +4,10 @@ import { StyleSheet, Button, View, Text, Alert, Pressable } from 'react-native'
 import { saveData, readData } from './helperFunc'
 import moment from 'moment'
 
-function ContactDetails (props) {
+function ContactDetails(props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
 
-  async function handlePress () {
+  async function handlePress() {
     const data = await readData()
     const newData = data.map(value => {
       if (value.name === name) {
@@ -54,8 +54,8 @@ function ContactDetails (props) {
         <Text>Days since last call: {lastCall}</Text>
       </View>
       <View>
-        <Button title={`Call ${name}`} onPress={handlePress}/>
-        <Button title='Edit' {...props} onPress={() => props.navigation.navigate('Edit')}/>
+        <Button title={`Call ${name}`} onPress={handlePress} />
+        <Button title='Edit' {...props} onPress={() => props.navigation.navigate('Edit')} />
       </View>
     </>
 
