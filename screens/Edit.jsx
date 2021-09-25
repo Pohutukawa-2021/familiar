@@ -2,8 +2,11 @@ import React from 'react'
 /* eslint-disable-next-line */
 import { StyleSheet, View, TextInput, Button, Text, Pressable } from 'react-native'
 import { styles } from './Add'
+import { readData, saveData } from './helperFunc'
 function Edit (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
+
+  const [initalName, setInitalName] = React.useState(name)
 
   const [editForm, setEditForm] = React.useState({
     name,
@@ -21,9 +24,21 @@ function Edit (props) {
     setEditForm(newEditForm)
   }
 
-  function handlePressEdit () {
-    // send editForm object to localstorage
-    // redirect to ContactDetails component
+  async function handlePressEdit () {
+    const { name, number, frequency, lastCall } = editForm
+    const contact = { name, number, frequency, lastCall }
+
+    const data = await readData()
+
+    const newData = data.map(value => {
+      if (value.name === initalName) {
+        const newValue = { name, number, frequency, lastCall }
+        return newValue
+      } else return value
+    })
+
+    saveData(newData)
+    props.navigation.navigate('ContactDetails', { contact })
   }
 
   return (
