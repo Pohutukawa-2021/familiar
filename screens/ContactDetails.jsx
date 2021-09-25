@@ -1,14 +1,14 @@
 import React from 'react'
 /* eslint-disable-next-line */
 import { StyleSheet, Button, View, Text, Alert, Pressable } from 'react-native'
-import { saveData, readData } from './helperFunc'
+import { saveData, readData, color } from './helperFunc'
 import moment from 'moment'
 
-function ContactDetails(props) {
+function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall }
 
-  async function handlePress() {
+  async function handlePress () {
     const data = await readData()
     const newData = data.map(value => {
       if (value.name === name) {
@@ -22,10 +22,16 @@ function ContactDetails(props) {
     props.navigation.navigate('Home')
   }
 
+  const difference = moment().diff(lastCall, 'days')
+
+  const boxColor = {
+    backgroundColor: color(difference, frequency)
+  }
+
   return (
 
     <View style={styles.container}>
-      <View style={styles.topContainer}>
+      <View style={[styles.topContainer, boxColor]}>
         <Text style={styles.h1}>{name}</Text>
       </View>
       <View style={styles.innerContainer} >
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
   topContainer: {
     width: '100%',
     height: '35%',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     justifyContent: 'center'
 
   },

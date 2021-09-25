@@ -2,7 +2,7 @@ import React from 'react'
 /* eslint-disable-next-line */
 import { StyleSheet, Text, View, Image } from 'react-native'
 
-function Loading() {
+function Loading () {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>
