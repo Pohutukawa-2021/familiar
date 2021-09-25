@@ -1,4 +1,5 @@
 import React from 'react'
+/* eslint-disable-next-line */
 import { StyleSheet, View, TextInput, Button, Text, Pressable } from 'react-native'
 import { styles } from './Add'
 function Edit (props) {
@@ -16,6 +17,7 @@ function Edit (props) {
       ...editForm,
       [name]: value
     }
+    console.log(editForm)
     setEditForm(newEditForm)
   }
 
@@ -32,7 +34,7 @@ function Edit (props) {
           <Text style={styles.label}>Name:</Text>
           <TextInput
             style={styles.input}
-            value={name}
+            value={editForm.name}
             placeholder='name'
             keyboardType="default"
             onChange={(value) => handleOnChangeEdit('name', value)}

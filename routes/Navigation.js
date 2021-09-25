@@ -21,7 +21,7 @@ function tabNavigation () {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
       <Tab.Screen name="Add" component={Add} options={{ headerShown: false }} />
-      <Tab.Screen name="Contact Details" component={ContactDetails} options={{ headerShown: false }} />
+      {/* <Tab.Screen name="Contact Details" component={ContactDetails} options={{ headerShown: false }} /> */}
       <Tab.Screen name="History" component={History} options={{ headerShown: false }} />
     </Tab.Navigator>
   )
