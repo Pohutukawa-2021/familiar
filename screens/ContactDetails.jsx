@@ -18,46 +18,34 @@ function ContactDetails (props) {
       }
     })
     saveData(newData)
-    console.log(await readData())
+    props.navigation.navigate('Home')
   }
 
-  // Hey Ali and Austin check this for anything I might've overwritten please
-
-  //   <View style={styles.container}>
-  //   <View style={styles.topContainer}>
-  //     <Text style={styles.h1}>Dad</Text>
-  //   </View>
-  //   <View style={styles.innerContainer} >
-  //     <Text style={styles.label}>Name: {name}</Text>
-  //     <Text style={styles.label}>Number:{number}</Text>
-  //     <Text style={styles.label}>Frequency: {frequency}</Text>
-  //     <Text style={styles.label}>Days since last call:{daysSinceLastCall}</Text>
-  //     <View style={styles.buttonView}>
-  //       <Pressable style={styles.button}/*  onPress={handlePress} */>
-  //         <Text style={styles.buttonText}>{`Call ${name}`}</Text>
-  //       </Pressable>
-  //     </View>
-  //     <View style={styles.buttonView}>
-  //       <Pressable style={styles.button} onPress={() => props.navigation.navigate('Edit')}>
-  //         <Text style={styles.buttonText}>Edit</Text>
-  //       </Pressable>
-  //     </View>
-  //   </View>
-  // </View>
-
   return (
-    <>
-      <View style={styles.container}>
-        <Text>Name: {name}</Text>
-        <Text>Number: {number}</Text>
-        <Text>Frequency: {frequency}</Text>
-        <Text>Days since last call: {lastCall}</Text>
+
+    <View style={styles.container}>
+      <View style={styles.topContainer}>
+        <Text style={styles.h1}>{name}</Text>
       </View>
-      <View>
-        <Button title={`Call ${name}`} onPress={handlePress}/>
-        <Button title='Edit' {...props} onPress={() => props.navigation.navigate('Edit')}/>
+      <View style={styles.innerContainer} >
+        <Text style={styles.label}>Name: {name}</Text>
+        <Text style={styles.label}>Number:{number}</Text>
+        <Text style={styles.label}>Frequency: {frequency}</Text>
+        <Text style={styles.label}>Days since last call:{lastCall}</Text>
+
+        <View style={styles.buttonView}>
+          <Pressable style={styles.button} onPress={handlePress} >
+            <Text style={styles.buttonText}>{`Call ${name}`}</Text>
+          </Pressable>
+        </View>
+
+        <View style={styles.buttonView}>
+          <Pressable style={styles.button} onPress={() => props.navigation.navigate('Edit')}>
+            <Text style={styles.buttonText}>Edit</Text>
+          </Pressable>
+        </View>
       </View>
-    </>
+    </View>
 
   )
 }
