@@ -1,16 +1,16 @@
 import React from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable,ScrollView } from 'react-native'
 import { saveData, readData } from './helperFunc'
 
-function Add(props) {
+function Add (props) {
   const [addForm, setAddForm] = React.useState({
     name: '',
     number: '',
     frequency: ''
   })
 
-  function handleOnChangeAdd(name, value) {
+  function handleOnChangeAdd (name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -18,7 +18,7 @@ function Add(props) {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd() {
+  async function handlePressAdd () {
     const data = await readData()
     data
       ? saveData([...data, addForm]) && props.navigation.navigate('Home')
@@ -29,7 +29,7 @@ function Add(props) {
   return (
 
     <View style={styles.container}>
-      <View style={styles.innerContainer} >
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
         <Text style={styles.h1}>Add</Text>
         <Text style={styles.label}>Name:</Text>
         <TextInput
@@ -60,7 +60,7 @@ function Add(props) {
             <Text style={styles.buttonText}>Add</Text>
           </Pressable>
         </View>
-      </View>
+      </ScrollView>
     </View >
 
   )

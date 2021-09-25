@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableOpacity,Pressable,ScrollView } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
 import { saveData, readData, clear } from './helperFunc'
@@ -57,21 +57,25 @@ function Home (props) {
   return (
 
     <View style={styles.container}>
-      <Text>Welcome to Familiar.</Text>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
+        <Text style={styles.label}>familiar</Text>
 
-      {data
-        ? <View style={styles.cardsContainer}>
-          {data.map(contact => {
-            return <TouchableOpacity key={'tapp' + contact.name} onPress={() => props.navigation.navigate('ContactDetails', { contact })}>
-              <Card key={contact.name} {...contact} />
-            </TouchableOpacity>
-          })}
-        </View>
-        : <Text>Add some people</Text>
-      }
+        {data
+          ? <View style={styles.cardsContainer}>
+            {data.map(contact => {
+              return <TouchableOpacity key={'tapp' + contact.name} onPress={() => props.navigation.navigate('Contact Details', { contact })}>
+                <Card key={contact.name} {...contact} />
+              </TouchableOpacity>
+            })}
+          </View>
+          : <Text>Add some people please</Text>
+        }
 
-      <View>
-        <Button title='Add new contact' onPress={() => props.navigation.navigate('Add')} />
+      </ScrollView>
+      <View style={styles.buttonView}>
+        <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
+          <Text style={styles.buttonText}>Add new contact</Text>
+        </Pressable>
         <Button title='Set' onPress={handleSet} />
         <Button title='Clear' onPress={handleClear} />
       </View>
@@ -83,18 +87,44 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-    // flexDirection: 'row'
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  innerContainer: {
+    width: '80%',
+    marginTop: 20,
+    marginBottom: 60
   },
   cardsContainer: {
-    flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    padding: 12
+    width: '100%'
+  },
+  label: {
+    alignSelf: 'center',
+    fontSize: 25,
+    color: 'black'
+  },
+  buttonView: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 10,
+    borderRadius: 35
+  },
+  button: {
+    backgroundColor: '#5AF160',
+    width: '80%',
+    alignSelf: 'center',
+    padding: 10,
+    borderRadius: 35
+  },
+  buttonText: {
+    fontSize: 20,
+    color: 'white',
+    alignSelf: 'center'
   }
 })
 
