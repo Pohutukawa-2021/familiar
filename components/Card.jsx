@@ -11,6 +11,8 @@ function Card (props) {
   const boxColor = {
     backgroundColor: color(difference, props.frequency)
   }
+  // console.log(props.name, props.lastCall, moment(props.lastCall).fromNow())
+  // .fromNow not correct due to date format
 
   return (
     <View style={styles.container}>
