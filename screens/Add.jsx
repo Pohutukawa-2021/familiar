@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
 import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
+import { useIsFocused } from '@react-navigation/native'
+import moment from 'moment'
 import { saveData, readData } from './helperFunc'
 
 function Add (props) {
-  const [addForm, setAddForm] = React.useState({
+  const isFocused = useIsFocused()
+
+  const [addForm, setAddForm] = useState({
     name: '',
     number: '',
-    frequency: ''
+    frequency: '',
+    lastCall: ''
   })
+
+  useEffect(() => {
+    setAddForm({
+      name: '',
+      number: '',
+      frequency: ''
+    })
+  }, [isFocused])
 
   function handleOnChangeAdd (name, value) {
     const newAddForm = {
@@ -20,10 +33,15 @@ function Add (props) {
 
   // TODO need to save the date as well
   async function handlePressAdd () {
+    const form = {
+      ...addForm,
+      lastCall: moment().format()
+    }
     const data = await readData()
+    console.log([...data, form])
     data
-      ? saveData([...data, addForm]) && props.navigation.navigate('Home')
-      : saveData([addForm]) && props.navigation.navigate('Home')
+      ? saveData([...data, form]) && props.navigation.navigate('Home')
+      : saveData([form]) && props.navigation.navigate('Home')
   }
 
   return (
