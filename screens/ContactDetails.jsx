@@ -6,6 +6,7 @@ import moment from 'moment'
 
 function ContactDetails(props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
+  const contact = { name, number, frequency, lastCall }
 
   async function handlePress() {
     const data = await readData()
@@ -40,7 +41,7 @@ function ContactDetails(props) {
         </View>
 
         <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={() => props.navigation.navigate('Edit')}>
+          <Pressable style={styles.button} onPress={() => props.navigation.navigate('Edit', { contact })}>
             <Text style={styles.buttonText}>Edit</Text>
           </Pressable>
         </View>
