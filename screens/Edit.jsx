@@ -1,17 +1,22 @@
 import React from 'react'
+/* eslint-disable-next-line */
 import { StyleSheet, View, TextInput, Button, Text, Pressable } from 'react-native'
 import { styles } from './Add'
+import { readData, saveData } from '../helpers/helperFunc'
 function Edit (props) {
-  const { name, number, frequency, daysSinceLastCall } = props
+  const { name, number, frequency, lastCall } = props.route.params.contact
+
+  const [initalName, setInitalName] = React.useState(name) // set initail name to match in local storage (in case the name gets edited)
 
   const [editForm, setEditForm] = React.useState({
     name,
     number,
     frequency,
-    daysSinceLastCall
+    lastCall
   })
 
   function handleOnChangeEdit (name, value) {
+    console.log(name, value)
     const newEditForm = {
       ...editForm,
       [name]: value
@@ -19,9 +24,21 @@ function Edit (props) {
     setEditForm(newEditForm)
   }
 
-  function handlePressEdit () {
-    // send editForm object to localstorage
-    // redirect to ContactDetails component
+  async function handlePressEdit () {
+    const { name, number, frequency, lastCall } = editForm
+    const contact = { name, number, frequency, lastCall } // construct object, only used to send to ContactDetails component
+
+    const data = await readData()
+
+    const newData = data.map(value => {
+      if (value.name === initalName) {
+        const newValue = { name, number, frequency, lastCall }
+        return newValue
+      } else return value
+    })
+
+    saveData(newData)
+    props.navigation.navigate('ContactDetails', { contact })
   }
 
   return (
@@ -32,34 +49,26 @@ function Edit (props) {
           <Text style={styles.label}>Name:</Text>
           <TextInput
             style={styles.input}
-            value={name}
+            value={editForm.name}
             placeholder='name'
             keyboardType="default"
-            onChange={(value) => handleOnChangeEdit('name', value)}
+            onChangeText={(value) => handleOnChangeEdit('name', value)}
           />
           <Text style={styles.label}>Phone Number:</Text>
           <TextInput
             style={styles.input}
-            value={number}
+            value={editForm.number}
             placeholder='number'
             keyboardType="numeric"
-            onChange={(value) => handleOnChangeEdit('number', value)}
+            onChangeText={(value) => handleOnChangeEdit('number', value)}
           />
           <Text style={styles.label}>Frequency</Text>
           <TextInput
             style={styles.input}
-            value={frequency}
+            value={editForm.frequency}
             placeholder='frequency'
             keyboardType="default"
-            onChange={(value) => handleOnChangeEdit('frequency', value)}
-          />
-          <Text style={styles.label}>Days Since Last Call</Text>
-          <TextInput
-            style={styles.input}
-            value={daysSinceLastCall}
-            placeholder='days since last call'
-            keyboardType="numeric"
-            onChange={(value) => handleOnChangeEdit('daysSinceLastCall', value)}
+            onChangeText={(value) => handleOnChangeEdit('frequency', value)}
           />
           <View style={styles.buttonView}>
             <Pressable style={styles.button} onPress={handlePressEdit}>

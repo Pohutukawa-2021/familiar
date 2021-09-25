@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
 import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
-import { saveData, readData } from './helperFunc'
+import { useIsFocused } from '@react-navigation/native'
+import moment from 'moment'
+import { saveData, readData } from '../helpers/helperFunc'
 
-function Add () {
-  const [addForm, setAddForm] = React.useState({
+function Add (props) {
+  const isFocused = useIsFocused() // detetcs when page is rendered
+
+  const [addForm, setAddForm] = useState({
     name: '',
     number: '',
-    frequency: ''
+    frequency: '',
+    lastCall: ''
   })
+
+  // clears state when page is rendered
+  useEffect(() => {
+    setAddForm({
+      name: '',
+      number: '',
+      frequency: ''
+    })
+  }, [isFocused])
 
   function handleOnChangeAdd (name, value) {
     const newAddForm = {
@@ -19,11 +33,15 @@ function Add () {
   }
 
   async function handlePressAdd () {
+    // adds date into form object to be saved
+    const form = {
+      ...addForm,
+      lastCall: moment().format()
+    }
     const data = await readData()
     data
-      ? saveData([...data, addForm])
-      : saveData([addForm])
-    // todo: redirect to home
+      ? saveData([...data, form]) && props.navigation.navigate('Home')
+      : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
   }
 
   return (
@@ -56,12 +74,12 @@ function Add () {
           onChangeText={(value) => handleOnChangeAdd('frequency', value)}
         />
         <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePressAdd}>
+          <Pressable style={styles.button} onPress={handlePressAdd} >
             <Text style={styles.buttonText}>Add</Text>
           </Pressable>
         </View>
       </View>
-    </View>
+    </View >
 
   )
 }
