@@ -28,6 +28,17 @@ function ContactDetails (props) {
     backgroundColor: color(difference, frequency)
   }
 
+  async function handleDelete () {
+    const data = await readData()
+    const newData = data.filter(value => {
+      if (value.name !== name) {
+        return value
+      }
+    })
+    saveData(newData)
+    props.navigation.navigate('Home')
+  }
+
   return (
 
     <View style={styles.container}>
@@ -49,6 +60,12 @@ function ContactDetails (props) {
         <View style={styles.buttonView}>
           <Pressable style={styles.button} onPress={() => props.navigation.navigate('Edit', { contact })}>
             <Text style={styles.buttonText}>Edit</Text>
+          </Pressable>
+        </View>
+
+        <View style={styles.buttonView}>
+          <Pressable style={styles.button} onPress={handleDelete}>
+            <Text style={styles.buttonText}>Delete</Text>
           </Pressable>
         </View>
       </View>
