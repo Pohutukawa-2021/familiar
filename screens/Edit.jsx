@@ -55,14 +55,6 @@ function Edit (props) {
             keyboardType="default"
             onChangeText={(value) => handleOnChangeEdit('frequency', value)}
           />
-          <Text style={styles.label}>Days Since Last Call</Text>
-          <TextInput
-            style={styles.input}
-            value={editForm.lastCall}
-            placeholder='days since last call'
-            keyboardType="numeric"
-            onChangeText={(value) => handleOnChangeEdit('daysSinceLastCall', value)}
-          />
           <View style={styles.buttonView}>
             <Pressable style={styles.button} onPress={handlePressEdit}>
               <Text style={styles.buttonText}>Confirm</Text>
