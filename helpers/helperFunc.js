@@ -31,6 +31,7 @@ export async function clear () {
   }
 }
 
+// returns a color based on the difference of 2 dates and the frequency
 export function color (difference, frequency) {
   if (difference < frequency) {
     return '#5AF160'

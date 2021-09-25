@@ -3,16 +3,14 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import moment from 'moment'
 
-import { color } from '../screens/helperFunc'
+import { color } from '../helpers/helperFunc'
 
 function Card (props) {
+  // Sets the color for the box
   const difference = moment().diff(props.lastCall, 'days')
-
   const boxColor = {
     backgroundColor: color(difference, props.frequency)
   }
-  // console.log(props.name, props.lastCall, moment(props.lastCall).fromNow())
-  // .fromNow not correct due to date format
 
   return (
     <View style={styles.container}>
