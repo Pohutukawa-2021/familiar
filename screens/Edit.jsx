@@ -1,21 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, View, TextInput, Button, Text, Pressable } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  Pressable,
+  ScrollView
+} from 'react-native'
 import { styles } from './Add'
 import { readData, saveData } from '../helpers/helperFunc'
-function Edit (props) {
-  const { name, number, frequency, lastCall } = props.route.params.contact
+function Edit(props) {
+  let name, number, frequency, lastCall
 
-  const [initalName, setInitalName] = React.useState(name) // set initail name to match in local storage (in case the name gets edited)
+  const [initalName, setInitalName] = React.useState('') // set initail name to match in local storage (in case the name gets edited)
 
-  const [editForm, setEditForm] = React.useState({
-    name,
-    number,
-    frequency,
-    lastCall
-  })
+  const [editForm, setEditForm] = React.useState({})
 
-  function handleOnChangeEdit (name, value) {
+  useEffect(() => {
+    name = props.route.params.contact.name
+    number = props.route.params.contact.number
+    frequency = props.route.params.contact.frequency
+    lastCall = props.route.params.contact.lastCall
+    setEditForm({ name, number, frequency, lastCall })
+    setInitalName(name)
+  }, [props.route.params.contact.name])
+
+  function handleOnChangeEdit(name, value) {
     console.log(name, value)
     const newEditForm = {
       ...editForm,
@@ -24,13 +35,13 @@ function Edit (props) {
     setEditForm(newEditForm)
   }
 
-  async function handlePressEdit () {
+  async function handlePressEdit() {
     const { name, number, frequency, lastCall } = editForm
     const contact = { name, number, frequency, lastCall } // construct object, only used to send to ContactDetails component
 
     const data = await readData()
 
-    const newData = data.map(value => {
+    const newData = data.map((value) => {
       if (value.name === initalName) {
         const newValue = { name, number, frequency, lastCall }
         return newValue
@@ -38,19 +49,22 @@ function Edit (props) {
     })
 
     saveData(newData)
-    props.navigation.navigate('ContactDetails', { contact })
+    props.navigation.navigate('Contact Details', { contact })
   }
 
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.innerContainer} >
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.innerContainer}
+        >
           <Text style={styles.h1}>Edit</Text>
           <Text style={styles.label}>Name:</Text>
           <TextInput
             style={styles.input}
             value={editForm.name}
-            placeholder='name'
+            placeholder="name"
             keyboardType="default"
             onChangeText={(value) => handleOnChangeEdit('name', value)}
           />
@@ -58,7 +72,7 @@ function Edit (props) {
           <TextInput
             style={styles.input}
             value={editForm.number}
-            placeholder='number'
+            placeholder="number"
             keyboardType="numeric"
             onChangeText={(value) => handleOnChangeEdit('number', value)}
           />
@@ -66,7 +80,7 @@ function Edit (props) {
           <TextInput
             style={styles.input}
             value={editForm.frequency}
-            placeholder='frequency'
+            placeholder="frequency"
             keyboardType="default"
             onChangeText={(value) => handleOnChangeEdit('frequency', value)}
           />
@@ -75,7 +89,7 @@ function Edit (props) {
               <Text style={styles.buttonText}>Confirm</Text>
             </Pressable>
           </View>
-        </View>
+        </ScrollView>
       </View>
     </>
   )

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Button, Pressable,ScrollView } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
 import { saveData, readData } from '../helpers/helperFunc'
@@ -47,7 +47,7 @@ function Add (props) {
   return (
 
     <View style={styles.container}>
-      <View style={styles.innerContainer} >
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
         <Text style={styles.h1}>Add</Text>
         <Text style={styles.label}>Name:</Text>
         <TextInput
@@ -78,7 +78,7 @@ function Add (props) {
             <Text style={styles.buttonText}>Add</Text>
           </Pressable>
         </View>
-      </View>
+      </ScrollView>
     </View >
 
   )
