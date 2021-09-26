@@ -40,27 +40,29 @@ function Home (props) {
       <View style={styles.textBox}>
         <Text style={styles.label}>familiar</Text>
       </View>
+
+      <View style={styles.buttonView}>
+        <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
+          <Text style={styles.buttonText}>+</Text>
+        </Pressable>
+      </View>
+
       <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
 
         {data.length > 0
           ? <View style={styles.cardsContainer}>
             {data.map(contact => {
-              return <TouchableOpacity key={'tapp' + contact.name} onPress={() => props.navigation.navigate('Contact Details', { contact })}>
+              return <TouchableOpacity style={styles.card} key={'tapp' + contact.name} onPress={() => props.navigation.navigate('Contact Details', { contact })}>
                 <Card key={contact.name} {...contact} />
               </TouchableOpacity>
             })}
           </View>
-          : <Text>Press 'add' to add some contacts!</Text>
+          : <Text>Press + to add some contacts!</Text>
         }
-
       </ScrollView>
-      <View style={styles.buttonView}>
-        <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
-          <Text style={styles.buttonText}>Add new contact</Text>
-        </Pressable>
-        <Button title='Set' onPress={handleSet} />
-        <Button title='Clear' onPress={handleClear} />
-      </View>
+      {/* <Button title='Set' onPress={handleSet} />
+      <Button title='Clear' onPress={handleClear} /> */}
+
     </View>
   )
 }
@@ -85,6 +87,17 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: '100%'
   },
+  card: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+    marginBottom: 20
+  },
   textBox: {
     marginTop: 0,
     width: '100%',
@@ -97,25 +110,20 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     color: 'white',
-    marginTop: 30
+    marginTop: 40,
+    marginBottom: 10
   },
   buttonView: {
-    width: '100%',
     position: 'absolute',
-    bottom: 10,
-    borderRadius: 35
+    top: 25,
+    right: 10
   },
   button: {
-    backgroundColor: '#5AF160',
-    width: '80%',
-    alignSelf: 'center',
-    padding: 10,
-    borderRadius: 35
   },
   buttonText: {
-    fontSize: 20,
-    color: 'white',
-    alignSelf: 'center'
+    fontSize: 60,
+    color: 'white'
+    // alignSelf: 'flex-end'
   }
 })
 
