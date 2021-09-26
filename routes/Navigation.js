@@ -1,6 +1,6 @@
 import * as React from 'react'
 /* eslint-disable-next-line */
-import { Text, View } from "react-native";
+import { Text, View, Image } from "react-native";
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from '../screens/Home'
@@ -22,13 +22,31 @@ function tabNavigation () {
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, focused, color }) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source= {require('../assets/home.png')}
+              />)
+          }
+        }}
       />
       {/* <Tab.Screen name="Add" component={Add} options={{ headerShown: false }} /> */}
       <Tab.Screen
         name="History"
         component={History}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, focused, color }) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source= {require('../assets/history.png')}
+              />)
+          }
+        }}
       />
     </Tab.Navigator>
   )
