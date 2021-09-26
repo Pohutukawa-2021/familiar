@@ -40,6 +40,13 @@ function Home (props) {
       <View style={styles.textBox}>
         <Text style={styles.label}>familiar</Text>
       </View>
+
+      <View style={styles.buttonView}>
+        <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
+          <Text style={styles.buttonText}>+</Text>
+        </Pressable>
+      </View>
+
       <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
 
         {data.length > 0
@@ -52,15 +59,10 @@ function Home (props) {
           </View>
           : <Text>Press + to add some contacts!</Text>
         }
-
       </ScrollView>
-      <View style={styles.buttonView}>
-        <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
-          <Text style={styles.buttonText}>+</Text>
-        </Pressable>
-        {/* <Button title='Set' onPress={handleSet} />
-        <Button title='Clear' onPress={handleClear} /> */}
-      </View>
+      <Button title='Set' onPress={handleSet} />
+      <Button title='Clear' onPress={handleClear} />
+
     </View>
   )
 }
