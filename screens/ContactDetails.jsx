@@ -1,15 +1,23 @@
 import React from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, Button, View, Text, Alert, Pressable,ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Button,
+  View,
+  Text,
+  Alert,
+  Pressable,
+  ScrollView
+} from 'react-native'
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function ContactDetails (props) {
+function ContactDetails(props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
   // updates contact lastCalled property and redirects back to home
-  async function handlePress () {
+  async function handlePress() {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -30,7 +38,7 @@ function ContactDetails (props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete () {
+  async function handleDelete() {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -41,26 +49,44 @@ function ContactDetails (props) {
     props.navigation.navigate('Home')
   }
 
+  function edit() {
+    props.navigation.navigate('Edit', { contact })
+  }
+
   // Note: For last called text, the date format is set in line
   return (
     <View style={styles.container}>
       <View style={[styles.topContainer, boxColor]}>
-        <Text numberOfLines={2} ellipsizeMode='tail' style={styles.h1}>{name}</Text>
+        <Text numberOfLines={2} ellipsizeMode="tail" style={styles.h1}>
+          {name}
+        </Text>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
-        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.label}>Name: {name}</Text>
-        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.label}>Number: {number}</Text>
-        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.label}>Frequency: {frequency}</Text>
-        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.label}>Last called: {moment(lastCall).format('DD/MM/YYYY')}</Text>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.innerContainer}
+      >
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          Name: {name}
+        </Text>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          Number: {number}
+        </Text>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          Frequency: {frequency}
+        </Text>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          Last called: {moment(lastCall).format('DD/MM/YYYY')}
+        </Text>
 
         <View style={styles.buttonView}>
           <Pressable style={styles.button} onPress={handlePress}>
-            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.buttonText}>{`Call ${name}`}</Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.buttonText}
+            >{`Call ${name}`}</Text>
           </Pressable>
-          <Pressable
-            style={styles.button}
-            onPress={() => props.navigation.navigate('Edit', { contact })}
-          >
+          <Pressable style={styles.button} onPress={edit}>
             <Text style={styles.buttonText}>Edit</Text>
           </Pressable>
           <Pressable style={styles.button} onPress={handleDelete}>
