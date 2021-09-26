@@ -18,6 +18,7 @@ function Card (props) {
       <View style={styles.textDetails}>
         <View>
           <Text numberOfLines={1} ellipsizeMode='tail'>{props.name}{'\n'}</Text>
+          <Text numberOfLines={1} ellipsizeMode='tail'>Last Called:</Text>
           <Text numberOfLines={1} ellipsizeMode='tail'>{moment(props.lastCall).fromNow()}</Text>
         </View>
       </View>
