@@ -17,9 +17,9 @@ function Card (props) {
       <View style={[styles.colorBox, boxColor]} />
       <View style={styles.textDetails}>
         <View>
-          <Text numberOfLines={1} ellipsizeMode='tail'>{props.name}{'\n'}</Text>
+          <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{props.name}</Text>
           <Text numberOfLines={1} ellipsizeMode='tail'>Last Called:</Text>
-          <Text numberOfLines={1} ellipsizeMode='tail'>{moment(props.lastCall).fromNow()}</Text>
+          <Text numberOfLines={2} ellipsizeMode='tail'>{moment(props.lastCall).fromNow()}</Text>
         </View>
       </View>
     </View>
@@ -34,6 +34,10 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 5
   },
+  title: {
+    fontSize: 20,
+    paddingBottom: 5
+  },
   colorBox: {
     width: '100%',
     height: '50%',
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
   },
   textDetails: {
     width: '100%',
-    height: '50%',
+    height: '55%',
     padding: 12,
     backgroundColor: '#E8E7E7',
     borderBottomLeftRadius: 15,

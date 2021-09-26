@@ -69,7 +69,7 @@ function Add (props) {
         <TextInput
           style={styles.input}
           value={addForm.frequency}
-          placeholder='frequency'
+          placeholder='frequency in days'
           keyboardType="default"
           onChangeText={(value) => handleOnChangeAdd('frequency', value)}
         />
