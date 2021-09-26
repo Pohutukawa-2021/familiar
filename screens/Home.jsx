@@ -7,33 +7,6 @@ import { saveData, readData, clear } from '../helpers/helperFunc'
 
 import dummyData from '../helpers/dummyData'
 
-// const dummyData = [
-//   {
-//     name: 'Dad',
-//     number: '021-1234567',
-//     frequency: 7,
-//     lastCall: '2021-09-20T23:11:17+12:00'
-//   },
-//   {
-//     name: 'Mum',
-//     number: '021-9876567',
-//     frequency: 3,
-//     lastCall: '2021-09-11T23:11:17+12:00'
-//   },
-//   {
-//     name: 'Austin',
-//     number: '021-1235358',
-//     frequency: 14,
-//     lastCall: '2021-09-09T23:11:17+12:00'
-//   },
-//   {
-//     name: 'Ali',
-//     number: '021-1256778',
-//     frequency: 30,
-//     lastCall: '2020-09-20T23:11:17+12:00'
-//   }
-// ]
-
 function Home (props) {
   const [data, setData] = useState([])
 
@@ -41,7 +14,12 @@ function Home (props) {
 
   useEffect(() => {
     async function getData () {
-      setData(await readData())
+      const data = await readData()
+      if (data) {
+        setData(data)
+      } else {
+        setData([])
+      }
     }
     getData()
   }, [isFocused])
@@ -59,28 +37,31 @@ function Home (props) {
   return (
 
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
+      <View style={styles.textBox}>
         <Text style={styles.label}>familiar</Text>
+      </View>
+      <View style={styles.buttonView}>
+        <Pressable onPress={() => props.navigation.navigate('Add')}>
+          <Text style={styles.buttonText}>+</Text>
+        </Pressable>
+      </View>
 
-        {data
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
+
+        {data.length > 0
           ? <View style={styles.cardsContainer}>
             {data.map(contact => {
-              return <TouchableOpacity key={'tapp' + contact.name} onPress={() => props.navigation.navigate('Contact Details', { contact })}>
+              return <TouchableOpacity style={styles.card} key={'tapp' + contact.name} onPress={() => props.navigation.navigate('Contact Details', { contact })}>
                 <Card key={contact.name} {...contact} />
               </TouchableOpacity>
             })}
           </View>
-          : <Text>Add some people please</Text>
+          : <Text>Press + to add some contacts!</Text>
         }
-
       </ScrollView>
-      <View style={styles.buttonView}>
-        <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
-          <Text style={styles.buttonText}>Add new contact</Text>
-        </Pressable>
-        <Button title='Set' onPress={handleSet} />
-        <Button title='Clear' onPress={handleClear} />
-      </View>
+      {/* <Button title='Set' onPress={handleSet} />
+      <Button title='Clear' onPress={handleClear} /> */}
+
     </View>
   )
 }
@@ -105,28 +86,40 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: '100%'
   },
+  card: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+    marginBottom: 20
+  },
+  textBox: {
+    marginTop: 0,
+    width: '100%',
+    borderBottomWidth: 1,
+    borderColor: 'darkgrey',
+    backgroundColor: '#22CAFF'
+  },
   label: {
     alignSelf: 'center',
-    fontSize: 25,
-    color: 'black'
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: 40,
+    marginBottom: 10
   },
   buttonView: {
-    width: '100%',
     position: 'absolute',
-    bottom: 10,
-    borderRadius: 35
-  },
-  button: {
-    backgroundColor: '#5AF160',
-    width: '80%',
-    alignSelf: 'center',
-    padding: 10,
-    borderRadius: 35
+    top: 36,
+    right: 20
   },
   buttonText: {
-    fontSize: 20,
-    color: 'white',
-    alignSelf: 'center'
+    fontSize: 45,
+    color: 'white'
   }
 })
 

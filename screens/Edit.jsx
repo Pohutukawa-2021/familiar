@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 /* eslint-disable-next-line */
 import {
-  StyleSheet,
   View,
   TextInput,
   Text,
@@ -10,7 +9,7 @@ import {
 } from 'react-native'
 import { styles } from './Add'
 import { readData, saveData } from '../helpers/helperFunc'
-function Edit(props) {
+function Edit (props) {
   let name, number, frequency, lastCall
 
   const [initalName, setInitalName] = React.useState('') // set initail name to match in local storage (in case the name gets edited)
@@ -26,8 +25,7 @@ function Edit(props) {
     setInitalName(name)
   }, [props.route.params.contact.name])
 
-  function handleOnChangeEdit(name, value) {
-    console.log(name, value)
+  function handleOnChangeEdit (name, value) {
     const newEditForm = {
       ...editForm,
       [name]: value
@@ -35,7 +33,7 @@ function Edit(props) {
     setEditForm(newEditForm)
   }
 
-  async function handlePressEdit() {
+  async function handlePressEdit () {
     const { name, number, frequency, lastCall } = editForm
     const contact = { name, number, frequency, lastCall } // construct object, only used to send to ContactDetails component
 
@@ -59,7 +57,7 @@ function Edit(props) {
           showsVerticalScrollIndicator={false}
           style={styles.innerContainer}
         >
-          <Text style={styles.h1}>Edit</Text>
+          <Text style={styles.h1}>Update</Text>
           <Text style={styles.label}>Name:</Text>
           <TextInput
             style={styles.input}
@@ -80,8 +78,8 @@ function Edit(props) {
           <TextInput
             style={styles.input}
             value={editForm.frequency}
-            placeholder="frequency"
-            keyboardType="default"
+            placeholder="frequency in days"
+            keyboardType="numeric"
             onChangeText={(value) => handleOnChangeEdit('frequency', value)}
           />
           <View style={styles.buttonView}>

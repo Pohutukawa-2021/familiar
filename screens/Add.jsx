@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, TextInput, Button, Pressable,ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable,ScrollView } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
 import { saveData, readData } from '../helpers/helperFunc'
@@ -48,7 +48,7 @@ function Add (props) {
 
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
-        <Text style={styles.h1}>Add</Text>
+        <Text style={styles.h1}>New Contact</Text>
         <Text style={styles.label}>Name:</Text>
         <TextInput
           style={styles.input}
@@ -69,7 +69,7 @@ function Add (props) {
         <TextInput
           style={styles.input}
           value={addForm.frequency}
-          placeholder='frequency'
+          placeholder='frequency in days'
           keyboardType="default"
           onChangeText={(value) => handleOnChangeAdd('frequency', value)}
         />
@@ -87,7 +87,7 @@ function Add (props) {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
@@ -100,13 +100,16 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 1,
     padding: 10,
-    borderRadius: 5,
-    fontSize: 20
+    borderRadius: 10,
+    borderColor: '#edf4ff',
+    fontSize: 20,
+    backgroundColor: '#edf4ff'
   },
   h1: {
     fontSize: 50,
     fontWeight: 'bold',
-    marginBottom: 30
+    marginBottom: 30,
+    color: 'black'
   },
   label: {
     width: '80%',
