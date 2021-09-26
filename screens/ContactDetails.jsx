@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     marginBottom: 5,
-    alignSelf: 'center',
+    alignSelf: 'stretch',
+    textAlign: 'center',
     marginTop: 60
   },
   label: {
