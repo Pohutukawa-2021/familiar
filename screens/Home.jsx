@@ -37,8 +37,10 @@ function Home (props) {
   return (
 
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
+      <View style={styles.textBox}>
         <Text style={styles.label}>familiar</Text>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
 
         {data.length > 0
           ? <View style={styles.cardsContainer}>
@@ -56,8 +58,8 @@ function Home (props) {
         <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
           <Text style={styles.buttonText}>Add new contact</Text>
         </Pressable>
-        <Button title='Set' onPress={handleSet} />
-        <Button title='Clear' onPress={handleClear} />
+        {/* <Button title='Set' onPress={handleSet} />
+        <Button title='Clear' onPress={handleClear} /> */}
       </View>
     </View>
   )
@@ -83,10 +85,19 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: '100%'
   },
+  textBox: {
+    marginTop: 0,
+    width: '100%',
+    borderBottomWidth: 1,
+    borderColor: 'darkgrey',
+    backgroundColor: '#22CAFF'
+  },
   label: {
     alignSelf: 'center',
-    fontSize: 25,
-    color: 'black'
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: 30
   },
   buttonView: {
     width: '100%',
