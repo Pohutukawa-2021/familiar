@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   editText: {
-    fontSize: 20,
+    fontSize: 25,
     color: 'white',
     alignSelf: 'center',
     textDecorationLine: 'underline'

@@ -39,12 +39,11 @@ function Home (props) {
     <View style={styles.container}>
       <View style={styles.textBox}>
         <Text style={styles.label}>familiar</Text>
-      </View>
-
-      <View style={styles.buttonView}>
-        <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
+        <View style={styles.buttonView}>
           <Text style={styles.buttonText}>+</Text>
-        </Pressable>
+          <Pressable onPress={() => props.navigation.navigate('Add')}>
+          </Pressable>
+        </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
@@ -115,15 +114,12 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     position: 'absolute',
-    top: 25,
-    right: 10
-  },
-  button: {
+    top: 36,
+    right: 20
   },
   buttonText: {
-    fontSize: 60,
+    fontSize: 45,
     color: 'white'
-    // alignSelf: 'flex-end'
   }
 })
 
