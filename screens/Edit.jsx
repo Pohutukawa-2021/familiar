@@ -58,7 +58,7 @@ function Edit (props) {
           showsVerticalScrollIndicator={false}
           style={styles.innerContainer}
         >
-          <Text style={styles.h1}>Edit</Text>
+          <Text style={styles.h1}>Update</Text>
           <Text style={styles.label}>Name:</Text>
           <TextInput
             style={styles.input}

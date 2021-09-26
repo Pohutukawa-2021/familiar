@@ -48,7 +48,7 @@ function Add (props) {
 
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
-        <Text style={styles.h1}>Add</Text>
+        <Text style={styles.h1}>New Contact</Text>
         <Text style={styles.label}>Name:</Text>
         <TextInput
           style={styles.input}
@@ -87,7 +87,7 @@ function Add (props) {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#22CAFF',
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
@@ -100,13 +100,16 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 1,
     padding: 10,
-    borderRadius: 5,
-    fontSize: 20
+    borderRadius: 10,
+    borderColor: 'white',
+    fontSize: 20,
+    backgroundColor: 'white'
   },
   h1: {
     fontSize: 50,
     fontWeight: 'bold',
-    marginBottom: 30
+    marginBottom: 30,
+    color: 'white'
   },
   label: {
     width: '80%',

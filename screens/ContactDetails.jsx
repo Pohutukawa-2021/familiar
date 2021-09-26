@@ -61,7 +61,7 @@ function ContactDetails (props) {
           {name}
         </Text>
         <Pressable style={styles.navEdit} onPress={edit}>
-          <Text style={styles.buttonText}>Edit</Text>
+          <Text style={styles.editText}>edit</Text>
         </Pressable>
       </View>
 
@@ -110,15 +110,10 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     width: '100%',
-    // height: '25%',
-    // backgroundColor: 'red',
     justifyContent: 'space-around',
     alignItems: 'flex-end'
   },
   navEdit: {
-    // position: 'absolute',
-    // top: 20,
-    // left: 10,
     alignSelf: 'center',
     marginBottom: 60
   },
@@ -160,6 +155,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     alignSelf: 'center'
+  },
+  editText: {
+    fontSize: 20,
+    color: 'white',
+    alignSelf: 'center',
+    textDecorationLine: 'underline'
   }
 })
 
