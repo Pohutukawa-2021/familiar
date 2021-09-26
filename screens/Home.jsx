@@ -39,11 +39,11 @@ function Home (props) {
     <View style={styles.container}>
       <View style={styles.textBox}>
         <Text style={styles.label}>familiar</Text>
-        <View style={styles.buttonView}>
+      </View>
+      <View style={styles.buttonView}>
+        <Pressable onPress={() => props.navigation.navigate('Add')}>
           <Text style={styles.buttonText}>+</Text>
-          <Pressable onPress={() => props.navigation.navigate('Add')}>
-          </Pressable>
-        </View>
+        </Pressable>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
