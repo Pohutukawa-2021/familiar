@@ -29,7 +29,7 @@ function Card (props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 145,
+    width: 125,
     height: 200,
     margin: 5,
     padding: 5
