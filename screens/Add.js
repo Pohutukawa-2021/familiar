@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react'
+
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, TextInput, Pressable,ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Pressable,
+  ScrollView
+} from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
 import { saveData, readData } from '../helpers/helperFunc'
 
-function Add (props) {
+function Add(props) {
   const isFocused = useIsFocused() // detetcs when page is rendered
 
   const [addForm, setAddForm] = useState({
@@ -24,7 +33,7 @@ function Add (props) {
     })
   }, [isFocused])
 
-  function handleOnChangeAdd (name, value) {
+  function handleOnChangeAdd(name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -32,7 +41,7 @@ function Add (props) {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd () {
+  async function handlePressAdd() {
     // adds date into form object to be saved
     const form = {
       ...addForm,
@@ -45,15 +54,17 @@ function Add (props) {
   }
 
   return (
-
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.innerContainer}
+      >
         <Text style={styles.h1}>New Contact</Text>
         <Text style={styles.label}>Name:</Text>
         <TextInput
           style={styles.input}
           value={addForm.name}
-          placeholder='name'
+          placeholder="name"
           keyboardType="default"
           onChangeText={(value) => handleOnChangeAdd('name', value)}
         />
@@ -61,7 +72,7 @@ function Add (props) {
         <TextInput
           style={styles.input}
           value={addForm.number}
-          placeholder='number'
+          placeholder="number"
           keyboardType="numeric"
           onChangeText={(value) => handleOnChangeAdd('number', value)}
         />
@@ -69,18 +80,17 @@ function Add (props) {
         <TextInput
           style={styles.input}
           value={addForm.frequency}
-          placeholder='frequency in days'
+          placeholder="frequency in days"
           keyboardType="default"
           onChangeText={(value) => handleOnChangeAdd('frequency', value)}
         />
         <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePressAdd} >
+          <Pressable style={styles.button} onPress={handlePressAdd}>
             <Text style={styles.buttonText}>Add</Text>
           </Pressable>
         </View>
       </ScrollView>
-    </View >
-
+    </View>
   )
 }
 
@@ -96,7 +106,7 @@ export const styles = StyleSheet.create({
     marginTop: 40
   },
   input: {
-    width: '100%',
+    width: '95%',
     marginBottom: 15,
     borderWidth: 1,
     padding: 10,
