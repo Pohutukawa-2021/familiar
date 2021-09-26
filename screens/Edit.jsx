@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 /* eslint-disable-next-line */
 import {
-  StyleSheet,
   View,
   TextInput,
   Text,
@@ -58,7 +57,7 @@ function Edit (props) {
           showsVerticalScrollIndicator={false}
           style={styles.innerContainer}
         >
-          <Text style={styles.h1}>Edit</Text>
+          <Text style={styles.h1}>Update</Text>
           <Text style={styles.label}>Name:</Text>
           <TextInput
             style={styles.input}

@@ -2,22 +2,21 @@ import React from 'react'
 /* eslint-disable-next-line */
 import {
   StyleSheet,
-  Button,
   View,
   Text,
-  Alert,
   Pressable,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native'
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function ContactDetails(props) {
+function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
   // updates contact lastCalled property and redirects back to home
-  async function handlePress() {
+  async function handlePress () {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -38,7 +37,7 @@ function ContactDetails(props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete() {
+  async function handleDelete () {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -49,7 +48,7 @@ function ContactDetails(props) {
     props.navigation.navigate('Home')
   }
 
-  function edit() {
+  function edit () {
     props.navigation.navigate('Edit', { contact })
   }
 
@@ -60,7 +59,16 @@ function ContactDetails(props) {
         <Text numberOfLines={2} ellipsizeMode="tail" style={styles.h1}>
           {name}
         </Text>
+        <Pressable style={styles.navEdit} onPress={edit}>
+          <Text style={styles.editText}>edit</Text>
+        </Pressable>
       </View>
+
+      <Pressable style={styles.navDelete} onPress={handleDelete}>
+        <Image style={styles.image}
+          source= {require('../assets/delete.png')}/>
+      </Pressable>
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.innerContainer}
@@ -84,15 +92,10 @@ function ContactDetails(props) {
               numberOfLines={1}
               ellipsizeMode="tail"
               style={styles.buttonText}
-            >{`Call ${name}`}</Text>
-          </Pressable>
-          <Pressable style={styles.button} onPress={edit}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </Pressable>
-          <Pressable style={styles.button} onPress={handleDelete}>
-            <Text style={styles.buttonText}>Delete</Text>
+            >Call</Text>
           </Pressable>
         </View>
+
       </ScrollView>
     </View>
   )
@@ -105,12 +108,23 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
+  image: {
+    width: 40,
+    height: 40
+  },
   topContainer: {
     width: '100%',
-    height: '35%',
-    // backgroundColor: 'red',
     justifyContent: 'space-around',
     alignItems: 'flex-end'
+  },
+  navEdit: {
+    alignSelf: 'center',
+    marginBottom: 60
+  },
+  navDelete: {
+    position: 'absolute',
+    top: 20,
+    right: 20
   },
   innerContainer: {
     width: '80%',
@@ -121,9 +135,9 @@ const styles = StyleSheet.create({
     fontSize: 60,
     color: 'white',
     fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: 5,
     alignSelf: 'center',
-    padding: 20
+    marginTop: 60
   },
   label: {
     width: '80%',
@@ -145,6 +159,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     alignSelf: 'center'
+  },
+  editText: {
+    fontSize: 20,
+    color: 'white',
+    alignSelf: 'center',
+    textDecorationLine: 'underline'
   }
 })
 

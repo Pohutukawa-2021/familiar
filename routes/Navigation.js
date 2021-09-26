@@ -1,42 +1,72 @@
 import * as React from 'react'
 /* eslint-disable-next-line */
-import { Text, View } from "react-native";
-import { NavigationContainer } from '@react-navigation/native'
+import { Image } from "react-native";
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
 import Home from '../screens/Home'
 import Add from '../screens/Add'
 import Edit from '../screens/Edit'
 import History from '../screens/History'
-// import Loading from '../screens/Loading'
 import ContactDetails from '../screens/ContactDetails'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createDrawerNavigator } from '@react-navigation/drawer'
 
-// const Drawer = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 function tabNavigation () {
   return (
-    <Tab.Navigator >
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveBackgroundColor: '#22CAFF',
+        tabBarInactiveBackgroundColor: '#22CAFF',
+        tabBarStyle: [{ display: 'flex' }, null]
+      }}>
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, focused, color }) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source= {require('../assets/home.png')}
+              />)
+          }
+        }}
       />
-      {/* <Tab.Screen name="Add" component={Add} options={{ headerShown: false }} /> */}
       <Tab.Screen
         name="History"
         component={History}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, focused, color }) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source= {require('../assets/history.png')}
+              />)
+          }
+        }}
       />
     </Tab.Navigator>
   )
 }
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    card: '#22CAFF',
+    text: 'white',
+    primary: 'white'
+  }
+}
+
 function StackNavigation () {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator >
         <Stack.Screen
           name="tabNavigation"
@@ -51,23 +81,4 @@ function StackNavigation () {
   )
 }
 
-// function Navigation () {
-//   return (
-//     <NavigationContainer>
-//       <Drawer.Navigator initialRouteName="Home">
-//         <Drawer.Screen
-//           name="Home"
-//           component={stackNavigation} /* options={{ title: '' }} */
-//         />
-//         {/* <Drawer.Screen name="Add" component={Add} />
-//         <Drawer.Screen name="Edit" component={Edit} />
-//         <Drawer.Screen name="History" component={History} />
-//         <Drawer.Screen name="Contact Details" component={ContactDetails} /> */}
-//         <Drawer.Screen name="Loading" component={Loading} />
-//       </Drawer.Navigator>
-//     </NavigationContainer>
-//   )
-// }
-
 export default StackNavigation
-// export default Navigation
