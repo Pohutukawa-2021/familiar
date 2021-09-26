@@ -2,12 +2,11 @@ import React from 'react'
 /* eslint-disable-next-line */
 import {
   StyleSheet,
-  Button,
   View,
   Text,
-  Alert,
   Pressable,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native'
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
@@ -66,7 +65,8 @@ function ContactDetails (props) {
       </View>
 
       <Pressable style={styles.navDelete} onPress={handleDelete}>
-        <Text style={styles.buttonText}>Delete</Text>
+        <Image style={styles.image}
+          source= {require('../assets/delete.png')}/>
       </Pressable>
 
       <ScrollView
@@ -108,6 +108,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
+  image: {
+    width: 40,
+    height: 40
+  },
   topContainer: {
     width: '100%',
     justifyContent: 'space-around',
@@ -120,7 +124,7 @@ const styles = StyleSheet.create({
   navDelete: {
     position: 'absolute',
     top: 20,
-    right: 10
+    right: 20
   },
   innerContainer: {
     width: '80%',

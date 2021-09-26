@@ -60,8 +60,8 @@ function Home (props) {
           : <Text>Press + to add some contacts!</Text>
         }
       </ScrollView>
-      <Button title='Set' onPress={handleSet} />
-      <Button title='Clear' onPress={handleClear} />
+      {/* <Button title='Set' onPress={handleSet} />
+      <Button title='Clear' onPress={handleClear} /> */}
 
     </View>
   )
@@ -114,17 +114,11 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   buttonView: {
-    // width: '100%',
     position: 'absolute',
     top: 25,
     right: 10
   },
   button: {
-    // backgroundColor: '#5AF160'
-    // width: '80%',
-    // alignSelf: 'center',
-    // padding: 10,
-    // borderRadius: 35
   },
   buttonText: {
     fontSize: 60,

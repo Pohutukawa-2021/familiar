@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, TextInput, Button, Pressable,ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable,ScrollView } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
 import { saveData, readData } from '../helpers/helperFunc'

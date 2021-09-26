@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 /* eslint-disable-next-line */
 import {
-  StyleSheet,
   View,
   TextInput,
   Text,
