@@ -12,12 +12,12 @@ import {
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function ContactDetails(props) {
+function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
   // updates contact lastCalled property and redirects back to home
-  async function handlePress() {
+  async function handlePress () {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -38,7 +38,7 @@ function ContactDetails(props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete() {
+  async function handleDelete () {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -49,7 +49,7 @@ function ContactDetails(props) {
     props.navigation.navigate('Home')
   }
 
-  function edit() {
+  function edit () {
     props.navigation.navigate('Edit', { contact })
   }
 

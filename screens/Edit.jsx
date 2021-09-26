@@ -80,7 +80,7 @@ function Edit (props) {
             style={styles.input}
             value={editForm.frequency}
             placeholder="frequency"
-            keyboardType="default"
+            keyboardType="numeric"
             onChangeText={(value) => handleOnChangeEdit('frequency', value)}
           />
           <View style={styles.buttonView}>

@@ -58,8 +58,8 @@ function Home (props) {
         <Pressable style={styles.button} onPress={() => props.navigation.navigate('Add')}>
           <Text style={styles.buttonText}>Add new contact</Text>
         </Pressable>
-        {/* <Button title='Set' onPress={handleSet} />
-        <Button title='Clear' onPress={handleClear} /> */}
+        <Button title='Set' onPress={handleSet} />
+        <Button title='Clear' onPress={handleClear} />
       </View>
     </View>
   )
