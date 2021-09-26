@@ -87,7 +87,7 @@ function Add (props) {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#22CAFF',
+    backgroundColor: 'white',
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
@@ -101,15 +101,15 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    borderColor: 'white',
+    borderColor: '#edf4ff',
     fontSize: 20,
-    backgroundColor: 'white'
+    backgroundColor: '#edf4ff'
   },
   h1: {
     fontSize: 50,
     fontWeight: 'bold',
     marginBottom: 30,
-    color: 'white'
+    color: 'black'
   },
   label: {
     width: '80%',
