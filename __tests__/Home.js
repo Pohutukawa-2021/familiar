@@ -1,7 +1,7 @@
 import React from 'react'
 // import { fireEvent } from '@testing-library/react-native'
 import Home from '../screens/Home'
-import { render } from '@testing-library/react-native'
+import { renderWithNavigation } from '../jest/test-utils'
 
 jest.mock('../helpers/helperFunc')
 
@@ -13,12 +13,10 @@ afterAll(() => {
 // buttons redirect appropriatly
 // right amount of cards
 
-test('home screen displays message when no contacts have been added', async () => {
-  // const mockNavigate = jest.fn()
+it('home screen displays message when no contacts have been added', () => {
+  const mockNavigate = jest.fn()
 
-  const { getByText } = render(
-    <Home />
-  )
+  const { getByText } = renderWithNavigation(<Home navigation={{ navigate: mockNavigate }}/>, 'stack')
 
-  expect(getByText(/fam/)).toBe(false)
+  expect(getByText(/Press/)).toBeTruthy()
 })
