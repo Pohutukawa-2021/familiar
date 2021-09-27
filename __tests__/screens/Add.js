@@ -4,7 +4,7 @@ import Add from '../../screens/Add'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { saveData, readData } from '../../helpers/helperFunc'
 
-jest.mock('../../helpers/helperFunc')
+jest.mock('../../helpers/helperFunc', () => { return { ...jest.requireActual('../../helpers/helperFunc'), saveData: jest.fn(), readData: jest.fn() } })
 
 afterAll(() => {
   jest.resetAllMocks()
@@ -27,7 +27,7 @@ test('Save input values to the localStorage', async () => {
   await fireEvent.changeText(frequencyInput, '22')
 
   saveData.mockImplementation(() => Promise.resolve())
-  readData.mockImplementation(() => Promise.resolve([]))
+  readData.mockImplementation(() => Promise.resolve())
 
   await fireEvent.press(getByText('Add'))
 
