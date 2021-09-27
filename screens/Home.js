@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, Button, TouchableOpacity,Pressable,ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Pressable,
+  ScrollView
+} from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
 import { saveData, readData, clear } from '../helpers/helperFunc'
 
 import dummyData from '../helpers/dummyData'
 
-function Home (props) {
+function Home(props) {
   const [data, setData] = useState([])
 
   const isFocused = useIsFocused()
 
-  useEffect(() => {
-    async function getData () {
+  useEffect(async () => {
+    async function getData() {
       const data = await readData()
       if (data) {
         setData(data)
@@ -21,21 +28,20 @@ function Home (props) {
         setData([])
       }
     }
-    getData()
+    await getData()
   }, [isFocused])
 
   // for development purposes only, DELETE this later
-  function handleSet () {
+  function handleSet() {
     saveData(dummyData)
   }
 
   // for development purposes only, DELETE this later
-  function handleClear () {
+  function handleClear() {
     clear()
   }
 
   return (
-
     <View style={styles.container}>
       <View style={styles.textBox}>
         <Text style={styles.label}>familiar</Text>
@@ -46,22 +52,32 @@ function Home (props) {
         </Pressable>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
-
-        {data.length > 0
-          ? <View style={styles.cardsContainer}>
-            {data.map(contact => {
-              return <TouchableOpacity style={styles.card} key={'tapp' + contact.name} onPress={() => props.navigation.navigate('Contact Details', { contact })}>
-                <Card key={contact.name} {...contact} />
-              </TouchableOpacity>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.innerContainer}
+      >
+        {data.length > 0 ? (
+          <View style={styles.cardsContainer}>
+            {data.map((contact) => {
+              return (
+                <TouchableOpacity
+                  style={styles.card}
+                  key={'tapp' + contact.name}
+                  onPress={() =>
+                    props.navigation.navigate('Contact Details', { contact })
+                  }
+                >
+                  <Card key={contact.name} {...contact} />
+                </TouchableOpacity>
+              )
             })}
           </View>
-          : <Text>Press + to add some contacts!</Text>
-        }
+        ) : (
+          <Text>Press + to add some contacts!</Text>
+        )}
       </ScrollView>
       {/* <Button title='Set' onPress={handleSet} />
       <Button title='Clear' onPress={handleClear} /> */}
-
     </View>
   )
 }
