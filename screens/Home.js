@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { color, saveData, readData, clear } from '../helpers/helperFunc'
+import moment from 'moment'
 /* eslint-disable-next-line */
 import {
   StyleSheet,
@@ -6,18 +8,18 @@ import {
   View,
   TouchableOpacity,
   Pressable,
-  ScrollView
+  ScrollView,
+  Button
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
-import { saveData, readData, clear } from '../helpers/helperFunc'
 
 import dummyData from '../helpers/dummyData'
 
 function Home (props) {
   const [data, setData] = useState([])
-
   const isFocused = useIsFocused()
+  const sortOrder = { red: 0, orange: 1, green: 2 }
 
   useEffect(() => {
     async function getData () {
@@ -59,6 +61,8 @@ function Home (props) {
         {data.length > 0 ? (
           <View style={styles.cardsContainer}>
             {data.map((contact) => {
+              const difference = moment().diff(contact.lastCall, 'days')
+              const boxColor = color(difference, contact.frequency)
               return (
                 <TouchableOpacity
                   style={styles.card}
@@ -67,10 +71,21 @@ function Home (props) {
                     props.navigation.navigate('Contact Details', { contact })
                   }
                 >
-                  <Card key={contact.name} {...contact} />
+                  <Card key={contact.name} {...contact}
+                    color={
+                      boxColor === '#E00000'
+                        ? 'red'
+                        : boxColor === '#FF971D'
+                          ? 'orange'
+                          : 'green'
+                    }
+                  />
                 </TouchableOpacity>
               )
-            })}
+            }).sort(function (p1, p2) {
+              return sortOrder[p1.props.children.props.color] - sortOrder[p2.props.children.props.color]
+            })
+            }
           </View>
         ) : (
           <Text style={styles.emptyText}>Press + to add some contacts!</Text>

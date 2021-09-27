@@ -2,7 +2,7 @@ export default [
   {
     name: 'Dad',
     number: '021-1234567',
-    frequency: '7',
+    frequency: '70',
     lastCall: '2021-09-20T23:11:17+12:00'
   },
   {

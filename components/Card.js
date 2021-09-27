@@ -11,7 +11,6 @@ function Card (props) {
   const boxColor = {
     backgroundColor: color(difference, props.frequency)
   }
-
   return (
     <View style={styles.container}>
       <View style={[styles.colorBox, boxColor]} testID='colorBox'/>
