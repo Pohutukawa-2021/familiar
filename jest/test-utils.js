@@ -7,17 +7,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
-export function renderWithNavigation(ui, type) {
+export function renderWithNavigation(ui, type, routeParams = {}) {
   const content = (
     <NavigationContainer>
       {type.toLowerCase() === 'stack' && (
         <Stack.Navigator initialRouteName="test">
-          <Stack.Screen name="test">{(props) => ui}</Stack.Screen>
+          <Stack.Screen name="test" initialParams={routeParams}>
+            {(props) => ({ ...ui, props: { ...props, ...ui.props } })}
+          </Stack.Screen>
         </Stack.Navigator>
       )}
       {type.toLowerCase() === 'tab' && (
         <Tab.Navigator initialRouteName="test">
-          <Tab.Screen name="test">{(props) => ui}</Tab.Screen>
+          <Tab.Screen name="test" initialParams={routeParams}>
+            {(props) => ({ ...ui, props: { ...props, ...ui.props } })}
+          </Tab.Screen>
         </Tab.Navigator>
       )}
     </NavigationContainer>
