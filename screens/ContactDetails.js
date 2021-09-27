@@ -6,7 +6,10 @@ import {
   Text,
   Pressable,
   ScrollView,
-  Image
+  Image,
+  Linking,
+  Platform,
+  Alert
 } from 'react-native'
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
@@ -27,7 +30,14 @@ function ContactDetails(props) {
       }
     })
     await saveData(newData)
-    props.navigation.navigate('Home')
+    await call(number)
+    //props.navigation.navigate('Home')
+  }
+
+  function call(phNum) {
+    const numToCall =
+      Platform.OS === 'android' ? `tel:${phNum}` : `telprompt:${phNum}`
+    return Linking.openURL(numToCall).catch((err) => console.log(err))
   }
 
   // dynamically changes the box color

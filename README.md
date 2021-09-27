@@ -58,3 +58,9 @@ Needs to be implemented
 - Friday 24th
   - Styling
   - Add/ color functionality
+- Saturday 25th
+  - Working on tickets
+- Sunday 26th
+  - Tidying up app
+- Monday
+  - Testing
