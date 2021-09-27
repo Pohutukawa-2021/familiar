@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll",
+    "test": "jest ./__tests__ --watchAll",
     "test:e2e": "detox jest"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "@react-navigation/drawer": "^6.1.4",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
+    "@testing-library/react-hooks": "^7.0.2",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
     "moment": "^2.29.1",

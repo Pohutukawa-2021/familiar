@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent } from '@testing-library/react-native'
+import { fireEvent, cleanup } from '@testing-library/react-native'
 import Add from '../../screens/Add'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { saveData, readData } from '../../helpers/helperFunc'
@@ -9,6 +9,8 @@ jest.mock('../../helpers/helperFunc')
 afterAll(() => {
   jest.resetAllMocks()
 })
+
+afterEach(cleanup)
 
 test('Save input values to the localStorage', async () => {
   const mockNavigate = jest.fn()

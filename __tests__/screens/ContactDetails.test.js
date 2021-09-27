@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent } from '@testing-library/react-native'
+import { fireEvent, cleanup } from '@testing-library/react-native'
 import ContactDetails from '../../screens/ContactDetails'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { saveData, readData, color } from '../../helpers/helperFunc'
@@ -11,6 +11,8 @@ jest.mock('moment')
 afterAll(() => {
   jest.resetAllMocks()
 })
+
+afterEach(cleanup)
 
 let name, number, frequency, lastCall
 
