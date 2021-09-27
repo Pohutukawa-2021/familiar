@@ -56,7 +56,7 @@ function Home (props) {
               </TouchableOpacity>
             })}
           </View>
-          : <Text>Press + to add some contacts!</Text>
+          : <Text id='welcomeMessage'>Press + to add some contacts!</Text>
         }
       </ScrollView>
       {/* <Button title='Set' onPress={handleSet} />
