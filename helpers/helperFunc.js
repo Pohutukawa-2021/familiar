@@ -52,12 +52,12 @@ export function formCheck (form) {
   }
   if (isNaN(Number(number)) || number === '') {
     err === ''
-      ? err += 'Number '
+      ? err += 'Number'
       : err += ', Number'
   }
   if (isNaN(Number(frequency)) || frequency === '') {
     err === ''
-      ? err += 'Frequency '
+      ? err += 'Frequency'
       : err += ', Frequency'
   }
   return err
