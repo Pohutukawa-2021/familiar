@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { color, saveData, readData, clear, STORAGE_KEY } from '../helpers/helperFunc'
+import { color, saveData, readData, clear, STORAGE_KEY, formCheck } from '../helpers/helperFunc'
 
 describe('Color returns the correct color', () => {
   it('returns green when difference is less than frequency', () => {
@@ -86,5 +86,38 @@ describe('Async storage, can save read and clear data', () => {
     await clear()
     const actual = JSON.parse(await AsyncStorage.getItem(STORAGE_KEY))
     expect(actual).toBeNull()
+  })
+})
+
+describe('correct error message being returned for formCheck', () => {
+  it('returns a message for each field when all fields are empty', () => {
+    const form = { name: '', number: '', frequency: '' }
+    const expected = 'Name, Number, Frequency'
+    const actual = formCheck(form)
+    expect(expected).toEqual(actual)
+  })
+  it('returns the error message for one error with no commas if only one field is empty', () => {
+    const form1 = { name: '', number: '1', frequency: '1' }
+    const form2 = { name: 'a', number: '', frequency: '1' }
+    const form3 = { name: 'a', number: '1', frequency: '' }
+
+    const expected1 = 'Name'
+    const expected2 = 'Number'
+    const expected3 = 'Frequency'
+
+    const actual1 = (formCheck(form1))
+    const actual2 = (formCheck(form2))
+    const actual3 = (formCheck(form3))
+
+    expect(expected1).toEqual(actual1)
+    expect(expected2).toEqual(actual2)
+    expect(expected3).toEqual(actual3)
+  })
+  // number inputs are number
+  it('Number and frequency will have error when input is not a number', () => {
+    const form = { name: 'test', number: 'a', frequency: 'b' }
+    const expected = 'Number, Frequency'
+    const actual = formCheck(form)
+    expect(expected).toEqual(actual)
   })
 })

@@ -7,11 +7,12 @@ import {
   View,
   TextInput,
   Pressable,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
-import { saveData, readData } from '../helpers/helperFunc'
+import { saveData, readData, formCheck } from '../helpers/helperFunc'
 
 function Add (props) {
   const isFocused = useIsFocused() // detetcs when page is rendered
@@ -46,10 +47,19 @@ function Add (props) {
       ...addForm,
       lastCall: moment().format()
     }
-    const data = await readData()
-    data
-      ? saveData([...data, form]) && props.navigation.navigate('Home')
-      : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
+
+    const err = formCheck(form)
+    if (err !== '') {
+      Alert.alert(
+        'Error',
+        `Invalid field(s): ${err}`
+      )
+    } else {
+      const data = await readData()
+      data
+        ? saveData([...data, form]) && props.navigation.navigate('Home')
+        : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
+    }
   }
 
   return (
