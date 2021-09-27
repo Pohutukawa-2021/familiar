@@ -10,6 +10,7 @@ import Add from '../screens/Add'
 import Edit from '../screens/Edit'
 import History from '../screens/History'
 import ContactDetails from '../screens/ContactDetails'
+import AddOnFeatures from '../screens/AddOnFeatures'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -33,6 +34,21 @@ function tabNavigation() {
               <Image
                 style={{ width: size, height: size }}
                 source={require('../assets/home.png')}
+              />
+            )
+          }
+        }}
+      />
+      <Tab.Screen
+        name="More"
+        component={AddOnFeatures}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, focused, color }) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source={require('../assets/history.png')}
               />
             )
           }
