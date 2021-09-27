@@ -41,3 +41,24 @@ export function color (difference, frequency) {
     return '#E00000'
   }
 }
+
+// takes in a form object, returns custom error string
+export function formCheck (form) {
+  const { name, number, frequency } = form
+
+  let err = ''
+  if (typeof name !== 'string' || name === '') {
+    err += 'Name'
+  }
+  if (isNaN(Number(number)) || number === '') {
+    err === ''
+      ? err += 'Number '
+      : err += ', Number'
+  }
+  if (isNaN(Number(frequency)) || frequency === '') {
+    err === ''
+      ? err += 'Frequency '
+      : err += ', Frequency'
+  }
+  return err
+}

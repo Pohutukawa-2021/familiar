@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 /* eslint-disable-next-line */
-import { View, TextInput, Text, Pressable, ScrollView } from 'react-native'
+import { View, TextInput, Text, Pressable, ScrollView, Alert } from 'react-native'
 import { styles } from './Add'
-import { readData, saveData } from '../helpers/helperFunc'
+import { readData, saveData, formCheck } from '../helpers/helperFunc'
 function Edit (props) {
   let name, number, frequency, lastCall
 
@@ -31,17 +31,25 @@ function Edit (props) {
     const { name, number, frequency, lastCall } = editForm
     const contact = { name, number, frequency, lastCall } // construct object, only used to send to ContactDetails component
 
-    const data = await readData()
+    const err = formCheck(editForm)
+    if (err !== '') {
+      Alert.alert(
+        'Error',
+        `Invalid field(s): ${err}`
+      )
+    } else {
+      const data = await readData()
 
-    const newData = data.map((value) => {
-      if (value.name === initalName) {
-        const newValue = { name, number, frequency, lastCall }
-        return newValue
-      } else return value
-    })
+      const newData = data.map((value) => {
+        if (value.name === initalName) {
+          const newValue = { name, number, frequency, lastCall }
+          return newValue
+        } else return value
+      })
 
-    saveData(newData)
-    props.navigation.navigate('Contact Details', { contact })
+      saveData(newData)
+      props.navigation.navigate('Contact Details', { contact })
+    }
   }
 
   return (
