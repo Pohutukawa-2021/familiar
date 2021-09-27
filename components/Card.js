@@ -14,7 +14,7 @@ function Card (props) {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.colorBox, boxColor]} />
+      <View style={[styles.colorBox, boxColor]} testID='colorBox'/>
       <View style={styles.textDetails}>
         <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{props.name}</Text>
         <Text numberOfLines={1} ellipsizeMode='tail'>Last Called:</Text>
