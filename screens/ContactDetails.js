@@ -11,12 +11,12 @@ import {
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function ContactDetails (props) {
+function ContactDetails(props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
   // updates contact lastCalled property and redirects back to home
-  async function handlePress () {
+  async function handlePress() {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -26,7 +26,7 @@ function ContactDetails (props) {
         return value
       }
     })
-    saveData(newData)
+    await saveData(newData)
     props.navigation.navigate('Home')
   }
 
@@ -37,7 +37,7 @@ function ContactDetails (props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete () {
+  async function handleDelete() {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -48,14 +48,17 @@ function ContactDetails (props) {
     props.navigation.navigate('Home')
   }
 
-  function edit () {
+  function edit() {
     props.navigation.navigate('Edit', { contact })
   }
 
   // Note: For last called text, the date format is set in line
   return (
     <View style={styles.container}>
-      <View style={[styles.topContainer, boxColor]}>
+      <View
+        testID="indicator-background"
+        style={[styles.topContainer, boxColor]}
+      >
         <Text numberOfLines={2} ellipsizeMode="tail" style={styles.h1}>
           {name}
         </Text>
@@ -65,8 +68,7 @@ function ContactDetails (props) {
       </View>
 
       <Pressable style={styles.navDelete} onPress={handleDelete}>
-        <Image style={styles.image}
-          source= {require('../assets/delete.png')}/>
+        <Image style={styles.image} source={require('../assets/delete.png')} />
       </Pressable>
 
       <ScrollView
@@ -92,10 +94,11 @@ function ContactDetails (props) {
               numberOfLines={1}
               ellipsizeMode="tail"
               style={styles.buttonText}
-            >Call</Text>
+            >
+              Call
+            </Text>
           </Pressable>
         </View>
-
       </ScrollView>
     </View>
   )
@@ -136,7 +139,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     marginBottom: 5,
-    alignSelf: 'center',
+    alignSelf: 'stretch',
+    textAlign: 'center',
     marginTop: 60
   },
   label: {

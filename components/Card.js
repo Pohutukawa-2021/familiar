@@ -14,7 +14,7 @@ function Card (props) {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.colorBox, boxColor]} />
+      <View style={[styles.colorBox, boxColor]} testID='colorBox'/>
       <View style={styles.textDetails}>
         <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{props.name}</Text>
         <Text numberOfLines={1} ellipsizeMode='tail'>Last Called:</Text>
@@ -27,13 +27,16 @@ function Card (props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 125,
-    height: 200,
+    width: 130,
+    height: 210,
     marginTop: 5,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    padding: 5
+    paddingTop: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingBottom: 0
   },
   title: {
     fontSize: 20,

@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react'
 /* eslint-disable-next-line */
-import {
-  View,
-  TextInput,
-  Text,
-  Pressable,
-  ScrollView
-} from 'react-native'
+import { View, TextInput, Text, Pressable, ScrollView } from 'react-native'
 import { styles } from './Add'
 import { readData, saveData } from '../helpers/helperFunc'
 function Edit (props) {
