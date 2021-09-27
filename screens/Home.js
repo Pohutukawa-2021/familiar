@@ -14,13 +14,13 @@ import { saveData, readData, clear } from '../helpers/helperFunc'
 
 import dummyData from '../helpers/dummyData'
 
-function Home(props) {
+function Home (props) {
   const [data, setData] = useState([])
 
   const isFocused = useIsFocused()
 
-  useEffect(async () => {
-    async function getData() {
+  useEffect(() => {
+    async function getData () {
       const data = await readData()
       if (data) {
         setData(data)
@@ -28,16 +28,16 @@ function Home(props) {
         setData([])
       }
     }
-    await getData()
+    getData()
   }, [isFocused])
 
   // for development purposes only, DELETE this later
-  function handleSet() {
+  function handleSet () {
     saveData(dummyData)
   }
 
   // for development purposes only, DELETE this later
-  function handleClear() {
+  function handleClear () {
     clear()
   }
 
