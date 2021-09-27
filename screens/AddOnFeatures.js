@@ -36,6 +36,7 @@ function AddOnFeatures(props) {
       [
         {
           text: 'Cancel',
+          onPress: () => null,
           style: 'cancel'
         },
         {
