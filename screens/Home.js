@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, Button, TouchableOpacity,Pressable,ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Pressable,
+  ScrollView
+} from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
 import { saveData, readData, clear } from '../helpers/helperFunc'
@@ -35,7 +42,6 @@ function Home (props) {
   }
 
   return (
-
     <View style={styles.container}>
       <View style={styles.textBox}>
         <Text style={styles.label}>familiar</Text>
@@ -46,22 +52,32 @@ function Home (props) {
         </Pressable>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.innerContainer}>
-
-        {data.length > 0
-          ? <View style={styles.cardsContainer}>
-            {data.map(contact => {
-              return <TouchableOpacity style={styles.card} key={'tapp' + contact.name} onPress={() => props.navigation.navigate('Contact Details', { contact })}>
-                <Card key={contact.name} {...contact} />
-              </TouchableOpacity>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.innerContainer}
+      >
+        {data.length > 0 ? (
+          <View style={styles.cardsContainer}>
+            {data.map((contact) => {
+              return (
+                <TouchableOpacity
+                  style={styles.card}
+                  key={'tapp' + contact.name}
+                  onPress={() =>
+                    props.navigation.navigate('Contact Details', { contact })
+                  }
+                >
+                  <Card key={contact.name} {...contact} />
+                </TouchableOpacity>
+              )
             })}
           </View>
-          : <Text id='welcomeMessage'>Press + to add some contacts!</Text>
-        }
+        ) : (
+          <Text style={styles.emptyText}>Press + to add some contacts!</Text>
+        )}
       </ScrollView>
       {/* <Button title='Set' onPress={handleSet} />
       <Button title='Clear' onPress={handleClear} /> */}
-
     </View>
   )
 }
@@ -121,6 +137,11 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 45,
     color: 'white'
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: '80%',
+    color: 'grey'
   }
 })
 

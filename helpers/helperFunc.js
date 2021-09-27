@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const STORAGE_KEY = 'STORAGE_KEY'
+export const STORAGE_KEY = 'STORAGE_KEY'
 
 // this fetches data from local storage
 export async function readData () {

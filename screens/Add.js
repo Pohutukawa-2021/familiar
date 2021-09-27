@@ -6,7 +6,6 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   Pressable,
   ScrollView
 } from 'react-native'
@@ -14,7 +13,7 @@ import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
 import { saveData, readData } from '../helpers/helperFunc'
 
-function Add(props) {
+function Add (props) {
   const isFocused = useIsFocused() // detetcs when page is rendered
 
   const [addForm, setAddForm] = useState({
@@ -33,7 +32,7 @@ function Add(props) {
     })
   }, [isFocused])
 
-  function handleOnChangeAdd(name, value) {
+  function handleOnChangeAdd (name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -41,7 +40,7 @@ function Add(props) {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd() {
+  async function handlePressAdd () {
     // adds date into form object to be saved
     const form = {
       ...addForm,
@@ -81,7 +80,7 @@ function Add(props) {
           style={styles.input}
           value={addForm.frequency}
           placeholder="frequency in days"
-          keyboardType="default"
+          keyboardType="numeric"
           onChangeText={(value) => handleOnChangeAdd('frequency', value)}
         />
         <View style={styles.buttonView}>

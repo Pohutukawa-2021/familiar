@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { View, TextInput, Text, Pressable, ScrollView } from 'react-native'
 import { styles } from './Add'
 import { readData, saveData } from '../helpers/helperFunc'
-function Edit(props) {
+function Edit (props) {
   let name, number, frequency, lastCall
 
   const [initalName, setInitalName] = React.useState('') // set initail name to match in local storage (in case the name gets edited)
@@ -19,7 +19,7 @@ function Edit(props) {
     setInitalName(name)
   }, [props.route.params.contact.name])
 
-  function handleOnChangeEdit(name, value) {
+  function handleOnChangeEdit (name, value) {
     const newEditForm = {
       ...editForm,
       [name]: value
@@ -27,7 +27,7 @@ function Edit(props) {
     setEditForm(newEditForm)
   }
 
-  async function handlePressEdit() {
+  async function handlePressEdit () {
     const { name, number, frequency, lastCall } = editForm
     const contact = { name, number, frequency, lastCall } // construct object, only used to send to ContactDetails component
 
