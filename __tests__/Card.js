@@ -1,9 +1,11 @@
 import React from 'react'
-import { render } from '@testing-library/react-native'
+import { render, cleanup } from '@testing-library/react-native'
 import moment from 'moment'
 
 import Card from '../components/Card'
 import { color } from '../helpers/helperFunc'
+
+afterEach(cleanup)
 
 describe('Card component renders with correct information', () => {
   const data = {
