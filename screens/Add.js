@@ -6,7 +6,6 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   Pressable,
   ScrollView
 } from 'react-native'
@@ -81,7 +80,7 @@ function Add (props) {
           style={styles.input}
           value={addForm.frequency}
           placeholder="frequency in days"
-          keyboardType="default"
+          keyboardType="numeric"
           onChangeText={(value) => handleOnChangeAdd('frequency', value)}
         />
         <View style={styles.buttonView}>
