@@ -27,13 +27,16 @@ function Card (props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 125,
-    height: 200,
+    width: 130,
+    height: 210,
     marginTop: 5,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    padding: 5
+    paddingTop: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingBottom: 0
   },
   title: {
     fontSize: 20,

@@ -56,7 +56,7 @@ function Home (props) {
               </TouchableOpacity>
             })}
           </View>
-          : <Text>Press + to add some contacts!</Text>
+          : <Text style={styles.emptyText}>Press + to add some contacts!</Text>
         }
       </ScrollView>
       {/* <Button title='Set' onPress={handleSet} />
@@ -121,6 +121,11 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 45,
     color: 'white'
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: '80%',
+    color: 'grey'
   }
 })
 
