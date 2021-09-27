@@ -1,10 +1,10 @@
 import React from 'react'
 import { fireEvent, cleanup } from '@testing-library/react-native'
-import Add from '../screens/Add'
-import { renderWithNavigation } from '../jest/test-utils'
-import { saveData, readData } from '../helpers/helperFunc'
+import Add from '../../screens/Add'
+import { renderWithNavigation } from '../../jest/test-utils'
+import { saveData, readData } from '../../helpers/helperFunc'
 
-jest.mock('../helpers/helperFunc')
+jest.mock('../../helpers/helperFunc')
 
 afterAll(() => {
   jest.resetAllMocks()
