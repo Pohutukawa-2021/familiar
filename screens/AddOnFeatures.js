@@ -66,7 +66,7 @@ function AddOnFeatures(props) {
             <Text style={styles.buttonText}>Clear Data</Text>
           </View>
         </Pressable>
-        <Button title="Set" onPress={handleSet} />
+        {/* <Button title="Set" onPress={handleSet} /> */}
       </View>
     </View>
   )
