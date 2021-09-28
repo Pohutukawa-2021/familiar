@@ -14,21 +14,21 @@ import {
 import { saveData, readData, color, convertDays } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function ContactDetails (props) {
+function ContactDetails(props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
-  async function handlePressCall () {
+  async function handlePressCall() {
     await sendData()
     await call(number)
   }
 
-  async function handlePressCalled () {
+  async function handlePressCalled() {
     await sendData()
     props.navigation.navigate('Home')
   }
 
-  async function sendData () {
+  async function sendData() {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -45,7 +45,7 @@ function ContactDetails (props) {
     await saveData(newData)
   }
 
-  function call (phNum) {
+  function call(phNum) {
     const numToCall =
       Platform.OS === 'android' ? `tel:${phNum}` : `telprompt:${phNum}`
     return Linking.openURL(numToCall).catch((err) => console.log(err))
@@ -58,7 +58,7 @@ function ContactDetails (props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete () {
+  async function handleDelete() {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -69,7 +69,7 @@ function ContactDetails (props) {
     props.navigation.navigate('Home')
   }
 
-  function edit () {
+  function edit() {
     props.navigation.navigate('Edit', { contact })
   }
 
@@ -111,7 +111,7 @@ function ContactDetails (props) {
 
         <View style={styles.callBtn}>
           <Pressable onPress={handlePressCall}>
-            <Image source={require('../assets/call.png')} />
+            <Image testID="callButton" source={require('../assets/call.png')} />
           </Pressable>
         </View>
       </ScrollView>
@@ -122,7 +122,7 @@ function ContactDetails (props) {
             ellipsizeMode="tail"
             style={styles.buttonText}
           >
-              Already Called
+            Already Called
           </Text>
         </Pressable>
       </View>
