@@ -14,12 +14,12 @@ import {
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function ContactDetails(props) {
+function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
   // updates contact lastCalled property and redirects back to home
-  async function handlePress(toCall = false) {
+  async function handlePress (toCall = false) {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -34,11 +34,11 @@ function ContactDetails(props) {
       }
     })
     await saveData(newData)
-    toCall && (await call(number))
-    //props.navigation.navigate('Home')
+    toCall && await call(number)
+    // props.navigation.navigate('Home')
   }
 
-  function call(phNum) {
+  function call (phNum) {
     const numToCall =
       Platform.OS === 'android' ? `tel:${phNum}` : `telprompt:${phNum}`
     return Linking.openURL(numToCall).catch((err) => console.log(err))
@@ -51,7 +51,7 @@ function ContactDetails(props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete() {
+  async function handleDelete () {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -62,7 +62,7 @@ function ContactDetails(props) {
     props.navigation.navigate('Home')
   }
 
-  function edit() {
+  function edit () {
     props.navigation.navigate('Edit', { contact })
   }
 
@@ -102,15 +102,9 @@ function ContactDetails(props) {
           Last called: {moment(lastCall).format('DD/MM/YYYY')}
         </Text>
 
-        <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={() => handlePress(true)}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.buttonText}
-            >
-              Call
-            </Text>
+        <View style={styles.callBtn}>
+          <Pressable onPress={() => handlePress(true)}>
+            <Image source={require('../assets/call.png')} />
           </Pressable>
         </View>
         <View style={styles.buttonView}>
@@ -194,6 +188,10 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
     textDecorationLine: 'underline'
+  },
+  callBtn: {
+    alignSelf: 'center',
+    margin: 40
   }
 })
 
