@@ -19,7 +19,7 @@ function ContactDetails(props) {
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
   // updates contact lastCalled property and redirects back to home
-  async function handlePress(call = false) {
+  async function handlePress(toCall = false) {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -34,7 +34,7 @@ function ContactDetails(props) {
       }
     })
     await saveData(newData)
-    call && (await call(number))
+    toCall && (await call(number))
     //props.navigation.navigate('Home')
   }
 

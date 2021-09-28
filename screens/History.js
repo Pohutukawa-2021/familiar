@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   label: {
     alignSelf: 'stretch',
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: 'bold',
     color: 'white',
     marginTop: 40,
