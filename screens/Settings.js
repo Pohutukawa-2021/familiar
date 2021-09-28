@@ -94,12 +94,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#22CAFF'
   },
   label: {
-    alignSelf: 'stretch',
-    textAlign: 'center',
-    fontSize: 40,
+    textAlign: 'right',
+    fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
-    marginTop: 40,
+    marginTop: 52,
+    marginRight: 30,
     marginBottom: 10
   },
   buttonView: {

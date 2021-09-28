@@ -5,12 +5,12 @@ import { useIsFocused } from '@react-navigation/native'
 import { readData } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function History(props) {
+function History (props) {
   const [data, setData] = useState([])
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    async function getData() {
+    async function getData () {
       const data = await readData()
       if (data) {
         setData(data)
@@ -113,12 +113,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#22CAFF'
   },
   label: {
-    alignSelf: 'stretch',
-    textAlign: 'center',
-    fontSize: 35,
+    textAlign: 'right',
+    fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
-    marginTop: 40,
+    marginTop: 52,
+    marginRight: 30,
     marginBottom: 10
   }
 })
