@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
 /* eslint-disable-next-line */
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Pressable,
-  ScrollView,
-  Alert
-} from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, Alert } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
-import { saveData, readData, formCheck, convertDays } from '../helpers/helperFunc'
+import { saveData, readData, formCheck, convertDays, handleFreqChange } from '../helpers/helperFunc'
 import Slider from '@react-native-community/slider'
 
 function Add (props) {
@@ -67,35 +59,6 @@ function Add (props) {
     }
   }
 
-  function handleFreqChange (value) {
-    switch (value) {
-      case 1:
-        handleOnChangeAdd('frequency', 1)
-        break
-      case 2:
-        handleOnChangeAdd('frequency', 3)
-        break
-      case 3:
-        handleOnChangeAdd('frequency', 7)
-        break
-      case 4:
-        handleOnChangeAdd('frequency', 14)
-        break
-      case 5:
-        handleOnChangeAdd('frequency', 28)
-        break
-      case 6:
-        handleOnChangeAdd('frequency', 84)
-        break
-      case 7:
-        handleOnChangeAdd('frequency', 168)
-        break
-      case 8:
-        handleOnChangeAdd('frequency', 365)
-        break
-    }
-  }
-
   return (
     <View style={styles.container}>
       <ScrollView
@@ -125,14 +88,7 @@ function Add (props) {
           minimumValue={1}
           maximumValue={8}
           style={styles.slider}
-          onValueChange={value => handleFreqChange(value)} />
-        {/* <TextInput
-          style={styles.input}
-          value={addForm.frequency}
-          placeholder="frequency in days"
-          keyboardType="numeric"
-          onChangeText={(value) => handleOnChangeAdd('frequency', value)}
-        /> */}
+          onValueChange={value => handleFreqChange(value, handleOnChangeAdd)} />
         <View style={styles.buttonView}>
           <Pressable style={styles.button} onPress={handlePressAdd}>
             <Text style={styles.buttonText}>Add</Text>

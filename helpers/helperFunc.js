@@ -100,3 +100,34 @@ export function convertDays (frequencySource) {
       return Number(frequencySource) + ' days'
   }
 }
+
+// convert slider values to frequency input
+
+export function handleFreqChange (value, changeFunc) {
+  switch (value) {
+    case 1:
+      changeFunc('frequency', 1)
+      break
+    case 2:
+      changeFunc('frequency', 3)
+      break
+    case 3:
+      changeFunc('frequency', 7)
+      break
+    case 4:
+      changeFunc('frequency', 14)
+      break
+    case 5:
+      changeFunc('frequency', 28)
+      break
+    case 6:
+      changeFunc('frequency', 84)
+      break
+    case 7:
+      changeFunc('frequency', 168)
+      break
+    case 8:
+      changeFunc('frequency', 365)
+      break
+  }
+}
