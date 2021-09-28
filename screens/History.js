@@ -29,6 +29,29 @@ function History (props) {
     } else return 'called ' + value + ' times'
   }
 
+  function showProgress (value) {
+    const Num = Number(value)
+    cono
+    switch (Num) {
+      case (Num < 1):
+        return 'x'
+      case (Num < 3):
+        return 'test'
+      case (Num < 7):
+        return 'x'
+      case (Num < 14):
+        return 'x'
+      case (Num < 30):
+        return 'x'
+      case (Num < 60):
+        return 'x'
+      case (Num < 90):
+        return 'x'
+      default:
+        return 'default'
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.textBox}>
@@ -55,7 +78,7 @@ function History (props) {
                 >
                   <View style={styles.listItem}>
                     <View style={styles.textContainer}>
-                      <Text>{contact.name}</Text>
+                      <Text>{contact.name} {showProgress(contact.callCount)}</Text>
                     </View>
                     <View style={[styles.textContainer, styles.textCallCount]}>
                       <Text style={styles.textCallCount}>
