@@ -62,5 +62,8 @@ Needs to be implemented
   - Working on tickets
 - Sunday 26th
   - Tidying up app
-- Monday
+- Monday 27th
   - Testing
+- Tuesday 26th
+  - MVP completed
+  - Implementing strech goals
