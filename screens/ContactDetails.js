@@ -11,7 +11,7 @@ import {
   Platform,
   Alert
 } from 'react-native'
-import { saveData, readData, color } from '../helpers/helperFunc'
+import { saveData, readData, color, convertDays } from '../helpers/helperFunc'
 import moment from 'moment'
 
 function ContactDetails(props) {
@@ -103,7 +103,7 @@ function ContactDetails(props) {
           Number: {number}
         </Text>
         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
-          Frequency: {frequency}
+          Call Frequency: {convertDays(frequency)}
         </Text>
         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Last called: {moment(lastCall).format('DD/MM/YYYY')}
@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
     right: 20
   },
   innerContainer: {
-    width: '80%',
-    marginTop: 40,
+    width: '90%',
+    marginTop: 10,
     padding: 20
   },
   h1: {
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     marginTop: 60
   },
   label: {
-    width: '80%',
+    width: '100%',
     fontSize: 20,
     marginBottom: 5
   },

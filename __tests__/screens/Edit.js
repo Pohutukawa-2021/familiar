@@ -28,7 +28,7 @@ test('Update input values to the localStorage', async () => {
 
   const nameInput = getByDisplayValue('austin')
   const numberInput = getByDisplayValue('123')
-  const frequencyInput = getByDisplayValue('21')
+  // const frequencyInput = getByDisplayValue('21')
 
   await fireEvent.changeText(nameInput, 'mum')
   await fireEvent.changeText(numberInput, '22322')
@@ -45,7 +45,7 @@ test('Update input values to the localStorage', async () => {
     contact: {
       name: 'mum',
       number: '22322',
-      frequency: '22',
+      frequency: '21',
       lastCall: '2021/09/11'
     }
   })
