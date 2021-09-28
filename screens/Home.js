@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { color, saveData, readData, clear } from '../helpers/helperFunc'
-import { RefreshControl } from 'react-native'
 import moment from 'moment'
 /* eslint-disable-next-line */
 import {
@@ -10,7 +9,9 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
-  Button
+  Button,
+  RefreshControl,
+  Image
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
@@ -75,7 +76,9 @@ function Home (props) {
       </View>
       <View style={styles.buttonView}>
         <Pressable onPress={() => props.navigation.navigate('Add')}>
-          <Text style={styles.buttonText}>+</Text>
+          {/* <Text style={styles.buttonText}>+</Text> */}
+
+          <Image style={styles.image} source={require('../assets/add.png')} />
         </Pressable>
       </View>
 
@@ -136,9 +139,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   innerContainer: {
-    width: '80%',
-    marginTop: 20,
-    marginBottom: 60
+    width: '80%'
   },
   cardsContainer: {
     backgroundColor: '#fff',
@@ -177,8 +178,12 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     position: 'absolute',
-    top: 36,
+    top: 49,
     right: 20
+  },
+  image: {
+    height: 30,
+    width: 30
   },
   buttonText: {
     fontSize: 45,
