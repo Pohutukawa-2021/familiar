@@ -10,7 +10,8 @@ import {
   Pressable,
   ScrollView,
   Button,
-  RefreshControl
+  RefreshControl,
+  Image
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
@@ -75,7 +76,9 @@ function Home (props) {
       </View>
       <View style={styles.buttonView}>
         <Pressable onPress={() => props.navigation.navigate('Add')}>
-          <Text style={styles.buttonText}>+</Text>
+          {/* <Text style={styles.buttonText}>+</Text> */}
+
+          <Image style={styles.image} source={require('../assets/add.png')} />
         </Pressable>
       </View>
 
@@ -175,16 +178,12 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     position: 'absolute',
-    top: 36,
-    right: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowOpacity: 0.30,
-    shadowRadius: 4.65,
-    elevation: 8
+    top: 49,
+    right: 20
+  },
+  image: {
+    height: 30,
+    width: 30
   },
   buttonText: {
     fontSize: 45,
