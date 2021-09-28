@@ -136,9 +136,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   innerContainer: {
-    width: '80%',
-    marginTop: 20,
-    marginBottom: 60
+    width: '80%'
   },
   cardsContainer: {
     backgroundColor: '#fff',
@@ -178,7 +176,15 @@ const styles = StyleSheet.create({
   buttonView: {
     position: 'absolute',
     top: 36,
-    right: 20
+    right: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 8
   },
   buttonText: {
     fontSize: 45,
