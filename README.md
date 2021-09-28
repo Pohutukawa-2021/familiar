@@ -48,18 +48,6 @@ Needs to be implemented
 - If not resolved after cool down, ask facilitator to mediate
 
 ## Work log
-<<<<<<< HEAD
-
-- Wednesday 22nd
-  - Inital groupings
-  - Project planning
-- Thursday 23rd
-  - Getting familiar with react-native
-  - Navigation stack
-- Friday 24th
-  - Styling
-  - Add/ color functionality
-=======
 * Wednesday 22nd
   * Inital groupings
   * Project planning
@@ -73,6 +61,9 @@ Needs to be implemented
   * Working on tickets
 * Sunday 26th
   * Tidying up app
-* Monday
+* Monday 27th
   * Testing
->>>>>>> 16299956d46e11f8a050322aa44718873afff5ab
+* Tuesday 28th
+  * Implementing stretch goals
+* Wednesday 29th  
+  * Squashing bugs
