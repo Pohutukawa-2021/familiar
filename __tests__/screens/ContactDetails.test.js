@@ -44,6 +44,7 @@ beforeAll(() => {
 
 beforeEach(() => {
   Linking.openURL = jest.fn(() => Promise.resolve())
+  saveData.mockClear()
 })
 
 test('Should display the correct contact details e.g name, number', async () => {
@@ -104,6 +105,21 @@ test('Should display the correct colour code for the background', async () => {
   expect(indicatorBackground.props.style[1].backgroundColor).toBe('red')
 })
 
+test('Should increase call count when call button is clicked on', async () => {
+  const mockSaveData = jest.fn(() => Promise.resolve())
+  saveData.mockImplementation(() => mockSaveData)
+  readData.mockImplementation(() => Promise.resolve([{ callCount: 1, name }]))
+
+  const { getByText } = renderWithNavigation(<ContactDetails />, 'stack', {
+    contact: { name, number, frequency, lastCall }
+  })
+
+  const callButton = getByText('Call')
+  await fireEvent.press(callButton)
+  expect(saveData.mock.calls[0][0][0].callCount).toBe(2)
+  expect(Linking.openURL).toHaveBeenCalledTimes(1)
+})
+
 test('Should invoke the call method when call button is clicked on', async () => {
   const { getByText } = renderWithNavigation(<ContactDetails />, 'stack', {
     contact: { name, number, frequency, lastCall }
@@ -138,4 +154,18 @@ test('Should pass the correct phone number format in android', async () => {
   const callButton = getByText('Call')
   await fireEvent.press(callButton)
   expect(Linking.openURL).toHaveBeenCalledWith(`tel:${number}`)
+})
+
+test('Should increase call count when already call button is clicked', async () => {
+  const mockSaveData = jest.fn(() => Promise.resolve())
+  saveData.mockImplementation(() => mockSaveData)
+  readData.mockImplementation(() => Promise.resolve([{ callCount: 1, name }]))
+
+  const { getByText } = renderWithNavigation(<ContactDetails />, 'stack', {
+    contact: { name, number, frequency, lastCall }
+  })
+
+  const callButton = getByText('Already Called')
+  await fireEvent.press(callButton)
+  expect(saveData.mock.calls[0][0][0].callCount).toBe(2)
 })
