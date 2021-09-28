@@ -75,7 +75,7 @@ test('Should display the correct contact details e.g name, number', async () => 
 test('Should update lastCall when call button pressed', async () => {
   const mockNavigate = jest.fn()
 
-  const { getByText } = renderWithNavigation(
+  const { getByTestId } = renderWithNavigation(
     <ContactDetails navigation={{ navigate: mockNavigate }} />,
     'stack',
     { contact: { name, number, frequency, lastCall } }
@@ -84,7 +84,7 @@ test('Should update lastCall when call button pressed', async () => {
   saveData.mockImplementation(() => Promise.resolve())
   readData.mockImplementation(() => Promise.resolve([]))
 
-  await fireEvent.press(getByText('Call'))
+  await fireEvent.press(getByTestId('callButton'))
 
   expect(saveData).toHaveBeenCalled()
   expect(readData).toHaveBeenCalled()
@@ -106,64 +106,89 @@ test('Should display the correct colour code for the background', async () => {
 })
 
 test('Should increase call count when call button is clicked on', async () => {
+  const mockNavigate = jest.fn()
   const mockSaveData = jest.fn(() => Promise.resolve())
   saveData.mockImplementation(() => mockSaveData)
   readData.mockImplementation(() => Promise.resolve([{ callCount: 1, name }]))
 
-  const { getByText } = renderWithNavigation(<ContactDetails />, 'stack', {
-    contact: { name, number, frequency, lastCall }
-  })
+  const { getByTestId } = renderWithNavigation(
+    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    'stack',
+    {
+      contact: { name, number, frequency, lastCall }
+    }
+  )
 
-  const callButton = getByText('Call')
+  const callButton = getByTestId('callButton')
   await fireEvent.press(callButton)
   expect(saveData.mock.calls[0][0][0].callCount).toBe(2)
   expect(Linking.openURL).toHaveBeenCalledTimes(1)
 })
 
 test('Should invoke the call method when call button is clicked on', async () => {
-  const { getByText } = renderWithNavigation(<ContactDetails />, 'stack', {
-    contact: { name, number, frequency, lastCall }
-  })
+  const mockNavigate = jest.fn()
+  const { getByTestId } = renderWithNavigation(
+    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    'stack',
+    {
+      contact: { name, number, frequency, lastCall }
+    }
+  )
 
-  const callButton = getByText('Call')
+  const callButton = getByTestId('callButton')
   await fireEvent.press(callButton)
   expect(Linking.openURL).toHaveBeenCalledTimes(1)
 })
 
 test('Should pass the correct phone number format in ios', async () => {
+  const mockNavigate = jest.fn()
   // set platform to ios
   Platform.OS = 'ios'
 
-  const { getByText } = renderWithNavigation(<ContactDetails />, 'stack', {
-    contact: { name, number, frequency, lastCall }
-  })
+  const { getByTestId } = renderWithNavigation(
+    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    'stack',
+    {
+      contact: { name, number, frequency, lastCall }
+    }
+  )
 
-  const callButton = getByText('Call')
+  const callButton = getByTestId('callButton')
   await fireEvent.press(callButton)
   expect(Linking.openURL).toHaveBeenCalledWith(`telprompt:${number}`)
 })
 
 test('Should pass the correct phone number format in android', async () => {
+  const mockNavigate = jest.fn()
   // set platform to android
   Platform.OS = 'android'
 
-  const { getByText } = renderWithNavigation(<ContactDetails />, 'stack', {
-    contact: { name, number, frequency, lastCall }
-  })
+  const { getByTestId } = renderWithNavigation(
+    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    'stack',
+    {
+      contact: { name, number, frequency, lastCall }
+    }
+  )
 
-  const callButton = getByText('Call')
+  const callButton = getByTestId('callButton')
   await fireEvent.press(callButton)
   expect(Linking.openURL).toHaveBeenCalledWith(`tel:${number}`)
 })
 
 test('Should increase call count when already call button is clicked', async () => {
+  const mockNavigate = jest.fn()
   const mockSaveData = jest.fn(() => Promise.resolve())
   saveData.mockImplementation(() => mockSaveData)
   readData.mockImplementation(() => Promise.resolve([{ callCount: 1, name }]))
 
-  const { getByText } = renderWithNavigation(<ContactDetails />, 'stack', {
-    contact: { name, number, frequency, lastCall }
-  })
+  const { getByText } = renderWithNavigation(
+    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    'stack',
+    {
+      contact: { name, number, frequency, lastCall }
+    }
+  )
 
   const callButton = getByText('Already Called')
   await fireEvent.press(callButton)
