@@ -9,7 +9,8 @@ import {
   Image,
   Linking,
   Platform,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native'
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
@@ -132,77 +133,156 @@ function ContactDetails (props) {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
-  image: {
-    width: 40,
-    height: 40
-  },
-  topContainer: {
-    width: '100%',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end'
-  },
-  navEdit: {
-    alignSelf: 'center',
-    marginBottom: 60
-  },
-  navDelete: {
-    position: 'absolute',
-    top: 20,
-    right: 20
-  },
-  innerContainer: {
-    width: '80%',
-    padding: 20
-  },
-  h1: {
-    fontSize: 60,
-    color: 'white',
-    fontWeight: 'bold',
-    marginBottom: 5,
-    alignSelf: 'stretch',
-    textAlign: 'center',
-    marginTop: 60
-  },
-  label: {
-    width: '80%',
-    fontSize: 20,
-    marginBottom: 5
-  },
-  buttonView: {
-    width: '70%',
-    borderRadius: 35
-  },
-  button: {
-    backgroundColor: '#5AF160',
-    padding: 10,
-    borderRadius: 35,
-    marginBottom: 15
-  },
-  buttonText: {
-    fontSize: 20,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  editText: {
-    fontSize: 25,
-    color: 'white',
-    alignSelf: 'center',
-    textDecorationLine: 'underline'
-  },
-  callBtn: {
-    alignSelf: 'center',
-    margin: 40
-  },
-  textContainer: {
-    paddingTop: 20
-  }
-})
+// window height < 450pt
+const windowHeight = Dimensions.get('window').height
+let styles
+
+if (windowHeight < 450) {
+  styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    image: {
+      width: 40,
+      height: 40
+    },
+    topContainer: {
+      width: '100%',
+      justifyContent: 'space-around',
+      alignItems: 'flex-end'
+    },
+    navEdit: {
+      alignSelf: 'center',
+      marginBottom: 60
+    },
+    navDelete: {
+      position: 'absolute',
+      top: 20,
+      right: 20
+    },
+    innerContainer: {
+      width: '80%',
+      padding: 20
+    },
+    h1: {
+      fontSize: 40,
+      color: 'white',
+      fontWeight: 'bold',
+      marginBottom: 5,
+      alignSelf: 'stretch',
+      textAlign: 'center',
+      marginTop: 30
+    },
+    label: {
+      width: '80%',
+      fontSize: 20,
+      marginBottom: 5
+    },
+    buttonView: {
+      width: '70%',
+      borderRadius: 35
+    },
+    button: {
+      backgroundColor: '#5AF160',
+      padding: 10,
+      borderRadius: 35,
+      marginBottom: 15
+    },
+    buttonText: {
+      fontSize: 20,
+      color: 'white',
+      alignSelf: 'center'
+    },
+    editText: {
+      fontSize: 25,
+      color: 'white',
+      alignSelf: 'center',
+      textDecorationLine: 'underline'
+    },
+    callBtn: {
+      alignSelf: 'center',
+      margin: 40
+    },
+    textContainer: {
+      paddingTop: 20
+    }
+  })
+} else {
+  styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    image: {
+      width: 40,
+      height: 40
+    },
+    topContainer: {
+      width: '100%',
+      justifyContent: 'space-around',
+      alignItems: 'flex-end'
+    },
+    navEdit: {
+      alignSelf: 'center',
+      marginBottom: 60
+    },
+    navDelete: {
+      position: 'absolute',
+      top: 20,
+      right: 20
+    },
+    innerContainer: {
+      width: '80%',
+      padding: 20
+    },
+    h1: {
+      fontSize: 60,
+      color: 'white',
+      fontWeight: 'bold',
+      marginBottom: 5,
+      alignSelf: 'stretch',
+      textAlign: 'center',
+      marginTop: 60
+    },
+    label: {
+      width: '80%',
+      fontSize: 20,
+      marginBottom: 5
+    },
+    buttonView: {
+      width: '70%',
+      borderRadius: 35
+    },
+    button: {
+      backgroundColor: '#5AF160',
+      padding: 10,
+      borderRadius: 35,
+      marginBottom: 15
+    },
+    buttonText: {
+      fontSize: 20,
+      color: 'white',
+      alignSelf: 'center'
+    },
+    editText: {
+      fontSize: 25,
+      color: 'white',
+      alignSelf: 'center',
+      textDecorationLine: 'underline'
+    },
+    callBtn: {
+      alignSelf: 'center',
+      margin: 40
+    },
+    textContainer: {
+      paddingTop: 20
+    }
+  })
+}
 
 export default ContactDetails

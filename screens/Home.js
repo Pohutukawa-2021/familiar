@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { color, saveData, readData, clear } from '../helpers/helperFunc'
-import { RefreshControl } from 'react-native'
 import moment from 'moment'
 /* eslint-disable-next-line */
 import {
@@ -10,7 +9,8 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
-  Button
+  Button,
+  RefreshControl
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
