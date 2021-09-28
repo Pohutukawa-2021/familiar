@@ -114,18 +114,18 @@ function ContactDetails (props) {
             <Image source={require('../assets/call.png')} />
           </Pressable>
         </View>
-        <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePressCalled}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.buttonText}
-            >
-              Already Called
-            </Text>
-          </Pressable>
-        </View>
       </ScrollView>
+      <View style={styles.buttonView}>
+        <Pressable style={styles.button} onPress={handlePressCalled}>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={styles.buttonText}
+          >
+              Already Called
+          </Text>
+        </Pressable>
+      </View>
     </View>
   )
 }
@@ -175,9 +175,10 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   buttonView: {
-    width: '100%',
+    width: '80%',
     borderRadius: 35,
-    alignSelf: 'flex-start'
+    position: 'absolute',
+    bottom: 40
   },
   button: {
     backgroundColor: '#5AF160',
