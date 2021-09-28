@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent } from '@testing-library/react-native'
+import { fireEvent, screen, getByRole } from '@testing-library/react-native'
 import Edit from '../../screens/Edit'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { saveData, readData } from '../../helpers/helperFunc'
@@ -13,14 +13,14 @@ afterAll(() => {
 test('Update input values to the localStorage', async () => {
   const mockNavigate = jest.fn()
 
-  const { getByText, getByDisplayValue } = renderWithNavigation(
+  const { getByText, getByDisplayValue, findByTestId } = renderWithNavigation(
     <Edit navigation={{ navigate: mockNavigate }} />,
     'stack',
     {
       contact: {
         name: 'austin',
         number: '123',
-        frequency: '21',
+        frequency: '1',
         lastCall: '2021/09/11'
       }
     }
@@ -28,11 +28,15 @@ test('Update input values to the localStorage', async () => {
 
   const nameInput = getByDisplayValue('austin')
   const numberInput = getByDisplayValue('123')
-  const frequencyInput = getByDisplayValue('21')
+  const frequencyInput = await findByTestId('frequency')
+  // const frequencyInput = getByText('daily')
+  expect(frequencyInput.props.children[1]).toBe('1 days')
 
   await fireEvent.changeText(nameInput, 'mum')
   await fireEvent.changeText(numberInput, '22322')
-  // await fireEvent.changeText(frequencyInput, '22')
+  // await fireEvent.changeText(frequencyInput, 'weekly')
+  // await fireEvent.change(frequencyInput, { target: { value: 7 } })
+  // fireEvent.change(screen.getByRole('slider'), { target: { value: '2' } })
 
   saveData.mockImplementation(() => Promise.resolve())
   readData.mockImplementation(() => Promise.resolve([]))
@@ -45,7 +49,7 @@ test('Update input values to the localStorage', async () => {
     contact: {
       name: 'mum',
       number: '22322',
-      frequency: '22',
+      frequency: '1',
       lastCall: '2021/09/11'
     }
   })

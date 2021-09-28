@@ -136,7 +136,7 @@ function Edit (props) {
             keyboardType="numeric"
             onChangeText={(value) => handleOnChangeEdit('number', value)}
           />
-          <Text style={styles.text}>Call Frequency: {convertDays()}</Text>
+          <Text testID='frequency' style={styles.text}>Call Frequency: {convertDays()}</Text>
           <Slider
             step={1}
             minimumValue={1}
