@@ -50,8 +50,10 @@ function History(props) {
                     <View style={styles.textContainer}>
                       <Text>{contact.name}</Text>
                     </View>
-                    <View style={styles.textContainer}>
-                      <Text>{contact.callCount}</Text>
+                    <View style={[styles.textContainer, styles.textCallCount]}>
+                      <Text style={styles.textCallCount}>
+                        Called {contact.callCount} time(s)
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     width: '90%',
-    marginTop: 20,
+    marginTop: 50,
     marginBottom: 60
   },
   listContainer: {
@@ -96,6 +98,9 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1
+  },
+  textCallCount: {
+    textAlign: 'right'
   },
   greyBackground: {
     backgroundColor: '#E8E7E7'
