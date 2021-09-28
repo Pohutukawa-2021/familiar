@@ -262,7 +262,7 @@ if (windowHeight < 450) {
       backgroundColor: '#5AF160',
       padding: 10,
       borderRadius: 35,
-      marginBottom: 15
+      marginBottom: 30
     },
     buttonText: {
       fontSize: 20,
