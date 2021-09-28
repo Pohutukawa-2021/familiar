@@ -34,8 +34,6 @@ function History(props) {
         {data.length > 0 ? (
           <View style={styles.listContainer}>
             {data.map((contact, index) => {
-              const difference = moment().diff(contact.lastCall, 'days')
-
               return (
                 <View
                   key={contact.name}

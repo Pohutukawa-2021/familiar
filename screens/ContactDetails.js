@@ -19,18 +19,22 @@ function ContactDetails(props) {
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
   // updates contact lastCalled property and redirects back to home
-  async function handlePress() {
+  async function handlePress(call = false) {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
-        const newValue = { ...value, lastCall: moment().format() }
+        const newValue = {
+          ...value,
+          lastCall: moment().format(),
+          callCount: value.callCount + 1
+        }
         return newValue
       } else {
         return value
       }
     })
     await saveData(newData)
-    await call(number)
+    call && (await call(number))
     //props.navigation.navigate('Home')
   }
 
@@ -99,13 +103,24 @@ function ContactDetails(props) {
         </Text>
 
         <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePress}>
+          <Pressable style={styles.button} onPress={() => handlePress(true)}>
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
               style={styles.buttonText}
             >
               Call
+            </Text>
+          </Pressable>
+        </View>
+        <View style={styles.buttonView}>
+          <Pressable style={styles.button} onPress={handlePress}>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.buttonText}
+            >
+              Already Called
             </Text>
           </Pressable>
         </View>
