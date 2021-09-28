@@ -70,21 +70,21 @@ function Add (props) {
   function convertDays () {
     switch (addForm.frequency) {
       case 1:
-        return 'day'
+        return 'daily'
       case 3:
-        return '3 days'
+        return 'every 3 days'
       case 7:
-        return 'week'
+        return 'weekly'
       case 14:
-        return 'fortnight'
+        return 'fortnightly'
       case 28:
-        return 'month'
+        return 'monthly'
       case 84:
-        return '3 months'
+        return 'every 3 months'
       case 168:
-        return '6 months'
+        return 'every 6 months'
       case 365:
-        return 'year'
+        return 'yearly'
       default:
         return addForm.frequency + ' days'
     }
@@ -142,7 +142,7 @@ function Add (props) {
           keyboardType="numeric"
           onChangeText={(value) => handleOnChangeAdd('number', value)}
         />
-        <Text style={styles.text}>Call Frequency: every {convertDays()}</Text>
+        <Text style={styles.text}>Call Frequency: {convertDays()}</Text>
         <Slider
           step={1}
           minimumValue={1}
@@ -220,7 +220,7 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   text: {
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'left',
     fontWeight: '500',
     margin: 0

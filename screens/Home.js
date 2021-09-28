@@ -38,7 +38,6 @@ function Home (props) {
           }
         }
         getData()
-        console.log(data)
         setRefreshing(false)
         return null
       })
@@ -123,8 +122,8 @@ function Home (props) {
           <Text style={styles.emptyText}>Press + to add some contacts!</Text>
         )}
       </ScrollView>
-      <Button title='Set' onPress={handleSet} />
-      <Button title='Clear' onPress={handleClear} />
+      {/* <Button title='Set' onPress={handleSet} />
+      <Button title='Clear' onPress={handleClear} /> */}
     </View>
   )
 }

@@ -32,7 +32,7 @@ test('Update input values to the localStorage', async () => {
 
   await fireEvent.changeText(nameInput, 'mum')
   await fireEvent.changeText(numberInput, '22322')
-  await fireEvent.changeText(frequencyInput, '22')
+  // await fireEvent.changeText(frequencyInput, '22')
 
   saveData.mockImplementation(() => Promise.resolve())
   readData.mockImplementation(() => Promise.resolve([]))
