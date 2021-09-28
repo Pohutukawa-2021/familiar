@@ -12,25 +12,32 @@ import {
   Alert,
   Dimensions
 } from 'react-native'
+<<<<<<< HEAD
 import moment from 'moment'
 
 import { saveData, readData, color } from '../helpers/helperFunc'
 
 function ContactDetails (props) {
+=======
+import { saveData, readData, color, convertDays } from '../helpers/helperFunc'
+import moment from 'moment'
+
+function ContactDetails(props) {
+>>>>>>> 9d4da8c264a58fe479e23f093a80837707ba9acf
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
-  async function handlePressCall () {
+  async function handlePressCall() {
     await sendData()
     await call(number)
   }
 
-  async function handlePressCalled () {
+  async function handlePressCalled() {
     await sendData()
     props.navigation.navigate('Home')
   }
 
-  async function sendData () {
+  async function sendData() {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -47,7 +54,7 @@ function ContactDetails (props) {
     await saveData(newData)
   }
 
-  function call (phNum) {
+  function call(phNum) {
     const numToCall =
       Platform.OS === 'android' ? `tel:${phNum}` : `telprompt:${phNum}`
     return Linking.openURL(numToCall).catch((err) => console.log(err))
@@ -60,7 +67,7 @@ function ContactDetails (props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete () {
+  async function handleDelete() {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -71,7 +78,7 @@ function ContactDetails (props) {
     props.navigation.navigate('Home')
   }
 
-  function edit () {
+  function edit() {
     props.navigation.navigate('Edit', { contact })
   }
 
@@ -104,18 +111,18 @@ function ContactDetails (props) {
           </Text>
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Number: {number}
-          </Text>
-          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
-          Frequency: {frequency}
-          </Text>
-          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+        </Text>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          Call Frequency: {convertDays(frequency)}
+        </Text>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Last called: {moment(lastCall).format('DD/MM/YYYY')}
           </Text>
         </View>
 
         <View style={styles.callBtn}>
           <Pressable onPress={handlePressCall}>
-            <Image style={styles.callImage}source={require('../assets/call-btn.png')} />
+            <Image testID="callButton" style={styles.callImage}source={require('../assets/call-btn.png')} />
           </Pressable>
         </View>
       </ScrollView>
@@ -126,7 +133,7 @@ function ContactDetails (props) {
             ellipsizeMode="tail"
             style={styles.buttonText}
           >
-              Already Called
+            Already Called
           </Text>
         </Pressable>
       </View>
