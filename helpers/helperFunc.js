@@ -75,3 +75,59 @@ function nameCheck (name, names) {
   })
   return checker
 }
+
+// converts the day frequency count to readable format
+
+export function convertDays (frequencySource) {
+  switch (Number(frequencySource)) {
+    case 1:
+      return 'daily'
+    case 3:
+      return 'every 3 days'
+    case 7:
+      return 'weekly'
+    case 14:
+      return 'fortnightly'
+    case 30:
+      return 'monthly'
+    case 90:
+      return 'every 3 months'
+    case 180:
+      return 'every 6 months'
+    case 365:
+      return 'yearly'
+    default:
+      return 'every ' + Number(frequencySource) + ' days'
+  }
+}
+
+// convert slider values to frequency input
+
+export function handleFreqChange (value, changeFunc) {
+  switch (value) {
+    case 1:
+      changeFunc('frequency', 1)
+      break
+    case 2:
+      changeFunc('frequency', 3)
+      break
+    case 3:
+      changeFunc('frequency', 7)
+      break
+    case 4:
+      changeFunc('frequency', 14)
+      break
+    case 5:
+      changeFunc('frequency', 30)
+      break
+    case 6:
+      changeFunc('frequency', 90)
+      break
+    case 7:
+      changeFunc('frequency', 180)
+      break
+    case 8:
+      changeFunc('frequency', 365)
+      break
+  }
+}

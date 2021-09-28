@@ -48,22 +48,22 @@ Needs to be implemented
 - If not resolved after cool down, ask facilitator to mediate
 
 ## Work log
-
-- Wednesday 22nd
-  - Inital groupings
-  - Project planning
-- Thursday 23rd
-  - Getting familiar with react-native
-  - Navigation stack
-- Friday 24th
-  - Styling
-  - Add/ color functionality
-- Saturday 25th
-  - Working on tickets
-- Sunday 26th
-  - Tidying up app
-- Monday 27th
-  - Testing
-- Tuesday 26th
-  - MVP completed
-  - Implementing strech goals
+* Wednesday 22nd
+  * Inital groupings
+  * Project planning
+* Thursday 23rd
+  * Getting familiar with react-native
+  * Navigation stack
+* Friday 24th
+  * Styling
+  * Add/ color functionality 
+* Saturday 25th
+  * Working on tickets
+* Sunday 26th
+  * Tidying up app
+* Monday 27th
+  * Testing
+* Tuesday 28th
+  * Implementing stretch goals
+* Wednesday 29th  
+  * Squashing bugs

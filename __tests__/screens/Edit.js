@@ -49,7 +49,11 @@ test('Update input values to the localStorage', async () => {
     contact: {
       name: 'mum',
       number: '22322',
+<<<<<<< HEAD
       frequency: '1',
+=======
+      frequency: '21',
+>>>>>>> 86979979bc5f75f8e168f7c44de8b2330a100098
       lastCall: '2021/09/11'
     }
   })
