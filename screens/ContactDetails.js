@@ -12,8 +12,9 @@ import {
   Alert,
   Dimensions
 } from 'react-native'
-import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
+
+import { saveData, readData, color } from '../helpers/helperFunc'
 
 function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
@@ -114,7 +115,7 @@ function ContactDetails (props) {
 
         <View style={styles.callBtn}>
           <Pressable onPress={handlePressCall}>
-            <Image source={require('../assets/call.png')} />
+            <Image style={styles.callImage}source={require('../assets/call-btn.png')} />
           </Pressable>
         </View>
       </ScrollView>
@@ -133,11 +134,11 @@ function ContactDetails (props) {
   )
 }
 
-// window height < 450pt
+// window height < 650pt
 const windowHeight = Dimensions.get('window').height
 let styles
 
-if (windowHeight < 450) {
+if (windowHeight < 650) {
   styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -208,6 +209,10 @@ if (windowHeight < 450) {
     },
     textContainer: {
       paddingTop: 20
+    },
+    callImage: {
+      height: 90,
+      width: 90
     }
   })
 } else {
@@ -281,6 +286,10 @@ if (windowHeight < 450) {
     },
     textContainer: {
       paddingTop: 20
+    },
+    callImage: {
+      height: 90,
+      width: 90
     }
   })
 }
