@@ -164,7 +164,7 @@ if (windowHeight < 650) {
       right: 20
     },
     innerContainer: {
-      width: '80%',
+      width: '90%',
       padding: 20
     },
     h1: {
@@ -177,7 +177,7 @@ if (windowHeight < 650) {
       marginTop: 30
     },
     label: {
-      width: '80%',
+      width: '100%',
       fontSize: 20,
       marginBottom: 5
     },
@@ -241,7 +241,7 @@ if (windowHeight < 650) {
       right: 20
     },
     innerContainer: {
-      width: '80%',
+      width: '90%',
       padding: 20
     },
     h1: {
@@ -254,7 +254,7 @@ if (windowHeight < 650) {
       marginTop: 60
     },
     label: {
-      width: '80%',
+      width: '100%',
       fontSize: 20,
       marginBottom: 5
     },

@@ -30,7 +30,7 @@ test('Update input values to the localStorage', async () => {
   const numberInput = getByDisplayValue('123')
   const frequencyInput = await findByTestId('frequency')
   // const frequencyInput = getByText('daily')
-  expect(frequencyInput.props.children[1]).toBe('1 days')
+  expect(frequencyInput.props.children[1]).toBe('daily')
 
   await fireEvent.changeText(nameInput, 'mum')
   await fireEvent.changeText(numberInput, '22322')
@@ -49,11 +49,7 @@ test('Update input values to the localStorage', async () => {
     contact: {
       name: 'mum',
       number: '22322',
-<<<<<<< HEAD
       frequency: '1',
-=======
-      frequency: '21',
->>>>>>> 86979979bc5f75f8e168f7c44de8b2330a100098
       lastCall: '2021/09/11'
     }
   })
