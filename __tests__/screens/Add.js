@@ -21,10 +21,10 @@ test('Save input values to the localStorage', async () => {
   )
   const nameInput = getByPlaceholderText('name')
   const numberInput = getByPlaceholderText('number')
-  const frequencyInput = getByPlaceholderText('frequency in days')
+  // const frequencyInput = getByPlaceholderText('frequency in days')
   await fireEvent.changeText(nameInput, 'mum')
   await fireEvent.changeText(numberInput, '22322')
-  await fireEvent.changeText(frequencyInput, '22')
+  // await fireEvent.changeText(frequencyInput, '22')
 
   saveData.mockImplementation(() => Promise.resolve())
   readData.mockImplementation(() => Promise.resolve())
