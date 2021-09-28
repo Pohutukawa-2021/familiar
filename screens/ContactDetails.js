@@ -18,8 +18,17 @@ function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
-  // updates contact lastCalled property and redirects back to home
-  async function handlePress (toCall = false) {
+  async function handlePressCall () {
+    await sendData()
+    await call(number)
+  }
+
+  async function handlePressCalled () {
+    await sendData()
+    props.navigation.navigate('Home')
+  }
+
+  async function sendData () {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -34,8 +43,6 @@ function ContactDetails (props) {
       }
     })
     await saveData(newData)
-    toCall && await call(number)
-    // props.navigation.navigate('Home')
   }
 
   function call (phNum) {
@@ -103,12 +110,12 @@ function ContactDetails (props) {
         </Text>
 
         <View style={styles.callBtn}>
-          <Pressable onPress={() => handlePress(true)}>
+          <Pressable onPress={handlePressCall}>
             <Image source={require('../assets/call.png')} />
           </Pressable>
         </View>
         <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePress}>
+          <Pressable style={styles.button} onPress={handlePressCalled}>
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
@@ -169,8 +176,8 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     width: '100%',
-    marginTop: 40,
-    borderRadius: 35
+    borderRadius: 35,
+    alignSelf: 'flex-start'
   },
   button: {
     backgroundColor: '#5AF160',
