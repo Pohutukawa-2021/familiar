@@ -35,7 +35,11 @@ function Edit (props) {
     const data = await readData()
     let names = []
     data
-      ? names = data.map(values => values.name)
+      ? names = data.map(values => {
+        if (values.name !== initalName) {
+          return values.name
+        }
+      })
       : names = []
 
     const err = formCheck(editForm, names)
