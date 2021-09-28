@@ -21,6 +21,14 @@ function History (props) {
     getData()
   }, [isFocused])
 
+  function fixPlurals (value) {
+    if (value === undefined) {
+      return 'called 0 time'
+    } else if (value === 1) {
+      return 'called ' + value + ' time'
+    } else return 'called ' + value + ' times'
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.textBox}>
@@ -51,7 +59,7 @@ function History (props) {
                     </View>
                     <View style={[styles.textContainer, styles.textCallCount]}>
                       <Text style={styles.textCallCount}>
-                        Called {contact.callCount} time(s)
+                        {fixPlurals(contact.callCount)}
                       </Text>
                     </View>
                   </View>
