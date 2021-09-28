@@ -31,15 +31,19 @@ function Edit (props) {
     const { name, number, frequency, lastCall } = editForm
     const contact = { name, number, frequency, lastCall } // construct object, only used to send to ContactDetails component
 
-    const err = formCheck(editForm)
+    const data = await readData()
+    let names = []
+    data
+      ? names = data.map(values => values.name)
+      : names = []
+
+    const err = formCheck(editForm, names)
     if (err !== '') {
       Alert.alert(
         'Error',
         `Invalid field(s): ${err}`
       )
     } else {
-      const data = await readData()
-
       const newData = data.map((value) => {
         if (value.name === initalName) {
           const newValue = { name, number, frequency, lastCall }
