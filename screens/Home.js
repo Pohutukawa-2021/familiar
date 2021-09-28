@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { color, saveData, readData, clear } from '../helpers/helperFunc'
+import { RefreshControl } from 'react-native'
 import moment from 'moment'
 /* eslint-disable-next-line */
 import {
@@ -13,13 +14,38 @@ import {
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
-
 import dummyData from '../helpers/dummyData'
+
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout))
+}
 
 function Home (props) {
   const [data, setData] = useState([])
   const isFocused = useIsFocused()
   const sortOrder = { red: 0, orange: 1, green: 2 }
+  const [refreshing, setRefreshing] = React.useState(false)
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true)
+    wait(2000)
+      .then(() => {
+        async function getData () {
+          const data = await readData()
+          if (data) {
+            setData(data)
+          } else {
+            setData([])
+          }
+        }
+        getData()
+        console.log(data)
+        setRefreshing(false)
+        return null
+      })
+      .catch((err) => {
+        console.error(err.message)
+      })
+  }, [])
 
   useEffect(() => {
     async function getData () {
@@ -57,6 +83,12 @@ function Home (props) {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.innerContainer}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
       >
         {data.length > 0 ? (
           <View style={styles.cardsContainer}>
@@ -91,8 +123,8 @@ function Home (props) {
           <Text style={styles.emptyText}>Press + to add some contacts!</Text>
         )}
       </ScrollView>
-      {/* <Button title='Set' onPress={handleSet} />
-      <Button title='Clear' onPress={handleClear} /> */}
+      <Button title='Set' onPress={handleSet} />
+      <Button title='Clear' onPress={handleClear} />
     </View>
   )
 }
