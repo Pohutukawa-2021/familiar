@@ -48,7 +48,7 @@ function tabNavigation() {
             return (
               <Image
                 style={{ width: size, height: size }}
-                source={require('../assets/history.png')}
+                source={require('../assets/delete.png')}
               />
             )
           }
