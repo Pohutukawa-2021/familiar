@@ -3,7 +3,7 @@ import { fireEvent, cleanup } from '@testing-library/react-native'
 import { Platform, Linking } from 'react-native'
 import ContactDetails from '../../screens/ContactDetails'
 import { renderWithNavigation } from '../../jest/test-utils'
-import { saveData, readData, color } from '../../helpers/helperFunc'
+import { saveData, readData, color, convertDays } from '../../helpers/helperFunc'
 import moment from 'moment'
 
 jest.mock('../../helpers/helperFunc')
@@ -49,6 +49,8 @@ beforeEach(() => {
 
 test('Should display the correct contact details e.g name, number', async () => {
   const mockNavigate = jest.fn()
+  convertDays.mockImplementation(() => 'every 3 days')
+
 
   moment.mockImplementation((arg) => ({
     format: (value) => arg,
@@ -63,7 +65,7 @@ test('Should display the correct contact details e.g name, number', async () => 
 
   const nameText = getByText(new RegExp('Name: ' + name))
   const numberText = getByText(new RegExp('Number: ' + number))
-  const frequencyText = getByText(new RegExp('Frequency: ' + frequency))
+  const frequencyText = getByText(new RegExp('Call Frequency: ' + convertDays(frequency)))
   const lastCallText = getByText(new RegExp('Last called: ' + lastCall))
 
   expect(nameText).toBeTruthy()

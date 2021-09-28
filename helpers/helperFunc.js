@@ -88,16 +88,16 @@ export function convertDays (frequencySource) {
       return 'weekly'
     case 14:
       return 'fortnightly'
-    case 28:
+    case 30:
       return 'monthly'
-    case 84:
+    case 90:
       return 'every 3 months'
-    case 168:
+    case 180:
       return 'every 6 months'
     case 365:
       return 'yearly'
     default:
-      return Number(frequencySource) + ' days'
+      return 'every ' + Number(frequencySource) + ' days'
   }
 }
 
@@ -118,13 +118,13 @@ export function handleFreqChange (value, changeFunc) {
       changeFunc('frequency', 14)
       break
     case 5:
-      changeFunc('frequency', 28)
+      changeFunc('frequency', 30)
       break
     case 6:
-      changeFunc('frequency', 84)
+      changeFunc('frequency', 90)
       break
     case 7:
-      changeFunc('frequency', 168)
+      changeFunc('frequency', 180)
       break
     case 8:
       changeFunc('frequency', 365)
