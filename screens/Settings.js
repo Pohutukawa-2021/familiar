@@ -6,13 +6,13 @@ import { saveData, readData, clear } from '../helpers/helperFunc'
 
 import dummyData from '../helpers/dummyData'
 
-function AddOnFeatures(props) {
+function AddOnFeatures (props) {
   const [data, setData] = useState([])
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    async function getData() {
+    async function getData () {
       const data = await readData()
       if (data) {
         setData(data)
@@ -24,12 +24,12 @@ function AddOnFeatures(props) {
   }, [isFocused])
 
   // for development purposes only, DELETE this later
-  function handleSet() {
+  function handleSet () {
     saveData(dummyData)
   }
 
   // for development purposes only, DELETE this later
-  function handleClear() {
+  function handleClear () {
     Alert.alert(
       'Are you sure?',
       'Clicking yes will clear all of your contacts!',
@@ -57,7 +57,7 @@ function AddOnFeatures(props) {
   return (
     <View style={styles.container}>
       <View style={styles.textBox}>
-        <Text style={styles.label}>familiar</Text>
+        <Text style={styles.label}>Settings</Text>
       </View>
 
       <View style={styles.innerContainer}>
@@ -94,12 +94,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#22CAFF'
   },
   label: {
-    alignSelf: 'stretch',
-    textAlign: 'center',
-    fontSize: 40,
+    textAlign: 'right',
+    fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
-    marginTop: 40,
+    marginTop: 52,
+    marginRight: 30,
     marginBottom: 10
   },
   buttonView: {

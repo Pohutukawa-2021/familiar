@@ -14,12 +14,21 @@ import {
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function ContactDetails(props) {
+function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
-  // updates contact lastCalled property and redirects back to home
-  async function handlePress(toCall = false) {
+  async function handlePressCall () {
+    await sendData()
+    await call(number)
+  }
+
+  async function handlePressCalled () {
+    await sendData()
+    props.navigation.navigate('Home')
+  }
+
+  async function sendData () {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -34,11 +43,9 @@ function ContactDetails(props) {
       }
     })
     await saveData(newData)
-    toCall && (await call(number))
-    //props.navigation.navigate('Home')
   }
 
-  function call(phNum) {
+  function call (phNum) {
     const numToCall =
       Platform.OS === 'android' ? `tel:${phNum}` : `telprompt:${phNum}`
     return Linking.openURL(numToCall).catch((err) => console.log(err))
@@ -51,7 +58,7 @@ function ContactDetails(props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete() {
+  async function handleDelete () {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -62,7 +69,7 @@ function ContactDetails(props) {
     props.navigation.navigate('Home')
   }
 
-  function edit() {
+  function edit () {
     props.navigation.navigate('Edit', { contact })
   }
 
@@ -102,29 +109,23 @@ function ContactDetails(props) {
           Last called: {moment(lastCall).format('DD/MM/YYYY')}
         </Text>
 
-        <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={() => handlePress(true)}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.buttonText}
-            >
-              Call
-            </Text>
-          </Pressable>
-        </View>
-        <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePress}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.buttonText}
-            >
-              Already Called
-            </Text>
+        <View style={styles.callBtn}>
+          <Pressable onPress={handlePressCall}>
+            <Image source={require('../assets/call.png')} />
           </Pressable>
         </View>
       </ScrollView>
+      <View style={styles.buttonView}>
+        <Pressable style={styles.button} onPress={handlePressCalled}>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={styles.buttonText}
+          >
+              Already Called
+          </Text>
+        </Pressable>
+      </View>
     </View>
   )
 }
@@ -174,9 +175,10 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   buttonView: {
-    width: '100%',
-    marginTop: 40,
-    borderRadius: 35
+    width: '80%',
+    borderRadius: 35,
+    position: 'absolute',
+    bottom: 40
   },
   button: {
     backgroundColor: '#5AF160',
@@ -194,6 +196,10 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
     textDecorationLine: 'underline'
+  },
+  callBtn: {
+    alignSelf: 'center',
+    margin: 40
   }
 })
 

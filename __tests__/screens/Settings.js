@@ -1,6 +1,6 @@
 import React from 'react'
 import { act, cleanup, fireEvent } from '@testing-library/react-native'
-import AddOnFeatures from '../../screens/AddOnFeatures'
+import Settings from '../../screens/Settings'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { clear } from '../../helpers/helperFunc'
 import { Alert } from 'react-native'
@@ -26,7 +26,7 @@ it('Should display a clear data button', async () => {
   const mockNavigate = jest.fn()
 
   const { getByText } = renderWithNavigation(
-    <AddOnFeatures navigation={{ navigate: mockNavigate }} />,
+    <Settings navigation={{ navigate: mockNavigate }} />,
     'stack'
   )
 
@@ -39,7 +39,7 @@ it('Should clear contact list when clear data btn is clicked', async () => {
   const mockNavigate = jest.fn()
 
   const { getByText } = renderWithNavigation(
-    <AddOnFeatures navigation={{ navigate: mockNavigate }} />,
+    <Settings navigation={{ navigate: mockNavigate }} />,
     'stack'
   )
 
@@ -55,7 +55,7 @@ it('Should not clear contact list when cancel button is clicked', async () => {
   const mockNavigate = jest.fn()
 
   const { getByText } = renderWithNavigation(
-    <AddOnFeatures navigation={{ navigate: mockNavigate }} />,
+    <Settings navigation={{ navigate: mockNavigate }} />,
     'stack'
   )
 

@@ -10,12 +10,12 @@ import Add from '../screens/Add'
 import Edit from '../screens/Edit'
 import History from '../screens/History'
 import ContactDetails from '../screens/ContactDetails'
-import AddOnFeatures from '../screens/AddOnFeatures'
+import Settings from '../screens/Settings'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
-function tabNavigation() {
+function tabNavigation () {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -39,21 +39,7 @@ function tabNavigation() {
           }
         }}
       />
-      <Tab.Screen
-        name="More"
-        component={AddOnFeatures}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ size, focused, color }) => {
-            return (
-              <Image
-                style={{ width: size, height: size }}
-                source={require('../assets/delete.png')}
-              />
-            )
-          }
-        }}
-      />
+
       <Tab.Screen
         name="History"
         component={History}
@@ -69,7 +55,24 @@ function tabNavigation() {
           }
         }}
       />
+
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, focused, color }) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source={require('../assets/settings.png')}
+              />
+            )
+          }
+        }}
+      />
     </Tab.Navigator>
+
   )
 }
 
@@ -83,7 +86,7 @@ const MyTheme = {
   }
 }
 
-export function stackNav() {
+export function stackNav () {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -98,7 +101,7 @@ export function stackNav() {
   )
 }
 
-function StackNavigation() {
+function StackNavigation () {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator>
