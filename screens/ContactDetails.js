@@ -96,18 +96,20 @@ function ContactDetails (props) {
         showsVerticalScrollIndicator={false}
         style={styles.innerContainer}
       >
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+        <View style={styles.textContainer}>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Name: {name}
-        </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          </Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Number: {number}
-        </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          </Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Frequency: {frequency}
-        </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          </Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Last called: {moment(lastCall).format('DD/MM/YYYY')}
-        </Text>
+          </Text>
+        </View>
 
         <View style={styles.callBtn}>
           <Pressable onPress={handlePressCall}>
@@ -157,7 +159,6 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     width: '80%',
-    marginTop: 40,
     padding: 20
   },
   h1: {
@@ -175,10 +176,8 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   buttonView: {
-    width: '80%',
-    borderRadius: 35,
-    position: 'absolute',
-    bottom: 40
+    width: '70%',
+    borderRadius: 35
   },
   button: {
     backgroundColor: '#5AF160',
@@ -200,6 +199,9 @@ const styles = StyleSheet.create({
   callBtn: {
     alignSelf: 'center',
     margin: 40
+  },
+  textContainer: {
+    paddingTop: 20
   }
 })
 
