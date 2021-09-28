@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { readData } from '../helpers/helperFunc'
-import moment from 'moment'
+import { Fontisto } from '@expo/vector-icons'
 
 function History (props) {
   const [data, setData] = useState([])
@@ -23,32 +23,22 @@ function History (props) {
 
   function fixPlurals (value) {
     if (value === undefined) {
-      return 'called 0 time'
+      return 'Not yet called'
     } else if (value === 1) {
-      return 'called ' + value + ' time'
+      return 'called once'
     } else return 'called ' + value + ' times'
   }
 
   function showProgress (value) {
-    const Num = Number(value)
-    cono
-    switch (Num) {
-      case (Num < 1):
-        return 'x'
-      case (Num < 3):
-        return 'test'
-      case (Num < 7):
-        return 'x'
-      case (Num < 14):
-        return 'x'
-      case (Num < 30):
-        return 'x'
-      case (Num < 60):
-        return 'x'
-      case (Num < 90):
-        return 'x'
-      default:
-        return 'default'
+    if (value === undefined) {
+      value = 0
+    }
+    if (value === 0) {
+      return <Fontisto name="confused" size={20} color="black" />
+    } else if (value < 5) {
+      return <Fontisto name="slightly-smile" size={20} color="black" />
+    } else {
+      return <Fontisto name="smiley" size={20} color="black" />
     }
   }
 
@@ -78,7 +68,10 @@ function History (props) {
                 >
                   <View style={styles.listItem}>
                     <View style={styles.textContainer}>
-                      <Text>{contact.name} {showProgress(contact.callCount)}</Text>
+                      <Text>{contact.name}</Text>
+                    </View>
+                    <View style={styles.textContainer}>
+                      <Text> {showProgress(contact.callCount)}</Text>
                     </View>
                     <View style={[styles.textContainer, styles.textCallCount]}>
                       <Text style={styles.textCallCount}>
