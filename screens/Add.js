@@ -13,6 +13,7 @@ import {
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
 import { saveData, readData, formCheck } from '../helpers/helperFunc'
+import Slider from '@react-native-community/slider'
 
 function Add (props) {
   const isFocused = useIsFocused() // detetcs when page is rendered
@@ -29,7 +30,7 @@ function Add (props) {
     setAddForm({
       name: '',
       number: '',
-      frequency: ''
+      frequency: 1
     })
   }, [isFocused])
 
@@ -66,6 +67,58 @@ function Add (props) {
     }
   }
 
+  function convertDays () {
+    switch (addForm.frequency) {
+      case 1:
+        return 'day'
+      case 3:
+        return '3 days'
+      case 7:
+        return 'week'
+      case 14:
+        return 'fortnight'
+      case 28:
+        return 'month'
+      case 84:
+        return '3 months'
+      case 168:
+        return '6 months'
+      case 365:
+        return 'year'
+      default:
+        return addForm.frequency + ' days'
+    }
+  }
+
+  function handleFreqChange (value) {
+    switch (value) {
+      case 1:
+        handleOnChangeAdd('frequency', 1)
+        break
+      case 2:
+        handleOnChangeAdd('frequency', 3)
+        break
+      case 3:
+        handleOnChangeAdd('frequency', 7)
+        break
+      case 4:
+        handleOnChangeAdd('frequency', 14)
+        break
+      case 5:
+        handleOnChangeAdd('frequency', 28)
+        break
+      case 6:
+        handleOnChangeAdd('frequency', 84)
+        break
+      case 7:
+        handleOnChangeAdd('frequency', 168)
+        break
+      case 8:
+        handleOnChangeAdd('frequency', 365)
+        break
+    }
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -89,14 +142,20 @@ function Add (props) {
           keyboardType="numeric"
           onChangeText={(value) => handleOnChangeAdd('number', value)}
         />
-        <Text style={styles.label}>Frequency</Text>
-        <TextInput
+        <Text style={styles.text}>Call Frequency: every {convertDays()}</Text>
+        <Slider
+          step={1}
+          minimumValue={1}
+          maximumValue={8}
+          style={styles.slider}
+          onValueChange={value => handleFreqChange(value)} />
+        {/* <TextInput
           style={styles.input}
           value={addForm.frequency}
           placeholder="frequency in days"
           keyboardType="numeric"
           onChangeText={(value) => handleOnChangeAdd('frequency', value)}
-        />
+        /> */}
         <View style={styles.buttonView}>
           <Pressable style={styles.button} onPress={handlePressAdd}>
             <Text style={styles.buttonText}>Add</Text>
@@ -153,6 +212,18 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     alignSelf: 'center'
+  },
+  slider: {
+    width: 300,
+    opacity: 1,
+    height: 50,
+    marginTop: 10
+  },
+  text: {
+    fontSize: 18,
+    textAlign: 'left',
+    fontWeight: '500',
+    margin: 0
   }
 })
 
