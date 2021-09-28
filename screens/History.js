@@ -31,12 +31,13 @@ function History(props) {
         showsVerticalScrollIndicator={false}
         style={styles.innerContainer}
       >
-        {data.length > 0 ? (
+        {
           <View style={styles.listContainer}>
             {data.map((contact, index) => {
               return (
                 <View
                   key={contact.name}
+                  testID="indicator-background"
                   style={[
                     styles.listItemContainer,
                     index % 2 === 0
@@ -58,9 +59,7 @@ function History(props) {
               )
             })}
           </View>
-        ) : (
-          <Text style={styles.emptyText}>Press + to add some contacts!</Text>
-        )}
+        }
       </ScrollView>
       {/* <Button title='Set' onPress={handleSet} />
     <Button title='Clear' onPress={handleClear} /> */}
