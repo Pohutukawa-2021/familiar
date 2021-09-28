@@ -137,12 +137,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#22CAFF'
   },
   label: {
-    textAlign: 'right',
+    textAlign: 'center',
     fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
     marginTop: 52,
-    marginRight: 30,
+    // marginRight: 30,
     marginBottom: 10
   }
 })

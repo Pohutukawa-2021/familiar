@@ -9,26 +9,27 @@ import {
   Image,
   Linking,
   Platform,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native'
 import { saveData, readData, color, convertDays } from '../helpers/helperFunc'
 import moment from 'moment'
 
-function ContactDetails(props) {
+function ContactDetails (props) {
   const { name, number, frequency, lastCall } = props.route.params.contact
   const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
 
-  async function handlePressCall() {
+  async function handlePressCall () {
     await sendData()
     await call(number)
   }
 
-  async function handlePressCalled() {
+  async function handlePressCalled () {
     await sendData()
     props.navigation.navigate('Home')
   }
 
-  async function sendData() {
+  async function sendData () {
     const data = await readData()
     const newData = data.map((value) => {
       if (value.name === name) {
@@ -45,7 +46,7 @@ function ContactDetails(props) {
     await saveData(newData)
   }
 
-  function call(phNum) {
+  function call (phNum) {
     const numToCall =
       Platform.OS === 'android' ? `tel:${phNum}` : `telprompt:${phNum}`
     return Linking.openURL(numToCall).catch((err) => console.log(err))
@@ -58,7 +59,7 @@ function ContactDetails(props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete() {
+  async function handleDelete () {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -69,7 +70,7 @@ function ContactDetails(props) {
     props.navigation.navigate('Home')
   }
 
-  function edit() {
+  function edit () {
     props.navigation.navigate('Edit', { contact })
   }
 
@@ -96,22 +97,24 @@ function ContactDetails(props) {
         showsVerticalScrollIndicator={false}
         style={styles.innerContainer}
       >
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+        <View style={styles.textContainer}>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Name: {name}
-        </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          </Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Number: {number}
-        </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          </Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Call Frequency: {convertDays(frequency)}
-        </Text>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
+          </Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
           Last called: {moment(lastCall).format('DD/MM/YYYY')}
-        </Text>
+          </Text>
+        </View>
 
         <View style={styles.callBtn}>
           <Pressable onPress={handlePressCall}>
-            <Image testID="callButton" source={require('../assets/call.png')} />
+            <Image testID="callButton" style={styles.callImage}source={require('../assets/call-btn.png')} />
           </Pressable>
         </View>
       </ScrollView>
@@ -130,77 +133,164 @@ function ContactDetails(props) {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
-  image: {
-    width: 40,
-    height: 40
-  },
-  topContainer: {
-    width: '100%',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end'
-  },
-  navEdit: {
-    alignSelf: 'center',
-    marginBottom: 60
-  },
-  navDelete: {
-    position: 'absolute',
-    top: 20,
-    right: 20
-  },
-  innerContainer: {
-    width: '90%',
-    marginTop: 10,
-    padding: 20
-  },
-  h1: {
-    fontSize: 60,
-    color: 'white',
-    fontWeight: 'bold',
-    marginBottom: 5,
-    alignSelf: 'stretch',
-    textAlign: 'center',
-    marginTop: 60
-  },
-  label: {
-    width: '100%',
-    fontSize: 20,
-    marginBottom: 5
-  },
-  buttonView: {
-    width: '80%',
-    borderRadius: 35,
-    position: 'absolute',
-    bottom: 40
-  },
-  button: {
-    backgroundColor: '#5AF160',
-    padding: 10,
-    borderRadius: 35,
-    marginBottom: 15
-  },
-  buttonText: {
-    fontSize: 20,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  editText: {
-    fontSize: 25,
-    color: 'white',
-    alignSelf: 'center',
-    textDecorationLine: 'underline'
-  },
-  callBtn: {
-    alignSelf: 'center',
-    margin: 40
-  }
-})
+// window height < 650pt
+const windowHeight = Dimensions.get('window').height
+let styles
+
+if (windowHeight < 650) {
+  styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    image: {
+      width: 40,
+      height: 40
+    },
+    topContainer: {
+      width: '100%',
+      justifyContent: 'space-around',
+      alignItems: 'flex-end'
+    },
+    navEdit: {
+      alignSelf: 'center',
+      marginBottom: 60
+    },
+    navDelete: {
+      position: 'absolute',
+      top: 20,
+      right: 20
+    },
+    innerContainer: {
+      width: '80%',
+      padding: 20
+    },
+    h1: {
+      fontSize: 40,
+      color: 'white',
+      fontWeight: 'bold',
+      marginBottom: 5,
+      alignSelf: 'stretch',
+      textAlign: 'center',
+      marginTop: 30
+    },
+    label: {
+      width: '80%',
+      fontSize: 20,
+      marginBottom: 5
+    },
+    buttonView: {
+      width: '70%',
+      borderRadius: 35
+    },
+    button: {
+      backgroundColor: '#5AF160',
+      padding: 10,
+      borderRadius: 35,
+      marginBottom: 15
+    },
+    buttonText: {
+      fontSize: 20,
+      color: 'white',
+      alignSelf: 'center'
+    },
+    editText: {
+      fontSize: 25,
+      color: 'white',
+      alignSelf: 'center',
+      textDecorationLine: 'underline'
+    },
+    callBtn: {
+      alignSelf: 'center',
+      margin: 40
+    },
+    textContainer: {
+      paddingTop: 20
+    },
+    callImage: {
+      height: 90,
+      width: 90
+    }
+  })
+} else {
+  styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    image: {
+      width: 40,
+      height: 40
+    },
+    topContainer: {
+      width: '100%',
+      justifyContent: 'space-around',
+      alignItems: 'flex-end'
+    },
+    navEdit: {
+      alignSelf: 'center',
+      marginBottom: 60
+    },
+    navDelete: {
+      position: 'absolute',
+      top: 20,
+      right: 20
+    },
+    innerContainer: {
+      width: '80%',
+      padding: 20
+    },
+    h1: {
+      fontSize: 60,
+      color: 'white',
+      fontWeight: 'bold',
+      marginBottom: 5,
+      alignSelf: 'stretch',
+      textAlign: 'center',
+      marginTop: 60
+    },
+    label: {
+      width: '80%',
+      fontSize: 20,
+      marginBottom: 5
+    },
+    buttonView: {
+      width: '70%',
+      borderRadius: 35
+    },
+    button: {
+      backgroundColor: '#5AF160',
+      padding: 10,
+      borderRadius: 35,
+      marginBottom: 30
+    },
+    buttonText: {
+      fontSize: 20,
+      color: 'white',
+      alignSelf: 'center'
+    },
+    editText: {
+      fontSize: 25,
+      color: 'white',
+      alignSelf: 'center',
+      textDecorationLine: 'underline'
+    },
+    callBtn: {
+      alignSelf: 'center',
+      margin: 40
+    },
+    textContainer: {
+      paddingTop: 20
+    },
+    callImage: {
+      height: 90,
+      width: 90
+    }
+  })
+}
 
 export default ContactDetails
