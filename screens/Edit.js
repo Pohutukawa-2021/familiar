@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 /* eslint-disable-next-line */
 import { View, TextInput, Text, Pressable, ScrollView, Alert } from 'react-native'
 import { styles } from './Add'
-import { readData, saveData, formCheck } from '../helpers/helperFunc'
+import { readData, saveData, formCheck, convertDays } from '../helpers/helperFunc'
 import Slider from '@react-native-community/slider'
 function Edit (props) {
   let name, number, frequency, lastCall
@@ -61,28 +61,28 @@ function Edit (props) {
     }
   }
 
-  function convertDays () {
-    switch (editForm.frequency) {
-      case 1:
-        return 'daily'
-      case 3:
-        return 'every 3 days'
-      case 7:
-        return 'weekly'
-      case 14:
-        return 'fortnightly'
-      case 28:
-        return 'monthly'
-      case 84:
-        return 'every 3 months'
-      case 168:
-        return 'every 6 months'
-      case 365:
-        return 'yearly'
-      default:
-        return editForm.frequency + ' days'
-    }
-  }
+  // function convertDays () {
+  //   switch (editForm.frequency) {
+  //     case 1:
+  //       return 'daily'
+  //     case 3:
+  //       return 'every 3 days'
+  //     case 7:
+  //       return 'weekly'
+  //     case 14:
+  //       return 'fortnightly'
+  //     case 28:
+  //       return 'monthly'
+  //     case 84:
+  //       return 'every 3 months'
+  //     case 168:
+  //       return 'every 6 months'
+  //     case 365:
+  //       return 'yearly'
+  //     default:
+  //       return editForm.frequency + ' days'
+  //   }
+  // }
 
   function handleFreqChange (value) {
     switch (value) {
@@ -136,7 +136,7 @@ function Edit (props) {
             keyboardType="numeric"
             onChangeText={(value) => handleOnChangeEdit('number', value)}
           />
-          <Text style={styles.text}>Call Frequency: {convertDays()}</Text>
+          <Text style={styles.text}>Call Frequency: {convertDays(editForm.frequency)}</Text>
           <Slider
             step={1}
             minimumValue={1}

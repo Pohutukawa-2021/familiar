@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
-import { saveData, readData, formCheck } from '../helpers/helperFunc'
+import { saveData, readData, formCheck, convertDays } from '../helpers/helperFunc'
 import Slider from '@react-native-community/slider'
 
 function Add (props) {
@@ -64,29 +64,6 @@ function Add (props) {
       data
         ? saveData([...data, form]) && props.navigation.navigate('Home')
         : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
-    }
-  }
-
-  function convertDays () {
-    switch (addForm.frequency) {
-      case 1:
-        return 'daily'
-      case 3:
-        return 'every 3 days'
-      case 7:
-        return 'weekly'
-      case 14:
-        return 'fortnightly'
-      case 28:
-        return 'monthly'
-      case 84:
-        return 'every 3 months'
-      case 168:
-        return 'every 6 months'
-      case 365:
-        return 'yearly'
-      default:
-        return addForm.frequency + ' days'
     }
   }
 
@@ -142,7 +119,7 @@ function Add (props) {
           keyboardType="numeric"
           onChangeText={(value) => handleOnChangeAdd('number', value)}
         />
-        <Text style={styles.text}>Call Frequency: {convertDays()}</Text>
+        <Text style={styles.text}>Call Frequency: {convertDays(addForm.frequency)}</Text>
         <Slider
           step={1}
           minimumValue={1}
