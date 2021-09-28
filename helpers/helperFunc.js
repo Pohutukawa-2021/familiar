@@ -49,6 +49,8 @@ export function formCheck (form) {
   let err = ''
   if (typeof name !== 'string' || name === '') {
     err += 'Name'
+  } else if (nameCheck(name)) {
+    err += 'Name already in use'
   }
   if (isNaN(Number(number)) || number === '') {
     err === ''
@@ -61,4 +63,16 @@ export function formCheck (form) {
       : err += ', Frequency'
   }
   return err
+}
+
+// returns true if name is already in local storage
+async function nameCheck (name) {
+  const data = await readData()
+  let checker = false
+  data.forEach(contact => {
+    if (contact.name === name) {
+      checker = true
+    }
+  })
+  return checker
 }
