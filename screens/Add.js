@@ -47,15 +47,19 @@ function Add (props) {
       ...addForm,
       lastCall: moment().format()
     }
+    const data = await readData()
+    let names = []
+    data
+      ? names = data.map(values => values.name)
+      : names = []
 
-    const err = formCheck(form)
+    const err = formCheck(form, names)
     if (err !== '') {
       Alert.alert(
         'Error',
         `Invalid field(s): ${err}`
       )
     } else {
-      const data = await readData()
       data
         ? saveData([...data, form]) && props.navigation.navigate('Home')
         : saveData([form]) && props.navigation.navigate('Home') // in case no data exists

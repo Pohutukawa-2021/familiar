@@ -43,13 +43,13 @@ export function color (difference, frequency) {
 }
 
 // takes in a form object, returns custom error string
-export function formCheck (form) {
+export function formCheck (form, names) {
   const { name, number, frequency } = form
 
   let err = ''
   if (typeof name !== 'string' || name === '') {
     err += 'Name'
-  } else if (nameCheck(name)) {
+  } else if (nameCheck(name, names)) {
     err += 'Name already in use'
   }
   if (isNaN(Number(number)) || number === '') {
@@ -66,11 +66,10 @@ export function formCheck (form) {
 }
 
 // returns true if name is already in local storage
-async function nameCheck (name) {
-  const data = await readData()
+function nameCheck (name, names) {
   let checker = false
-  data.forEach(contact => {
-    if (contact.name === name) {
+  names.forEach(n => {
+    if (n === name) {
       checker = true
     }
   })
