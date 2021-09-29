@@ -6,7 +6,9 @@ import {
   Text,
   Pressable,
   ScrollView,
-  Alert
+  Alert,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native'
 import { styles } from './Add'
 import {
@@ -99,40 +101,45 @@ function Edit(props) {
           showsVerticalScrollIndicator={false}
           style={styles.innerContainer}
         >
-          <Text style={styles.h1}>Update</Text>
-          <Text style={styles.label}>Name:</Text>
-          <TextInput
-            style={styles.input}
-            value={editForm.name}
-            placeholder="name"
-            keyboardType="default"
-            onChangeText={(value) => handleOnChangeEdit('name', value)}
-          />
-          <Text style={styles.label}>Phone Number:</Text>
-          <TextInput
-            style={styles.input}
-            value={editForm.number}
-            placeholder="number"
-            keyboardType="numeric"
-            onChangeText={(value) => handleOnChangeEdit('number', value)}
-          />
-          <Text testID="frequency" style={styles.text}>
-            Call Frequency: {convertDays(editForm.frequency)}
-          </Text>
-          <Slider
-            step={1}
-            minimumValue={1}
-            maximumValue={8}
-            style={styles.slider}
-            onValueChange={(value) =>
-              handleFreqChange(value, handleOnChangeEdit)
-            }
-          />
-          <View style={styles.buttonView}>
-            <Pressable style={styles.button} onPress={handlePressEdit}>
-              <Text style={styles.buttonText}>Confirm</Text>
-            </Pressable>
-          </View>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'android' ? 'padding' : 'position'}
+            keyboardVerticalOffset={30}
+          >
+            <Text style={styles.h1}>Update</Text>
+            <Text style={styles.label}>Name:</Text>
+            <TextInput
+              style={styles.input}
+              value={editForm.name}
+              placeholder="name"
+              keyboardType="default"
+              onChangeText={(value) => handleOnChangeEdit('name', value)}
+            />
+            <Text style={styles.label}>Phone Number:</Text>
+            <TextInput
+              style={styles.input}
+              value={editForm.number}
+              placeholder="number"
+              keyboardType="numeric"
+              onChangeText={(value) => handleOnChangeEdit('number', value)}
+            />
+            <Text testID="frequency" style={styles.text}>
+              Call Frequency: {convertDays(editForm.frequency)}
+            </Text>
+            <Slider
+              step={1}
+              minimumValue={1}
+              maximumValue={8}
+              style={styles.slider}
+              onValueChange={(value) =>
+                handleFreqChange(value, handleOnChangeEdit)
+              }
+            />
+            <View style={styles.buttonView}>
+              <Pressable style={styles.button} onPress={handlePressEdit}>
+                <Text style={styles.buttonText}>Confirm</Text>
+              </Pressable>
+            </View>
+          </KeyboardAvoidingView>
         </ScrollView>
       </View>
     </>
