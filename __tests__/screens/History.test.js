@@ -1,6 +1,6 @@
 import React from 'react'
 import { act, cleanup } from '@testing-library/react-native'
-import History from '../../screens/History'
+import { History } from '../../screens/History'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { readData } from '../../helpers/helperFunc'
 

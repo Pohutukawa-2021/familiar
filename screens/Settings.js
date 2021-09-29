@@ -3,16 +3,16 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Alert, Button } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { saveData, readData, clear } from '../helpers/helperFunc'
-
 import dummyData from '../helpers/dummyData'
+import { NotificationHandler } from '../components/Notifications'
 
-function AddOnFeatures (props) {
+function AddOnFeatures(props) {
   const [data, setData] = useState([])
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    async function getData () {
+    async function getData() {
       const data = await readData()
       if (data) {
         setData(data)
@@ -24,12 +24,12 @@ function AddOnFeatures (props) {
   }, [isFocused])
 
   // for development purposes only, DELETE this later
-  function handleSet () {
+  function handleSet() {
     saveData(dummyData)
   }
 
   // for development purposes only, DELETE this later
-  function handleClear () {
+  function handleClear() {
     Alert.alert(
       'Are you sure?',
       'Clicking yes will clear all of your contacts!',
@@ -128,4 +128,6 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddOnFeatures
+export { AddOnFeatures }
+
+export default NotificationHandler(AddOnFeatures)

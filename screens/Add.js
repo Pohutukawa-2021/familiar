@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from 'react'
 
 /* eslint-disable-next-line */
-import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, Alert } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Pressable,
+  ScrollView,
+  Alert
+} from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
-import { saveData, readData, formCheck, convertDays, handleFreqChange } from '../helpers/helperFunc'
+import {
+  saveData,
+  readData,
+  formCheck,
+  convertDays,
+  handleFreqChange
+} from '../helpers/helperFunc'
 import Slider from '@react-native-community/slider'
+import { NotificationHandler } from '../components/Notifications'
 
-function Add (props) {
+function Add(props) {
   const isFocused = useIsFocused() // detetcs when page is rendered
 
   const [addForm, setAddForm] = useState({
     name: '',
     number: '',
     frequency: '',
-    lastCall: '',
+    lastCall: ''
   })
 
   // clears state when page is rendered
@@ -27,7 +42,7 @@ function Add (props) {
     })
   }, [isFocused])
 
-  function handleOnChangeAdd (name, value) {
+  function handleOnChangeAdd(name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -35,28 +50,35 @@ function Add (props) {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd () {
+  async function handlePressAdd() {
     // adds date into form object to be saved
     const form = {
       ...addForm,
       lastCall: moment().format()
     }
-    console.log(form)
+
     const data = await readData()
     let names = []
-    data
-      ? names = data.map(values => values.name)
-      : names = []
+    data ? (names = data.map((values) => values.name)) : (names = [])
 
     const err = formCheck(form, names)
     if (err !== '') {
-      Alert.alert(
-        'Error',
-        `Invalid field(s): ${err}`
-      )
+      Alert.alert('Error', `Invalid field(s): ${err}`)
     } else {
+      // Push Notification setting
+      let identifier
+      try {
+        identifier = await props.schedulePushNotification(
+          form.lastCall,
+          form.frequency,
+          form
+        )
+      } catch (err) {
+        console.log(err)
+      }
       data
-        ? saveData([...data, form]) && props.navigation.navigate('Home')
+        ? saveData([...data, { ...form, identifier }]) &&
+          props.navigation.navigate('Home')
         : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
     }
   }
@@ -84,13 +106,16 @@ function Add (props) {
           keyboardType="numeric"
           onChangeText={(value) => handleOnChangeAdd('number', value)}
         />
-        <Text style={styles.text}>Call Frequency: {convertDays(addForm.frequency)}</Text>
+        <Text style={styles.text}>
+          Call Frequency: {convertDays(addForm.frequency)}
+        </Text>
         <Slider
           step={1}
           minimumValue={1}
           maximumValue={8}
           style={styles.slider}
-          onValueChange={value => handleFreqChange(value, handleOnChangeAdd)} />
+          onValueChange={(value) => handleFreqChange(value, handleOnChangeAdd)}
+        />
         <View style={styles.buttonView}>
           <Pressable style={styles.button} onPress={handlePressAdd}>
             <Text style={styles.buttonText}>Add</Text>
@@ -162,4 +187,6 @@ export const styles = StyleSheet.create({
   }
 })
 
-export default Add
+export { Add }
+
+export default NotificationHandler(Add)
