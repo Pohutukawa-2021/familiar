@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { color, saveData, readData, clear } from '../helpers/helperFunc'
 import moment from 'moment'
+import StyleSheet from 'react-native-media-query'
 /* eslint-disable-next-line */
 import {
-  StyleSheet,
+  // StyleSheet,
   Text,
   View,
   TouchableOpacity,
@@ -91,7 +92,10 @@ function Home(props) {
         }
       >
         {data.length > 0 ? (
-          <View style={styles.cardsContainer}>
+          <View
+            style={styles.cardsContainer}
+            dataSet={{ media: ids.cardsContainer }}
+          >
             {data
               .map((contact) => {
                 const difference = moment().diff(contact.lastCall, 'days')
@@ -135,7 +139,7 @@ function Home(props) {
   )
 }
 
-const styles = StyleSheet.create({
+const { ids, styles } = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -151,7 +155,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: '100%'
+    width: '100%',
+    '@media (min-width: 500px)': {
+      justifyContent: 'flex-start'
+    },
+    '@media (max-width: 350px)': {
+      flexDirection: 'column',
+      justifyContent: 'center'
+    },
+    '@media (max-width: 1023px) and (min-width: 700px)': {
+      marginLeft: 25
+    },
+    '@media (min-width: 1024px)': {
+      marginLeft: 60
+    }
   },
   card: {
     shadowColor: '#000',
