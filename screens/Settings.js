@@ -31,6 +31,16 @@ function AddOnFeatures(props) {
     saveData(fastForward)
   }
 
+  async function activateNotification() {
+    const userData = fastForward[0]
+    await props.schedulePushNotification(
+      userData.lastCall,
+      userData.frequency,
+      userData,
+      true
+    )
+  }
+
   // for development purposes only, DELETE this later
   function handleClear() {
     Alert.alert(
@@ -77,6 +87,11 @@ function AddOnFeatures(props) {
         <Pressable onPress={() => handleTimeWarp()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Time-Warp Data</Text>
+          </View>
+        </Pressable>
+        <Pressable onPress={() => activateNotification()}>
+          <View style={styles.buttonView}>
+            <Text style={styles.buttonText}>Set Notification</Text>
           </View>
         </Pressable>
         {/* <Button title="Set" onPress={handleSet} /> */}

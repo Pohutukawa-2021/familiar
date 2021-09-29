@@ -58,7 +58,7 @@ export const NotificationHandler = (WrappedContent) =>
     )
   }
 
-function schedulePushNotification(lastCall, frequency, user) {
+function schedulePushNotification(lastCall, frequency, user, demo = false) {
   let scheduledTime = moment(lastCall).add(frequency, 'days')
   if (!lastCall) {
     scheduledTime = moment().add(frequency, 'days')
@@ -70,7 +70,7 @@ function schedulePushNotification(lastCall, frequency, user) {
       body: `You have not called ${user.name} in a while`,
       data: user
     },
-    trigger: { seconds: timeInSeconds }
+    trigger: { seconds: !demo ? timeInSeconds : 10 }
   })
 }
 
