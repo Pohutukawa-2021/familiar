@@ -152,7 +152,7 @@ const { ids, styles } = StyleSheet.create({
   },
   cardsContainer: {
     backgroundColor: '#fff',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
