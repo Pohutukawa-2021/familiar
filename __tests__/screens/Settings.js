@@ -1,6 +1,6 @@
 import React from 'react'
 import { act, cleanup, fireEvent } from '@testing-library/react-native'
-import Settings from '../../screens/Settings'
+import { AddOnFeatures as Settings } from '../../screens/Settings'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { clear } from '../../helpers/helperFunc'
 import { Alert } from 'react-native'
@@ -25,26 +25,28 @@ afterEach(() => {
 it('Should display a clear data button', async () => {
   const mockNavigate = jest.fn()
 
-  const { getByText } = renderWithNavigation(
+  const { findByText } = renderWithNavigation(
     <Settings navigation={{ navigate: mockNavigate }} />,
     'stack'
   )
-
+  let button
   await act(async () => {
-    expect(getByText(/Clear Data/)).toBeTruthy()
+    button = await findByText(/Clear Data/)
   })
+  expect(button).toBeTruthy()
 })
 
 it('Should clear contact list when clear data btn is clicked', async () => {
   const mockNavigate = jest.fn()
 
-  const { getByText } = renderWithNavigation(
+  const { findByText } = renderWithNavigation(
     <Settings navigation={{ navigate: mockNavigate }} />,
     'stack'
   )
 
   await act(async () => {
-    await fireEvent.press(getByText(/Clear Data/))
+    const button = await findByText(/Clear Data/)
+    await fireEvent.press(button)
     // Clicks on Yes button on the Alert dialog
     spyAlert.mock.calls[0][2][1].onPress()
     expect(clear).toHaveBeenCalled()
@@ -54,13 +56,14 @@ it('Should clear contact list when clear data btn is clicked', async () => {
 it('Should not clear contact list when cancel button is clicked', async () => {
   const mockNavigate = jest.fn()
 
-  const { getByText } = renderWithNavigation(
+  const { findByText } = renderWithNavigation(
     <Settings navigation={{ navigate: mockNavigate }} />,
     'stack'
   )
 
   await act(async () => {
-    await fireEvent.press(getByText(/Clear Data/))
+    const button = await findByText(/Clear Data/)
+    await fireEvent.press(button)
     // Clicks on Cancel button on the Alert dialog
     spyAlert.mock.calls[0][2][0].onPress()
     expect(clear).not.toHaveBeenCalled()

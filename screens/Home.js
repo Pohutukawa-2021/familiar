@@ -17,12 +17,13 @@ import {
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
 import dummyData from '../helpers/dummyData'
+import { NotificationHandler } from '../components/Notifications'
 
 const wait = (timeout) => {
-  return new Promise(resolve => setTimeout(resolve, timeout))
+  return new Promise((resolve) => setTimeout(resolve, timeout))
 }
 
-function Home (props) {
+function Home(props) {
   const [data, setData] = useState([])
   const isFocused = useIsFocused()
   const sortOrder = { red: 0, orange: 1, green: 2 }
@@ -31,7 +32,7 @@ function Home (props) {
     setRefreshing(true)
     wait(2000)
       .then(() => {
-        async function getData () {
+        async function getData() {
           const data = await readData()
           if (data) {
             setData(data)
@@ -49,7 +50,7 @@ function Home (props) {
   }, [])
 
   useEffect(() => {
-    async function getData () {
+    async function getData() {
       const data = await readData()
       if (data) {
         setData(data)
@@ -61,12 +62,12 @@ function Home (props) {
   }, [isFocused])
 
   // for development purposes only, DELETE this later
-  function handleSet () {
+  function handleSet() {
     saveData(dummyData)
   }
 
   // for development purposes only, DELETE this later
-  function handleClear () {
+  function handleClear() {
     clear()
   }
 
@@ -87,40 +88,46 @@ function Home (props) {
         showsVerticalScrollIndicator={false}
         style={styles.innerContainer}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
         {data.length > 0 ? (
-          <View style={styles.cardsContainer} dataSet={{ media: ids.cardsContainer }} >
-            {data.map((contact) => {
-              const difference = moment().diff(contact.lastCall, 'days')
-              const boxColor = color(difference, contact.frequency)
-              return (
-                <TouchableOpacity
-                  style={styles.card}
-                  key={'tapp' + contact.name}
-                  onPress={() =>
-                    props.navigation.navigate('Contact Details', { contact })
-                  }
-                >
-                  <Card key={contact.name} {...contact}
-                    color={
-                      boxColor === '#E00000'
-                        ? 'red'
-                        : boxColor === '#FF971D'
+          <View
+            style={styles.cardsContainer}
+            dataSet={{ media: ids.cardsContainer }}
+          >
+            {data
+              .map((contact) => {
+                const difference = moment().diff(contact.lastCall, 'days')
+                const boxColor = color(difference, contact.frequency)
+                return (
+                  <TouchableOpacity
+                    style={styles.card}
+                    key={'tapp' + contact.name}
+                    onPress={() =>
+                      props.navigation.navigate('Contact Details', { contact })
+                    }
+                  >
+                    <Card
+                      key={contact.name}
+                      {...contact}
+                      color={
+                        boxColor === '#E00000'
+                          ? 'red'
+                          : boxColor === '#FF971D'
                           ? 'orange'
                           : 'green'
-                    }
-                  />
-                </TouchableOpacity>
-              )
-            }).sort(function (p1, p2) {
-              return sortOrder[p1.props.children.props.color] - sortOrder[p2.props.children.props.color]
-            })
-            }
+                      }
+                    />
+                  </TouchableOpacity>
+                )
+              })
+              .sort(function (p1, p2) {
+                return (
+                  sortOrder[p1.props.children.props.color] -
+                  sortOrder[p2.props.children.props.color]
+                )
+              })}
           </View>
         ) : (
           <Text style={styles.emptyText}>Press + to add some contacts!</Text>
@@ -210,4 +217,6 @@ const { ids, styles } = StyleSheet.create({
   }
 })
 
-export default Home
+export { Home }
+
+export default NotificationHandler(Home)
