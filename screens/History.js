@@ -22,7 +22,6 @@ function History (props) {
   }, [isFocused])
 
   function fixPlurals (value) {
-    console.log(value)
     if (value === 0) {
       return 'Not yet called'
     } else if (value === 1) {

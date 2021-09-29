@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Pressable, Alert, Button } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { saveData, readData, clear } from '../helpers/helperFunc'
 
-import dummyData from '../helpers/dummyData'
+import { original, fastForward } from '../helpers/dummyData'
 
 function AddOnFeatures (props) {
   const [data, setData] = useState([])
@@ -25,7 +25,10 @@ function AddOnFeatures (props) {
 
   // for development purposes only, DELETE this later
   function handleSet () {
-    saveData(dummyData)
+    saveData(original)
+  }
+  function handleTimeWarp () {
+    saveData(fastForward)
   }
 
   // for development purposes only, DELETE this later
@@ -64,6 +67,16 @@ function AddOnFeatures (props) {
         <Pressable onPress={() => handleClear()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Clear Data</Text>
+          </View>
+        </Pressable>
+        <Pressable onPress={() => handleSet()}>
+          <View style={styles.buttonView}>
+            <Text style={styles.buttonText}>Set Data</Text>
+          </View>
+        </Pressable>
+        <Pressable onPress={() => handleTimeWarp()}>
+          <View style={styles.buttonView}>
+            <Text style={styles.buttonText}>Time-Warp Data</Text>
           </View>
         </Pressable>
         {/* <Button title="Set" onPress={handleSet} /> */}
@@ -107,6 +120,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#29E25D',
     borderRadius: 10,
     padding: 10,
+    marginTop: 10,
+    marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
