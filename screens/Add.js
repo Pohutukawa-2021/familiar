@@ -14,8 +14,9 @@ import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
 import { saveData, readData, formCheck } from '../helpers/helperFunc'
 import Slider from '@react-native-community/slider'
+import { NotificationHandler } from '../components/Notifications'
 
-function Add (props) {
+function Add(props) {
   const isFocused = useIsFocused() // detetcs when page is rendered
 
   const [addForm, setAddForm] = useState({
@@ -34,7 +35,7 @@ function Add (props) {
     })
   }, [isFocused])
 
-  function handleOnChangeAdd (name, value) {
+  function handleOnChangeAdd(name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -42,7 +43,7 @@ function Add (props) {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd () {
+  async function handlePressAdd() {
     // adds date into form object to be saved
     const form = {
       ...addForm,
@@ -50,24 +51,31 @@ function Add (props) {
     }
     const data = await readData()
     let names = []
-    data
-      ? names = data.map(values => values.name)
-      : names = []
+    data ? (names = data.map((values) => values.name)) : (names = [])
 
     const err = formCheck(form, names)
     if (err !== '') {
-      Alert.alert(
-        'Error',
-        `Invalid field(s): ${err}`
-      )
+      Alert.alert('Error', `Invalid field(s): ${err}`)
     } else {
+      // Push Notification setting
+      let identifier
+      try {
+        identifier = await props.schedulePushNotification(
+          form.lastCall,
+          form.frequency,
+          form
+        )
+      } catch (err) {
+        console.log(err)
+      }
       data
-        ? saveData([...data, form]) && props.navigation.navigate('Home')
+        ? saveData([...data, { ...form, identifier }]) &&
+          props.navigation.navigate('Home')
         : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
     }
   }
 
-  function convertDays () {
+  function convertDays() {
     switch (addForm.frequency) {
       case 1:
         return 'daily'
@@ -90,7 +98,7 @@ function Add (props) {
     }
   }
 
-  function handleFreqChange (value) {
+  function handleFreqChange(value) {
     switch (value) {
       case 1:
         handleOnChangeAdd('frequency', 1)
@@ -148,7 +156,8 @@ function Add (props) {
           minimumValue={1}
           maximumValue={8}
           style={styles.slider}
-          onValueChange={value => handleFreqChange(value)} />
+          onValueChange={(value) => handleFreqChange(value)}
+        />
         {/* <TextInput
           style={styles.input}
           value={addForm.frequency}
@@ -227,4 +236,6 @@ export const styles = StyleSheet.create({
   }
 })
 
-export default Add
+export { Add }
+
+export default NotificationHandler(Add)

@@ -13,10 +13,12 @@ import {
 } from 'react-native'
 import { saveData, readData, color } from '../helpers/helperFunc'
 import moment from 'moment'
+import { NotificationHandler } from '../components/Notifications'
 
 function ContactDetails(props) {
-  const { name, number, frequency, lastCall } = props.route.params.contact
-  const contact = { name, number, frequency, lastCall } // construct object, only used to send to Edit component
+  const { name, number, frequency, lastCall, notificationId } =
+    props.route.params.contact
+  const contact = { name, number, frequency, lastCall, notificationId } // construct object, only used to send to Edit component
 
   async function handlePressCall() {
     await sendData()
@@ -30,12 +32,25 @@ function ContactDetails(props) {
 
   async function sendData() {
     const data = await readData()
+    let updatedNotificationId = notificationId
+    if (notificationId) {
+      await props.cancelPushNotification(notificationId)
+    }
+
+    const updatedLastCall = moment().format()
+
+    updatedNotificationId = await props.schedulePushNotification(
+      lastCall,
+      frequency,
+      contact
+    )
     const newData = data.map((value) => {
       if (value.name === name) {
         const newValue = {
           ...value,
-          lastCall: moment().format(),
-          callCount: value.callCount + 1
+          lastCall: updatedLastCall,
+          callCount: value.callCount + 1,
+          identifier: updatedNotificationId
         }
         return newValue
       } else {
@@ -203,4 +218,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ContactDetails
+export { ContactDetails }
+export default NotificationHandler(ContactDetails)

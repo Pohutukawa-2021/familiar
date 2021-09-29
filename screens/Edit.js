@@ -1,11 +1,20 @@
 import React, { useEffect } from 'react'
 /* eslint-disable-next-line */
-import { View, TextInput, Text, Pressable, ScrollView, Alert } from 'react-native'
+import {
+  View,
+  TextInput,
+  Text,
+  Pressable,
+  ScrollView,
+  Alert
+} from 'react-native'
 import { styles } from './Add'
 import { readData, saveData, formCheck } from '../helpers/helperFunc'
 import Slider from '@react-native-community/slider'
-function Edit (props) {
-  let name, number, frequency, lastCall
+import { NotificationHandler } from '../components/Notifications'
+
+function Edit(props) {
+  let name, number, frequency, lastCall, notificationId
 
   const [initalName, setInitalName] = React.useState('') // set initail name to match in local storage (in case the name gets edited)
 
@@ -16,11 +25,13 @@ function Edit (props) {
     number = props.route.params.contact.number
     frequency = props.route.params.contact.frequency
     lastCall = props.route.params.contact.lastCall
+    notificationId = props.route.params.contact.identifier
     setEditForm({ name, number, frequency, lastCall })
     setInitalName(name)
+    console.log(frequency)
   }, [props.route.params.contact.name])
 
-  function handleOnChangeEdit (name, value) {
+  function handleOnChangeEdit(name, value) {
     const newEditForm = {
       ...editForm,
       [name]: value
@@ -28,30 +39,45 @@ function Edit (props) {
     setEditForm(newEditForm)
   }
 
-  async function handlePressEdit () {
+  async function handlePressEdit() {
     const { name, number, frequency, lastCall } = editForm
     const contact = { name, number, frequency, lastCall } // construct object, only used to send to ContactDetails component
 
     const data = await readData()
     let names = []
     data
-      ? names = data.map(values => {
-        if (values.name !== initalName) {
-          return values.name
-        }
-      })
-      : names = []
+      ? (names = data.map((values) => {
+          if (values.name !== initalName) {
+            return values.name
+          }
+        }))
+      : (names = [])
 
     const err = formCheck(editForm, names)
     if (err !== '') {
-      Alert.alert(
-        'Error',
-        `Invalid field(s): ${err}`
-      )
+      Alert.alert('Error', `Invalid field(s): ${err}`)
     } else {
+      // Cancels old notification and set new one
+      let updatedNotificationId = notificationId
+      if (notificationId) {
+        await props.cancelPushNotification(notificationId)
+      }
+
+      updatedNotificationId = await props.schedulePushNotification(
+        lastCall,
+        frequency,
+        editForm
+      )
+
       const newData = data.map((value) => {
         if (value.name === initalName) {
-          const newValue = { name, number, frequency, lastCall }
+          const newValue = {
+            name,
+            number,
+            frequency,
+            lastCall,
+            identifier: updatedNotificationId
+          }
           return newValue
         } else return value
       })
@@ -61,7 +87,7 @@ function Edit (props) {
     }
   }
 
-  function convertDays () {
+  function convertDays() {
     switch (editForm.frequency) {
       case 1:
         return 'daily'
@@ -84,7 +110,7 @@ function Edit (props) {
     }
   }
 
-  function handleFreqChange (value) {
+  function handleFreqChange(value) {
     switch (value) {
       case 1:
         handleOnChangeEdit('frequency', 1)
@@ -142,7 +168,8 @@ function Edit (props) {
             minimumValue={1}
             maximumValue={8}
             style={styles.slider}
-            onValueChange={value => handleFreqChange(value)} />
+            onValueChange={(value) => handleFreqChange(value)}
+          />
           {/* <Text style={styles.label}>Frequency</Text>
           <TextInput
             style={styles.input}
@@ -162,4 +189,6 @@ function Edit (props) {
   )
 }
 
-export default Edit
+export { Edit }
+
+export default NotificationHandler(Edit)

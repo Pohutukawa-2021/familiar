@@ -4,13 +4,14 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { readData } from '../helpers/helperFunc'
 import moment from 'moment'
+import { NotificationHandler } from '../components/Notifications'
 
-function History (props) {
+function History(props) {
   const [data, setData] = useState([])
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    async function getData () {
+    async function getData() {
       const data = await readData()
       if (data) {
         setData(data)
@@ -123,4 +124,6 @@ const styles = StyleSheet.create({
   }
 })
 
-export default History
+export { History }
+
+export default NotificationHandler(History)

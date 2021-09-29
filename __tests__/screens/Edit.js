@@ -1,20 +1,33 @@
 import React from 'react'
-import { fireEvent } from '@testing-library/react-native'
-import Edit from '../../screens/Edit'
+import { fireEvent, act } from '@testing-library/react-native'
+import { Edit } from '../../screens/Edit'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { saveData, readData } from '../../helpers/helperFunc'
 
-jest.mock('../../helpers/helperFunc', () => { return { ...jest.requireActual('../../helpers/helperFunc'), saveData: jest.fn(), readData: jest.fn() } })
+jest.mock('../../helpers/helperFunc', () => {
+  return {
+    ...jest.requireActual('../../helpers/helperFunc'),
+    saveData: jest.fn(),
+    readData: jest.fn()
+  }
+})
 
 afterAll(() => {
   jest.resetAllMocks()
 })
 
+const mockScheduleNotification = jest.fn(() => Promise.resolve())
+const mockCancelNotification = jest.fn(() => Promise.resolve())
+
 test('Update input values to the localStorage', async () => {
   const mockNavigate = jest.fn()
 
   const { getByText, getByDisplayValue } = renderWithNavigation(
-    <Edit navigation={{ navigate: mockNavigate }} />,
+    <Edit
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     {
       contact: {
@@ -26,13 +39,18 @@ test('Update input values to the localStorage', async () => {
     }
   )
 
-  const nameInput = getByDisplayValue('austin')
-  const numberInput = getByDisplayValue('123')
-  const frequencyInput = getByDisplayValue('21')
+  let nameInput, numberInput, frequencyInput
+  act(() => {
+    nameInput = getByDisplayValue('austin')
+    numberInput = getByDisplayValue('123')
+    //frequencyInput = getByDisplayValue('21')
+  })
 
-  await fireEvent.changeText(nameInput, 'mum')
-  await fireEvent.changeText(numberInput, '22322')
-  // await fireEvent.changeText(frequencyInput, '22')
+  await act(async () => {
+    await fireEvent.changeText(nameInput, 'mum')
+    await fireEvent.changeText(numberInput, '22322')
+    // await fireEvent.changeText(frequencyInput, '22')
+  })
 
   saveData.mockImplementation(() => Promise.resolve())
   readData.mockImplementation(() => Promise.resolve([]))
@@ -45,7 +63,7 @@ test('Update input values to the localStorage', async () => {
     contact: {
       name: 'mum',
       number: '22322',
-      frequency: '22',
+      frequency: '21',
       lastCall: '2021/09/11'
     }
   })
