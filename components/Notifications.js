@@ -58,7 +58,7 @@ export const NotificationHandler = (WrappedContent) =>
     )
   }
 
-function schedulePushNotification(lastCall, frequency, user) {
+function schedulePushNotification(lastCall, frequency, user, demo = false) {
   let scheduledTime = moment(lastCall).add(frequency, 'days')
   if (!lastCall) {
     scheduledTime = moment().add(frequency, 'days')
@@ -70,7 +70,7 @@ function schedulePushNotification(lastCall, frequency, user) {
       body: `You have not called ${user.name} in a while`,
       data: user
     },
-    trigger: { seconds: timeInSeconds }
+    trigger: { seconds: !demo ? timeInSeconds : 10 }
   })
 }
 
@@ -93,7 +93,7 @@ async function registerForPushNotificationsAsync() {
     }
     token = (await Notifications.getExpoPushTokenAsync()).data
   } else {
-    Alert.alert('Must use physical device for Push Notifications')
+    // Alert.alert('Must use physical device for Push Notifications')
   }
 
   if (Platform.OS === 'android') {

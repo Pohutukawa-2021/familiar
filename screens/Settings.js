@@ -5,6 +5,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { saveData, readData, clear } from '../helpers/helperFunc'
 import { NotificationHandler } from '../components/Notifications'
 import { original, fastForward } from '../helpers/dummyData'
+import ButtonClickAnimate from '../components/ButtonClickAnimation'
 
 function AddOnFeatures(props) {
   const [data, setData] = useState([])
@@ -24,11 +25,21 @@ function AddOnFeatures(props) {
   }, [isFocused])
 
   // for development purposes only, DELETE this later
-  function handleSet () {
+  function handleSet() {
     saveData(original)
   }
-  function handleTimeWarp () {
+  function handleTimeWarp() {
     saveData(fastForward)
+  }
+
+  async function activateNotification() {
+    const userData = fastForward[0]
+    await props.schedulePushNotification(
+      userData.lastCall,
+      userData.frequency,
+      userData,
+      true
+    )
   }
 
   // for development purposes only, DELETE this later
@@ -64,21 +75,26 @@ function AddOnFeatures(props) {
       </View>
 
       <View style={styles.innerContainer}>
-        <Pressable onPress={() => handleClear()}>
+        <ButtonClickAnimate onPress={() => handleClear()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Clear Data</Text>
           </View>
-        </Pressable>
-        <Pressable onPress={() => handleSet()}>
+        </ButtonClickAnimate>
+        <ButtonClickAnimate onPress={() => handleSet()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Set Data</Text>
           </View>
-        </Pressable>
-        <Pressable onPress={() => handleTimeWarp()}>
+        </ButtonClickAnimate>
+        <ButtonClickAnimate onPress={() => handleTimeWarp()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Time-Warp Data</Text>
           </View>
-        </Pressable>
+        </ButtonClickAnimate>
+        <ButtonClickAnimate onPress={() => activateNotification()}>
+          <View style={styles.buttonView}>
+            <Text style={styles.buttonText}>Set Notification</Text>
+          </View>
+        </ButtonClickAnimate>
         {/* <Button title="Set" onPress={handleSet} /> */}
       </View>
     </View>
@@ -103,7 +119,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     width: '100%',
     borderBottomWidth: 1,
-    borderColor: 'darkgrey',
+    borderColor: '#22CAFF',
     backgroundColor: '#22CAFF'
   },
   label: {

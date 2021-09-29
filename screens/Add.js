@@ -8,9 +8,14 @@ import {
   TextInput,
   Pressable,
   ScrollView,
-  Alert
+  Alert,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
+import ButtonClickAnimate from '../components/ButtonClickAnimation'
 import moment from 'moment'
 import {
   saveData,
@@ -85,43 +90,54 @@ function Add(props) {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.innerContainer}
-      >
-        <Text style={styles.h1}>New Contact</Text>
-        <Text style={styles.label}>Name:</Text>
-        <TextInput
-          style={styles.input}
-          value={addForm.name}
-          placeholder="name"
-          keyboardType="default"
-          onChangeText={(value) => handleOnChangeAdd('name', value)}
-        />
-        <Text style={styles.label}>Phone Number:</Text>
-        <TextInput
-          style={styles.input}
-          value={addForm.number}
-          placeholder="number"
-          keyboardType="numeric"
-          onChangeText={(value) => handleOnChangeAdd('number', value)}
-        />
-        <Text style={styles.text}>
-          Call Frequency: {convertDays(addForm.frequency)}
-        </Text>
-        <Slider
-          step={1}
-          minimumValue={1}
-          maximumValue={8}
-          style={styles.slider}
-          onValueChange={(value) => handleFreqChange(value, handleOnChangeAdd)}
-        />
-        <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePressAdd}>
-            <Text style={styles.buttonText}>Add</Text>
-          </Pressable>
-        </View>
-      </ScrollView>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.innerContainer}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'android' ? 'padding' : 'position'}
+            keyboardVerticalOffset={30}
+          >
+            <Text style={styles.h1}>New Contact</Text>
+            <Text style={styles.label}>Name:</Text>
+            <TextInput
+              style={styles.input}
+              value={addForm.name}
+              placeholder="name"
+              keyboardType="default"
+              onChangeText={(value) => handleOnChangeAdd('name', value)}
+            />
+            <Text style={styles.label}>Phone Number:</Text>
+            <TextInput
+              style={styles.input}
+              value={addForm.number}
+              placeholder="number"
+              keyboardType="numeric"
+              onChangeText={(value) => handleOnChangeAdd('number', value)}
+            />
+            <Text style={styles.text}>
+              Call Frequency: {convertDays(addForm.frequency)}
+            </Text>
+            <Slider
+              step={1}
+              minimumValue={1}
+              maximumValue={8}
+              style={styles.slider}
+              onValueChange={(value) =>
+                handleFreqChange(value, handleOnChangeAdd)
+              }
+            />
+            <View style={styles.buttonView}>
+              <ButtonClickAnimate onPress={handlePressAdd}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Add</Text>
+                </View>
+              </ButtonClickAnimate>
+            </View>
+          </KeyboardAvoidingView>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     </View>
   )
 }
@@ -134,8 +150,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   innerContainer: {
-    width: '80%',
-    marginTop: 40
+    width: '100%',
+    marginTop: 40,
+    paddingHorizontal: '8%'
   },
   input: {
     width: '95%',

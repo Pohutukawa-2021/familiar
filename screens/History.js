@@ -22,7 +22,7 @@ function History(props) {
     getData()
   }, [isFocused])
 
-  function fixPlurals (value) {
+  function fixPlurals(value) {
     if (value === 0) {
       return 'Not yet called'
     } else if (value === 1) {
@@ -30,7 +30,7 @@ function History(props) {
     } else return 'called ' + value + ' times'
   }
 
-  function showProgress (value) {
+  function showProgress(value) {
     if (value === undefined) {
       value = 0
     }
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     width: '100%',
     borderBottomWidth: 1,
-    borderColor: 'darkgrey',
+    borderColor: '#22CAFF',
     backgroundColor: '#22CAFF'
   },
   label: {
