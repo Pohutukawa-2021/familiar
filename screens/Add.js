@@ -14,7 +14,7 @@ function Add (props) {
     name: '',
     number: '',
     frequency: '',
-    lastCall: '',
+    lastCall: ''
   })
 
   // clears state when page is rendered
@@ -41,7 +41,7 @@ function Add (props) {
       ...addForm,
       lastCall: moment().format()
     }
-    console.log(form)
+
     const data = await readData()
     let names = []
     data
