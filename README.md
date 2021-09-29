@@ -4,6 +4,8 @@ Final Project!
 
 Keeping up with the important people in your life.
 
+![App screenshots](/screenshots/familiar_screenshot.gif)
+
 [Miro Board](https://miro.com/welcomeonboard/WnRwTUdXelJWTURKWTVxcG90RVZ0WlM0QUlvZGhNTGlTdUVrY2x2ZHRlWGcyR0s5NEd6WWZZWUtjNmo1SnJYeHwzMDc0NDU3MzYyNzE5MjQ5MDI5?invite_link_id=296578751498) and initial planning.
 
 [Figma diagram](https://www.figma.com/file/d7bdGZa5Bd49jT3dmJLYXU/familiar?node-id=0%3A1)
@@ -48,22 +50,23 @@ Needs to be implemented
 - If not resolved after cool down, ask facilitator to mediate
 
 ## Work log
-* Wednesday 22nd
-  * Inital groupings
-  * Project planning
-* Thursday 23rd
-  * Getting familiar with react-native
-  * Navigation stack
-* Friday 24th
-  * Styling
-  * Add/ color functionality 
-* Saturday 25th
-  * Working on tickets
-* Sunday 26th
-  * Tidying up app
-* Monday 27th
-  * Testing
-* Tuesday 28th
-  * Implementing stretch goals
-* Wednesday 29th  
-  * Squashing bugs
+
+- Wednesday 22nd
+  - Inital groupings
+  - Project planning
+- Thursday 23rd
+  - Getting familiar with react-native
+  - Navigation stack
+- Friday 24th
+  - Styling
+  - Add/ color functionality
+- Saturday 25th
+  - Working on tickets
+- Sunday 26th
+  - Tidying up app
+- Monday 27th
+  - Testing
+- Tuesday 28th
+  - Implementing stretch goals
+- Wednesday 29th
+  - Squashing bugs
