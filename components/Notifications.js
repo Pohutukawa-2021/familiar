@@ -26,7 +26,7 @@ export const NotificationHandler = (WrappedContent) =>
       registerForPushNotificationsAsync()
         .then((token) => setExpoPushToken(token))
         .catch((err) => {
-          console.log(err)
+          // console.log(err)
         })
 
       notificationListener.current =
