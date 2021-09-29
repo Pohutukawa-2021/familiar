@@ -5,6 +5,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { saveData, readData, clear } from '../helpers/helperFunc'
 import { NotificationHandler } from '../components/Notifications'
 import { original, fastForward } from '../helpers/dummyData'
+import ButtonClickAnimate from '../components/ButtonClickAnimation'
 
 function AddOnFeatures(props) {
   const [data, setData] = useState([])
@@ -74,26 +75,26 @@ function AddOnFeatures(props) {
       </View>
 
       <View style={styles.innerContainer}>
-        <Pressable onPress={() => handleClear()}>
+        <ButtonClickAnimate onPress={() => handleClear()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Clear Data</Text>
           </View>
-        </Pressable>
-        <Pressable onPress={() => handleSet()}>
+        </ButtonClickAnimate>
+        <ButtonClickAnimate onPress={() => handleSet()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Set Data</Text>
           </View>
-        </Pressable>
-        <Pressable onPress={() => handleTimeWarp()}>
+        </ButtonClickAnimate>
+        <ButtonClickAnimate onPress={() => handleTimeWarp()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Time-Warp Data</Text>
           </View>
-        </Pressable>
-        <Pressable onPress={() => activateNotification()}>
+        </ButtonClickAnimate>
+        <ButtonClickAnimate onPress={() => activateNotification()}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>Set Notification</Text>
           </View>
-        </Pressable>
+        </ButtonClickAnimate>
         {/* <Button title="Set" onPress={handleSet} /> */}
       </View>
     </View>

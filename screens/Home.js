@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { color, saveData, readData, clear } from '../helpers/helperFunc'
 import moment from 'moment'
 import StyleSheet from 'react-native-media-query'
+import ButtonClickAnimate from '../components/ButtonClickAnimation'
 /* eslint-disable-next-line */
 import {
   // StyleSheet,
@@ -77,11 +78,11 @@ function Home(props) {
         <Text style={styles.label}>familiar</Text>
       </View>
       <View style={styles.buttonView}>
-        <Pressable onPress={() => props.navigation.navigate('Add')}>
+        <ButtonClickAnimate onPress={() => props.navigation.navigate('Add')}>
           {/* <Text style={styles.buttonText}>+</Text> */}
 
           <Image style={styles.image} source={require('../assets/add.png')} />
-        </Pressable>
+        </ButtonClickAnimate>
       </View>
 
       <ScrollView

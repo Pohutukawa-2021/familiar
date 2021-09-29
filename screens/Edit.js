@@ -22,6 +22,7 @@ import {
 } from '../helpers/helperFunc'
 import Slider from '@react-native-community/slider'
 import { NotificationHandler } from '../components/Notifications'
+import ButtonClickAnimate from '../components/ButtonClickAnimation'
 
 function Edit(props) {
   let name, number, frequency, lastCall, notificationId
@@ -138,9 +139,11 @@ function Edit(props) {
                 }
               />
               <View style={styles.buttonView}>
-                <Pressable style={styles.button} onPress={handlePressEdit}>
-                  <Text style={styles.buttonText}>Confirm</Text>
-                </Pressable>
+                <ButtonClickAnimate onPress={handlePressEdit}>
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Confirm</Text>
+                  </View>
+                </ButtonClickAnimate>
               </View>
             </KeyboardAvoidingView>
           </ScrollView>

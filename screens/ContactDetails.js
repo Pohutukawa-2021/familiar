@@ -15,23 +15,24 @@ import {
 import { saveData, readData, color, convertDays } from '../helpers/helperFunc'
 import moment from 'moment'
 import { NotificationHandler } from '../components/Notifications'
+import ButtonClickAnimate from '../components/ButtonClickAnimation'
 
 function ContactDetails(props) {
   const { name, number, frequency, lastCall, notificationId } =
     props.route.params.contact
   const contact = { name, number, frequency, lastCall, notificationId } // construct object, only used to send to Edit component
 
-  async function handlePressCall () {
+  async function handlePressCall() {
     await sendData()
     await call(number)
   }
 
-  async function handlePressCalled () {
+  async function handlePressCalled() {
     await sendData()
     props.navigation.navigate('Home')
   }
 
-  async function sendData () {
+  async function sendData() {
     const data = await readData()
     let updatedNotificationId = notificationId
     if (notificationId) {
@@ -61,7 +62,7 @@ function ContactDetails(props) {
     await saveData(newData)
   }
 
-  function call (phNum) {
+  function call(phNum) {
     const numToCall =
       Platform.OS === 'android' ? `tel:${phNum}` : `telprompt:${phNum}`
     return Linking.openURL(numToCall).catch((err) => console.log(err))
@@ -74,7 +75,7 @@ function ContactDetails(props) {
   }
 
   // deletes contact, redirects Home
-  async function handleDelete () {
+  async function handleDelete() {
     const data = await readData()
     const newData = data.filter((value) => {
       if (value.name !== name) {
@@ -85,7 +86,7 @@ function ContactDetails(props) {
     props.navigation.navigate('Home')
   }
 
-  function edit () {
+  function edit() {
     props.navigation.navigate('Edit', { contact })
   }
 
@@ -114,35 +115,41 @@ function ContactDetails(props) {
       >
         <View style={styles.textContainer}>
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
-          Name: {name}
+            Name: {name}
           </Text>
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
-          Number: {number}
+            Number: {number}
           </Text>
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
-          Call Frequency: {convertDays(frequency)}
+            Call Frequency: {convertDays(frequency)}
           </Text>
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.label}>
-          Last called: {moment(lastCall).format('DD/MM/YYYY')}
+            Last called: {moment(lastCall).format('DD/MM/YYYY')}
           </Text>
         </View>
 
         <View style={styles.callBtn}>
-          <Pressable onPress={handlePressCall}>
-            <Image testID="callButton" style={styles.callImage}source={require('../assets/call-btn.png')} />
-          </Pressable>
+          <ButtonClickAnimate onPress={handlePressCall}>
+            <Image
+              testID="callButton"
+              style={styles.callImage}
+              source={require('../assets/call-btn.png')}
+            />
+          </ButtonClickAnimate>
         </View>
       </ScrollView>
       <View style={styles.buttonView}>
-        <Pressable style={styles.button} onPress={handlePressCalled}>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={styles.buttonText}
-          >
-            Already Called
-          </Text>
-        </Pressable>
+        <ButtonClickAnimate onPress={handlePressCalled}>
+          <View style={styles.button}>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.buttonText}
+            >
+              Already Called
+            </Text>
+          </View>
+        </ButtonClickAnimate>
       </View>
     </View>
   )

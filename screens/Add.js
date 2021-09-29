@@ -15,6 +15,7 @@ import {
   Keyboard
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
+import ButtonClickAnimate from '../components/ButtonClickAnimation'
 import moment from 'moment'
 import {
   saveData,
@@ -128,9 +129,11 @@ function Add(props) {
               }
             />
             <View style={styles.buttonView}>
-              <Pressable style={styles.button} onPress={handlePressAdd}>
-                <Text style={styles.buttonText}>Add</Text>
-              </Pressable>
+              <ButtonClickAnimate onPress={handlePressAdd}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Add</Text>
+                </View>
+              </ButtonClickAnimate>
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -147,8 +150,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   innerContainer: {
-    width: '80%',
-    marginTop: 40
+    width: '100%',
+    marginTop: 40,
+    paddingHorizontal: '8%'
   },
   input: {
     width: '95%',
