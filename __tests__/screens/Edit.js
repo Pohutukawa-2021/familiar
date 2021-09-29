@@ -1,20 +1,33 @@
 import React from 'react'
-import { fireEvent, screen, getByRole } from '@testing-library/react-native'
-import Edit from '../../screens/Edit'
+import { fireEvent } from '@testing-library/react-native'
+import { Edit } from '../../screens/Edit'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { saveData, readData } from '../../helpers/helperFunc'
 
-jest.mock('../../helpers/helperFunc', () => { return { ...jest.requireActual('../../helpers/helperFunc'), saveData: jest.fn(), readData: jest.fn() } })
+jest.mock('../../helpers/helperFunc', () => {
+  return {
+    ...jest.requireActual('../../helpers/helperFunc'),
+    saveData: jest.fn(),
+    readData: jest.fn()
+  }
+})
 
 afterAll(() => {
   jest.resetAllMocks()
 })
 
+const mockScheduleNotification = jest.fn(() => Promise.resolve())
+const mockCancelNotification = jest.fn(() => Promise.resolve())
+
 test('Update input values to the localStorage', async () => {
   const mockNavigate = jest.fn()
 
   const { getByText, getByDisplayValue, findByTestId } = renderWithNavigation(
-    <Edit navigation={{ navigate: mockNavigate }} />,
+    <Edit
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     {
       contact: {

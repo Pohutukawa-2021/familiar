@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, cleanup } from '@testing-library/react-native'
 import { Platform, Linking } from 'react-native'
-import ContactDetails from '../../screens/ContactDetails'
+import { ContactDetails } from '../../screens/ContactDetails'
 import { renderWithNavigation } from '../../jest/test-utils'
 import { saveData, readData, color, convertDays } from '../../helpers/helperFunc'
 import moment from 'moment'
@@ -34,6 +34,8 @@ afterAll(() => {
 afterEach(cleanup)
 
 let name, number, frequency, lastCall
+const mockScheduleNotification = jest.fn(() => Promise.resolve())
+const mockCancelNotification = jest.fn(() => Promise.resolve())
 
 beforeAll(() => {
   name = 'admin'
@@ -58,11 +60,14 @@ test('Should display the correct contact details e.g name, number', async () => 
   }))
 
   const { getByText } = renderWithNavigation(
-    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    <ContactDetails
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     { contact: { name, number, frequency, lastCall } }
   )
-
   const nameText = getByText(new RegExp('Name: ' + name))
   const numberText = getByText(new RegExp('Number: ' + number))
   const frequencyText = getByText(new RegExp('Call Frequency: ' + convertDays(frequency)))
@@ -78,7 +83,11 @@ test('Should update lastCall when call button pressed', async () => {
   const mockNavigate = jest.fn()
 
   const { getByTestId } = renderWithNavigation(
-    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    <ContactDetails
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     { contact: { name, number, frequency, lastCall } }
   )
@@ -98,7 +107,11 @@ test('Should display the correct colour code for the background', async () => {
   color.mockImplementation(() => 'red')
 
   const { getByTestId } = renderWithNavigation(
-    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    <ContactDetails
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     { contact: { name, number, frequency, lastCall } }
   )
@@ -114,7 +127,11 @@ test('Should increase call count when call button is clicked on', async () => {
   readData.mockImplementation(() => Promise.resolve([{ callCount: 1, name }]))
 
   const { getByTestId } = renderWithNavigation(
-    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    <ContactDetails
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     {
       contact: { name, number, frequency, lastCall }
@@ -130,7 +147,11 @@ test('Should increase call count when call button is clicked on', async () => {
 test('Should invoke the call method when call button is clicked on', async () => {
   const mockNavigate = jest.fn()
   const { getByTestId } = renderWithNavigation(
-    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    <ContactDetails
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     {
       contact: { name, number, frequency, lastCall }
@@ -148,7 +169,11 @@ test('Should pass the correct phone number format in ios', async () => {
   Platform.OS = 'ios'
 
   const { getByTestId } = renderWithNavigation(
-    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    <ContactDetails
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     {
       contact: { name, number, frequency, lastCall }
@@ -166,7 +191,11 @@ test('Should pass the correct phone number format in android', async () => {
   Platform.OS = 'android'
 
   const { getByTestId } = renderWithNavigation(
-    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    <ContactDetails
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     {
       contact: { name, number, frequency, lastCall }
@@ -185,7 +214,11 @@ test('Should increase call count when already call button is clicked', async () 
   readData.mockImplementation(() => Promise.resolve([{ callCount: 1, name }]))
 
   const { getByText } = renderWithNavigation(
-    <ContactDetails navigation={{ navigate: mockNavigate }} />,
+    <ContactDetails
+      navigation={{ navigate: mockNavigate }}
+      schedulePushNotification={mockScheduleNotification}
+      cancelPushNotification={mockCancelNotification}
+    />,
     'stack',
     {
       contact: { name, number, frequency, lastCall }

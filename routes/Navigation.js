@@ -15,7 +15,7 @@ import Settings from '../screens/Settings'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
-function tabNavigation () {
+function tabNavigation() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -72,7 +72,6 @@ function tabNavigation () {
         }}
       />
     </Tab.Navigator>
-
   )
 }
 
@@ -86,7 +85,7 @@ const MyTheme = {
   }
 }
 
-export function stackNav () {
+export function stackNav() {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -101,7 +100,7 @@ export function stackNav () {
   )
 }
 
-function StackNavigation () {
+function StackNavigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator>
