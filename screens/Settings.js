@@ -24,10 +24,10 @@ function AddOnFeatures(props) {
   }, [isFocused])
 
   // for development purposes only, DELETE this later
-  function handleSet () {
+  function handleSet() {
     saveData(original)
   }
-  function handleTimeWarp () {
+  function handleTimeWarp() {
     saveData(fastForward)
   }
 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     width: '100%',
     borderBottomWidth: 1,
-    borderColor: 'darkgrey',
+    borderColor: '#22CAFF',
     backgroundColor: '#22CAFF'
   },
   label: {
