@@ -2,9 +2,11 @@
   "expo": {
     "name": "familiar",
     "slug": "familiar",
+    "privacy": "unlisted",
+    "description": "an app to help you keep in touch with people you care about",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/favicon.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
@@ -13,15 +15,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.yourappname",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#f22CAFF"
-      }
+      },
+      "package": "com.tadhg.familiar",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

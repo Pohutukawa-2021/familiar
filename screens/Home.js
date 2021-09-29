@@ -61,16 +61,6 @@ function Home(props) {
     getData()
   }, [isFocused])
 
-  // for development purposes only, DELETE this later
-  function handleSet() {
-    saveData(dummyData)
-  }
-
-  // for development purposes only, DELETE this later
-  function handleClear() {
-    clear()
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.textBox}>
