@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Alert, Button } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { saveData, readData, clear } from '../helpers/helperFunc'
-
+import { NotificationHandler } from '../components/Notifications'
 import { original, fastForward } from '../helpers/dummyData'
 
 function AddOnFeatures(props) {
