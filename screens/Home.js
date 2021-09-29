@@ -147,11 +147,11 @@ const { ids, styles } = StyleSheet.create({
     alignItems: 'center'
   },
   innerContainer: {
-    width: '80%'
+    width: '100%'
   },
   cardsContainer: {
     backgroundColor: '#fff',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
