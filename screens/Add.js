@@ -7,13 +7,27 @@ import {
   View,
   TextInput,
   Pressable,
-  ScrollView
+  ScrollView,
+  Alert,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
+import ButtonClickAnimate from '../components/ButtonClickAnimation'
 import moment from 'moment'
-import { saveData, readData } from '../helpers/helperFunc'
+import {
+  saveData,
+  readData,
+  formCheck,
+  convertDays,
+  handleFreqChange
+} from '../helpers/helperFunc'
+import Slider from '@react-native-community/slider'
+import { NotificationHandler } from '../components/Notifications'
 
-function Add (props) {
+function Add(props) {
   const isFocused = useIsFocused() // detetcs when page is rendered
 
   const [addForm, setAddForm] = useState({
@@ -28,11 +42,12 @@ function Add (props) {
     setAddForm({
       name: '',
       number: '',
-      frequency: ''
+      frequency: 1,
+      callCount: 0
     })
   }, [isFocused])
 
-  function handleOnChangeAdd (name, value) {
+  function handleOnChangeAdd(name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -40,55 +55,89 @@ function Add (props) {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd () {
+  async function handlePressAdd() {
     // adds date into form object to be saved
     const form = {
       ...addForm,
       lastCall: moment().format()
     }
+
     const data = await readData()
-    data
-      ? saveData([...data, form]) && props.navigation.navigate('Home')
-      : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
+    let names = []
+    data ? (names = data.map((values) => values.name)) : (names = [])
+
+    const err = formCheck(form, names)
+    if (err !== '') {
+      Alert.alert('Error', `Invalid field(s): ${err}`)
+    } else {
+      // Push Notification setting
+      let identifier
+      try {
+        identifier = await props.schedulePushNotification(
+          form.lastCall,
+          form.frequency,
+          form
+        )
+      } catch (err) {
+        console.log(err)
+      }
+      data
+        ? saveData([...data, { ...form, identifier }]) &&
+          props.navigation.navigate('Home')
+        : saveData([form]) && props.navigation.navigate('Home') // in case no data exists
+    }
   }
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.innerContainer}
-      >
-        <Text style={styles.h1}>New Contact</Text>
-        <Text style={styles.label}>Name:</Text>
-        <TextInput
-          style={styles.input}
-          value={addForm.name}
-          placeholder="name"
-          keyboardType="default"
-          onChangeText={(value) => handleOnChangeAdd('name', value)}
-        />
-        <Text style={styles.label}>Phone Number:</Text>
-        <TextInput
-          style={styles.input}
-          value={addForm.number}
-          placeholder="number"
-          keyboardType="numeric"
-          onChangeText={(value) => handleOnChangeAdd('number', value)}
-        />
-        <Text style={styles.label}>Frequency</Text>
-        <TextInput
-          style={styles.input}
-          value={addForm.frequency}
-          placeholder="frequency in days"
-          keyboardType="numeric"
-          onChangeText={(value) => handleOnChangeAdd('frequency', value)}
-        />
-        <View style={styles.buttonView}>
-          <Pressable style={styles.button} onPress={handlePressAdd}>
-            <Text style={styles.buttonText}>Add</Text>
-          </Pressable>
-        </View>
-      </ScrollView>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.innerContainer}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'android' ? 'padding' : 'position'}
+            keyboardVerticalOffset={30}
+          >
+            <Text style={styles.h1}>New Contact</Text>
+            <Text style={styles.label}>Name:</Text>
+            <TextInput
+              style={styles.input}
+              value={addForm.name}
+              placeholder="name"
+              keyboardType="default"
+              onChangeText={(value) => handleOnChangeAdd('name', value)}
+            />
+            <Text style={styles.label}>Phone Number:</Text>
+            <TextInput
+              style={styles.input}
+              value={addForm.number}
+              placeholder="number"
+              keyboardType="numeric"
+              onChangeText={(value) => handleOnChangeAdd('number', value)}
+            />
+            <Text style={styles.text}>
+              Call Frequency: {convertDays(addForm.frequency)}
+            </Text>
+            <Slider
+              step={1}
+              minimumValue={1}
+              maximumValue={8}
+              style={styles.slider}
+              onValueChange={(value) =>
+                handleFreqChange(value, handleOnChangeAdd)
+              }
+            />
+            <View style={styles.buttonView}>
+              <ButtonClickAnimate onPress={handlePressAdd}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Add</Text>
+                </View>
+              </ButtonClickAnimate>
+            </View>
+          </KeyboardAvoidingView>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     </View>
   )
 }
@@ -101,8 +150,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   innerContainer: {
-    width: '80%',
-    marginTop: 40
+    width: '100%',
+    marginTop: 40,
+    paddingHorizontal: '8%'
   },
   input: {
     width: '95%',
@@ -139,7 +189,21 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     alignSelf: 'center'
+  },
+  slider: {
+    width: 300,
+    opacity: 1,
+    height: 50,
+    marginTop: 10
+  },
+  text: {
+    fontSize: 20,
+    textAlign: 'left',
+    fontWeight: '500',
+    margin: 0
   }
 })
 
-export default Add
+export { Add }
+
+export default NotificationHandler(Add)
