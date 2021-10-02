@@ -10,6 +10,7 @@ import Add from '../screens/Add'
 import Edit from '../screens/Edit'
 import History from '../screens/History'
 import ContactDetails from '../screens/ContactDetails'
+import Settings from '../screens/Settings'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -38,6 +39,7 @@ function tabNavigation() {
           }
         }}
       />
+
       <Tab.Screen
         name="History"
         component={History}
@@ -48,6 +50,22 @@ function tabNavigation() {
               <Image
                 style={{ width: size, height: size }}
                 source={require('../assets/history.png')}
+              />
+            )
+          }
+        }}
+      />
+
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, focused, color }) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source={require('../assets/settings.png')}
               />
             )
           }
