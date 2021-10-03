@@ -4,16 +4,15 @@ import { StyleSheet, Text, View, Pressable, Alert, Button } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { saveData, readData, clear } from '../helpers/helperFunc'
 import { NotificationHandler } from '../components/Notifications'
-import { original, fastForward } from '../helpers/dummyData'
 import ButtonClickAnimate from '../components/ButtonClickAnimation'
 
-function AddOnFeatures(props) {
+function AddOnFeatures (props) {
   const [data, setData] = useState([])
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    async function getData() {
+    async function getData () {
       const data = await readData()
       if (data) {
         setData(data)
@@ -24,26 +23,7 @@ function AddOnFeatures(props) {
     getData()
   }, [isFocused])
 
-  // for development purposes only, DELETE this later
-  function handleSet() {
-    saveData(original)
-  }
-  function handleTimeWarp() {
-    saveData(fastForward)
-  }
-
-  async function activateNotification() {
-    const userData = fastForward[0]
-    await props.schedulePushNotification(
-      userData.lastCall,
-      userData.frequency,
-      userData,
-      true
-    )
-  }
-
-  // for development purposes only, DELETE this later
-  function handleClear() {
+  function handleClear () {
     Alert.alert(
       'Are you sure?',
       'Clicking yes will clear all of your contacts!',
@@ -80,22 +60,6 @@ function AddOnFeatures(props) {
             <Text style={styles.buttonText}>Clear Data</Text>
           </View>
         </ButtonClickAnimate>
-        <ButtonClickAnimate onPress={() => handleSet()}>
-          <View style={styles.buttonView}>
-            <Text style={styles.buttonText}>Set Data</Text>
-          </View>
-        </ButtonClickAnimate>
-        <ButtonClickAnimate onPress={() => handleTimeWarp()}>
-          <View style={styles.buttonView}>
-            <Text style={styles.buttonText}>Time-Warp Data</Text>
-          </View>
-        </ButtonClickAnimate>
-        <ButtonClickAnimate onPress={() => activateNotification()}>
-          <View style={styles.buttonView}>
-            <Text style={styles.buttonText}>Set Notification</Text>
-          </View>
-        </ButtonClickAnimate>
-        {/* <Button title="Set" onPress={handleSet} /> */}
       </View>
     </View>
   )

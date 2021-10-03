@@ -1,19 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 /* eslint-disable-next-line */
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Pressable,
-  ScrollView,
-  Alert,
-  Platform,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard
-} from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, Alert, Platform, KeyboardAvoidingView, TouchableWithoutFeedback,Keyboard } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import ButtonClickAnimate from '../components/ButtonClickAnimation'
 import moment from 'moment'
@@ -27,7 +15,7 @@ import {
 import Slider from '@react-native-community/slider'
 import { NotificationHandler } from '../components/Notifications'
 
-function Add(props) {
+function Add (props) {
   const isFocused = useIsFocused() // detetcs when page is rendered
 
   const [addForm, setAddForm] = useState({
@@ -47,7 +35,7 @@ function Add(props) {
     })
   }, [isFocused])
 
-  function handleOnChangeAdd(name, value) {
+  function handleOnChangeAdd (name, value) {
     const newAddForm = {
       ...addForm,
       [name]: value
@@ -55,7 +43,7 @@ function Add(props) {
     setAddForm(newAddForm)
   }
 
-  async function handlePressAdd() {
+  async function handlePressAdd () {
     // adds date into form object to be saved
     const form = {
       ...addForm,

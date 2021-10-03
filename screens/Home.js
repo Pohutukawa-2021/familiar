@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { color, saveData, readData, clear } from '../helpers/helperFunc'
+import { color, readData } from '../helpers/helperFunc'
 import moment from 'moment'
 import StyleSheet from 'react-native-media-query'
 import ButtonClickAnimate from '../components/ButtonClickAnimation'
 /* eslint-disable-next-line */
-import {
-  // StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Pressable,
-  ScrollView,
-  Button,
-  RefreshControl,
-  Image
-} from 'react-native'
+import { Text, View, TouchableOpacity, Pressable, ScrollView, Button, RefreshControl, Image} from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import Card from '../components/Card'
-import dummyData from '../helpers/dummyData'
 import { NotificationHandler } from '../components/Notifications'
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout))
 }
 
-function Home(props) {
+function Home (props) {
   const [data, setData] = useState([])
   const isFocused = useIsFocused()
   const sortOrder = { red: 0, orange: 1, green: 2 }
@@ -33,7 +22,7 @@ function Home(props) {
     setRefreshing(true)
     wait(2000)
       .then(() => {
-        async function getData() {
+        async function getData () {
           const data = await readData()
           if (data) {
             setData(data)
@@ -51,7 +40,7 @@ function Home(props) {
   }, [])
 
   useEffect(() => {
-    async function getData() {
+    async function getData () {
       const data = await readData()
       if (data) {
         setData(data)
@@ -61,16 +50,6 @@ function Home(props) {
     }
     getData()
   }, [isFocused])
-
-  // for development purposes only, DELETE this later
-  function handleSet() {
-    saveData(dummyData)
-  }
-
-  // for development purposes only, DELETE this later
-  function handleClear() {
-    clear()
-  }
 
   return (
     <View style={styles.container}>
@@ -116,8 +95,8 @@ function Home(props) {
                         boxColor === '#E00000'
                           ? 'red'
                           : boxColor === '#FF971D'
-                          ? 'orange'
-                          : 'green'
+                            ? 'orange'
+                            : 'green'
                       }
                     />
                   </TouchableOpacity>

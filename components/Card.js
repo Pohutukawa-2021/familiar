@@ -5,7 +5,7 @@ import moment from 'moment'
 
 import { color } from '../helpers/helperFunc'
 
-function Card(props) {
+function Card (props) {
   // Sets the color for the box
   const difference = moment().diff(props.lastCall, 'days')
   const boxColor = {

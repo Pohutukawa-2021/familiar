@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 /* eslint-disable-next-line */
-import { Platform } from 'react-native'
+import { Platform, Alert } from 'react-native'
 import Constants from 'expo-constants'
 import * as Notifications from 'expo-notifications'
 import moment from 'moment'
-import { Alert } from 'react-native'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -16,7 +15,7 @@ Notifications.setNotificationHandler({
 })
 
 export const NotificationHandler = (WrappedContent) =>
-  function HOC(props) {
+  function HOC (props) {
     const [expoPushToken, setExpoPushToken] = useState('')
     const [notification, setNotification] = useState({})
     const notificationListener = useRef()
@@ -26,7 +25,7 @@ export const NotificationHandler = (WrappedContent) =>
       registerForPushNotificationsAsync()
         .then((token) => setExpoPushToken(token))
         .catch((err) => {
-          // console.log(err)
+          console.log(err)
         })
 
       notificationListener.current =
@@ -58,7 +57,7 @@ export const NotificationHandler = (WrappedContent) =>
     )
   }
 
-function schedulePushNotification(lastCall, frequency, user, demo = false) {
+function schedulePushNotification (lastCall, frequency, user, demo = false) {
   let scheduledTime = moment(lastCall).add(frequency, 'days')
   if (!lastCall) {
     scheduledTime = moment().add(frequency, 'days')
@@ -74,11 +73,11 @@ function schedulePushNotification(lastCall, frequency, user, demo = false) {
   })
 }
 
-function cancelPushNotification(identifier) {
+function cancelPushNotification (identifier) {
   return Notifications.cancelScheduledNotificationAsync(identifier)
 }
 
-async function registerForPushNotificationsAsync() {
+async function registerForPushNotificationsAsync () {
   let token
   if (Constants.isDevice) {
     const { status: existingStatus } = await Notifications.getPermissionsAsync()
